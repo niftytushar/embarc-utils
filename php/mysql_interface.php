@@ -41,7 +41,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getDHLPrice($account, $zone, $type, $weight) {
-		$query = "SELECT MIN($zone) from dhl$account where type='".$type."' and weight <= $weight";
+		$query = "SELECT $zone from dhl$account where type='".$type."' and weight >= $weight";
 		$this->db_object->query_db($query);
 		$result = $this->db_object->getResultRow();
 		

@@ -35,13 +35,17 @@ class DHL_CALCULATOR
 		$accounts = $this->mInterface->getAllAccounts();
 		$prices = array();
 		
-		$multiplier = false;
-		
 		for($i=0; $i<count($accounts); $i++) {
+			$multiplier = false;
+			$currentZone = false;
 			$accountNo = $accounts[$i]["accountNo"];
 			
+			//if weight is not specified, assume weight to be equal to Maximum weight of that type in that account
 			if(!$weight) $weight = (float) $this->settings["MAX_".$type."_".$accountNo];
-			if(isset($this->settings["CUSTOM_ZONE_".$accountNo]) && $country == $this->settings["CUSTOM_ZONE_".$accountNo]) $zone = $this->settings["CUSTOM_ZONE_".$accountNo];
+			
+			//if custom prices for a zone are available in settings, use those instead
+			if(isset($this->settings["CUSTOM_ZONE_".$accountNo]) && $country == $this->settings["CUSTOM_ZONE_".$accountNo]) $currentZone = $this->settings["CUSTOM_ZONE_".$accountNo];
+			else $currentZone = $zone;
 			
 			switch($type) {
 				case "DOC":
@@ -55,21 +59,21 @@ class DHL_CALCULATOR
 			}
 
 			if($multiplier == true) {
-				$multipliedPrice = $this->mInterface->getDHLPrice($accountNo, $zone, $type."MUL", $weight);
+				$multipliedPrice = $this->mInterface->getDHLPrice($accountNo, $currentZone, $type."MUL", $weight);
 				if($multipliedPrice != "") {
 					$multipliedPrice = (float) $multipliedPrice[0];
 					$result = $multipliedPrice*$weight;
 					array_push($prices, array("account"=>$accountNo, "price"=>$result, "type"=>$type."MUL", "multiplied"=>true));
 				}
 			} else {
-				$result = $this->mInterface->getDHLPrice($accountNo, $zone, $type, $weight);
+				$result = $this->mInterface->getDHLPrice($accountNo, $currentZone, $type, $weight);
 				if($result != "") {
 					$result = (float) $result[0];
 					array_push($prices, array("account"=>$accountNo, "price"=>$result, "type"=>$type, "multiplied"=>false));
 				}
 			}
 		}
-		
+
 		$bestPrice = array("type"=>"", "price"=>INF, "account"=>"");
 		foreach($prices as $price) {
 			if($price["price"] < $bestPrice["price"]) {

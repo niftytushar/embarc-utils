@@ -1,0 +1,43 @@
+        *::-moz-selection {
+            background: none repeat scroll 0 0 #E9AC44;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+
+        body {
+        }
+
+        .header_wrap {
+            height: auto;
+            background-color: #1e1e1e;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            height: 60px;
+            margin: 0 auto;
+            padding-top: 10px;
+        }
+
+        .containt {
+            overflow: hidden;
+            margin: 0 auto;
+            width: 800px;
+            padding-top:100px;
+        }
+
+        .align_center {
+            text-align: center;
+        }
+.links {
+    padding-top: 10px;
+}
+        @media (max-width: 480px) {
+            .containt {
+                overflow: hidden;
+                margin: 0 auto;
+                width: auto;
+                padding-top:0px;
+            }
+        }

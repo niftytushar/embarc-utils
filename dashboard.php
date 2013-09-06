@@ -8,8 +8,8 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title></title>
-    <!--    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <title>Dashboard</title
+    ><!--    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/normalize.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
@@ -162,7 +162,7 @@ $session->check();
         <div class="gallery">
             <div class="job-thumb" style="opacity: 1">
                 <div class="job-image">
-                    <a href="/courier/courier_dhl.php" class="">
+                    <a href="/embarc-utils/courier/courier_dhl.php" class="">
                         <img width="600" height="600" alt="" src="image/courier.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/courier.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>
                 </div>
@@ -177,7 +177,7 @@ $session->check();
             </div>
             <div class="job-thumb" style="opacity: 1">
                 <div class="job-image">
-                    <a href="/courier/home_attend.php" class="">
+                    <a href="/embarc-utils/attendance/home_attend.php" class="">
                         <img width="600" height="600" alt="" src="image/attend.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/attend.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>
                 </div>

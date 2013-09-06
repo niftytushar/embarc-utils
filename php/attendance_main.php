@@ -16,7 +16,7 @@ class ATTENDANCE
 	public function readFile()
 	{
 		if($_FILES) {
-			$uploadDir = "/var/www/courier/tmp/";
+			$uploadDir = "/var/www/embarc-utils/tmp/";
 			$uploadFile = $uploadDir.basename($_FILES['emp_data']['name']);
 			move_uploaded_file($_FILES['emp_data']['tmp_name'], $uploadFile);
 		}

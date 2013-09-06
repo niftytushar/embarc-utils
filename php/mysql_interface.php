@@ -12,7 +12,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getCountries() {
-		$query = "SELECT * from dhlZones";
+		$query = "SELECT * from cs_dhlZones";
 		$result = $this->db_object->query_db($query);
 		$countries = array();
 		while($row = $result->fetch_assoc()) {
@@ -24,7 +24,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getZone($countryCode) {
-		$query = "SELECT zone from dhlZones where code='".$countryCode."'";
+		$query = "SELECT zone from cs_dhlZones where code='".$countryCode."'";
 		$this->db_object->query_db($query);
 		return $this->db_object->getResultRow();
 	}
@@ -41,7 +41,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getDHLPrice($account, $zone, $type, $weight) {
-		$query = "SELECT $zone from dhl$account where type='".$type."' and weight >= $weight";
+		$query = "SELECT $zone from cs_dhl$account where type='".$type."' and weight >= $weight";
 		$this->db_object->query_db($query);
 		$result = $this->db_object->getResultRow();
 		
@@ -49,7 +49,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getAllAccounts() {
-		$query = "SELECT * from csAccounts";
+		$query = "SELECT * from cs_accounts";
 		$this->db_object->query_db($query);
 		$accounts = $this->db_object->getResultSet();
 		
@@ -60,15 +60,15 @@ class MYSQL_INTERFACE
 		$serviceName = $this->db_object->escapeString($serviceName);
 		$settingsJSON = $this->db_object->escapeString($settingsJSON);
 		if($this->getCSSettings() == false) {
-			$query = "INSERT INTO csSettings set serviceName='".$serviceName."', preferences='".$settingsJSON."'";
+			$query = "INSERT INTO cs_settings set serviceName='".$serviceName."', preferences='".$settingsJSON."'";
 		} else {
-			$query = "UPDATE csSettings set preferences='".$settingsJSON."' where serviceName='".$serviceName."'";
+			$query = "UPDATE cs_settings set preferences='".$settingsJSON."' where serviceName='".$serviceName."'";
 		}
 		return $this->db_object->query_db($query);
 	}
 	
 	public function getCSSettings() {
-		$query = "SELECT * from csSettings";
+		$query = "SELECT * from cs_settings";
 		$this->db_object->query_db($query);
 		return $this->db_object->getResultRow();
 	}

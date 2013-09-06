@@ -1,5 +1,5 @@
 ﻿<?php
-require_once('php/sessions.php');
+require_once('/var/www/embarc-utils/php/sessions.php');
 $session = new SESSIONS();
 $session->check();
 ?>
@@ -9,15 +9,15 @@ $session->check();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <title></title>
-    <link href="css/normalize.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
+    <link href="/embarc-utils/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/embarc-utils/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="bootstrap/js/bootstrap-alert.js"></script>
-    <script src="js/common.js"></script>
-	<script src="js/dhl_settings.js"></script>
+    <script src="/embarc-utils/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/embarc-utils/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/embarc-utils/js/common.js"></script>
+	<script src="/embarc-utils/js/dhl_settings.js"></script>
 
     <style type="text/css">
         *::-moz-selection {
@@ -88,9 +88,9 @@ $session->check();
                 <div class="nav-collapse collapse links">
                     <div class="pull-right">
                         <ul class="nav">
-                            <li><a href="/courier/dashboard.php">Dashboard</a></li>
+                            <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
                             <li class="active"><a href="#">Settings</a></li>
-                            <li><a href="/courier/php/main.php?util=login&fx=logout">Sign Out</a></li>
+                            <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -183,7 +183,7 @@ $session->check();
             </div>
             <div class="controls">
                 <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
-                <button type="button" class="btn" onclick="gotoPage('/courier/courier_dhl.php');">Cancel</button>
+                <button type="button" class="btn" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
             </div>
         </form>
     </div>

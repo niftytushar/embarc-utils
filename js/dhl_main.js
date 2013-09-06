@@ -29,7 +29,7 @@ function init() {
     $.ajax({
         type: "GET",
         async: true,
-        url: "/courier/php/main.php?util=courier&fx=getCountries",
+        url: "/embarc-utils/php/main.php?util=courier&fx=getCountries",
         success: function (data) {
             data = getJSONFromString(data);
             dropDownFiller(document.getElementById("country"), data, "name", "code");
@@ -40,7 +40,7 @@ function init() {
     $.ajax({
         type: "GET",
         async: true,
-        url: "/courier/php/main.php?util=courier&fx=getSettings",
+        url: "/embarc-utils/php/main.php?util=courier&fx=getSettings",
         success: function (data) {
             preferences = getJSONFromString(data);
         }
@@ -53,7 +53,7 @@ function calculate() {
         type: "POST",
         async: true,
         data: jsn,
-        url: "/courier/php/main.php?util=courier&fx=dhlCalculate",
+        url: "/embarc-utils/php/main.php?util=courier&fx=dhlCalculate",
         success: function (data) {
             data = getJSONFromString(data);
             var resultEl = document.getElementById("result");

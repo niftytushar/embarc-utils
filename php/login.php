@@ -13,13 +13,13 @@ class LOGIN
 		$user = $this->mInterface->getUser($username);
 		if($password == $user["password"]) {
 			$_SESSION['user'] = $username;
-			header("Location: /courier/dashboard.php");
+			header("Location: /embarc-utils/dashboard.php");
 		} else {
 			/*
 				If login verification fails, send a authorization code[au] to notify:
 				in: Invalid Credentials
 			*/
-			header("Location: /courier/login.html?au=in");
+			header("Location: /embarc-utils/login.html?au=in");
 		}
 	}
 }

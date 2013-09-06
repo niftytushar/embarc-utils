@@ -87,9 +87,9 @@ $session->check();*/
                 <div class="nav-collapse collapse links">
                     <div class="pull-right">
                         <ul class="nav">
-                            <li><a href="/courier/dashboard.php">Dashboard</a></li>
-                            <li class="active"><a href="/courier/settings_attend.php">Settings</a></li>
-                            <li><a href="/courier/php/main.php?util=login&fx=logout">Sign Out</a></li>
+                            <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                            <li class="active"><a href="/embarc-utils/attendance/settings_attend.php">Settings</a></li>
+                            <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ $session->check();*/
     <div class="containt container">
         <!-- Button to trigger modal -->
     <!--<a class="btn btn-primary btn-large" href="#myModal" data-toggle="modal">Launch demo modal</a>-->
-    <form method="post" action="/courier/php/main.php?util=courier&fx=attendanceCalculate" enctype="multipart/form-data">
+    <form method="post" action="/embarc-utils/php/main.php?util=courier&fx=attendanceCalculate" enctype="multipart/form-data">
     	<input type="file" id="emp_data" name="emp_data" />
         <input type="submit" />
     </form>

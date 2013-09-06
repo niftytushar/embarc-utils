@@ -1,7 +1,7 @@
 ﻿<?php
-require_once('php/sessions.php');
+/*require_once('php/sessions.php');
 $session = new SESSIONS();
-$session->check();
+$session->check();*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,8 +15,9 @@ $session->check();
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap-alert.js"></script>
     <script src="js/common.js"></script>
-    <script src="js/dhl_main.js"></script>
+	<script src="js/dhl_settings.js"></script>
 
     <style type="text/css">
         *::-moz-selection {
@@ -45,21 +46,23 @@ $session->check();
             overflow: hidden;
             margin: 0 auto;
             width: 800px;
-            padding-top:100px;
+            padding-top: 100px;
         }
 
         .align_center {
             text-align: center;
         }
-.links {
-    padding-top: 10px;
-}
+
+        .links {
+            padding-top: 10px;
+        }
+
         @media (max-width: 480px) {
             .containt {
                 overflow: hidden;
                 margin: 0 auto;
                 width: auto;
-                padding-top:0px;
+                padding-top: 0px;
             }
         }
     </style>
@@ -84,43 +87,37 @@ $session->check();
                 </a>
                 <div class="nav-collapse collapse links">
                     <div class="pull-right">
-                    <ul class="nav">
-                        <li><a href="/courier/dashboard.php">Dashboard</a></li>
-                        <li><a href="/courier/settings_dhl.php">Settings</a></li>
-                        <li><a href="/courier/php/main.php?util=login&fx=logout">Sign Out</a></li>
-                    </ul>
+                        <ul class="nav">
+                            <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                            <li class="active"><a href="#">Settings</a></li>
+                            <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
+                        </ul>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-        </div>
     <div class="containt container">
-
-        <form class="form-horizontal" id="packageDetailsForm">
+		<div id="messages"></div>
+        <form class="form-horizontal" id="settingsForm">
             <div class="control-group">
-                <label class="control-label" for="weight">Weight</label>
+                <label class="control-label" for="l_in_t">Late in Time</label>
                 <div class="controls">
-                    <input type="text" class="span3" id="weight" name="weight" placeholder="Weight">
-					<span>kgs</span>
+                        <input type="text" class="span2" id="l_in_t" name="l_in_t" placeholder="Late in Time">
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="country">Country</label>
+                <label class="control-label" for="l_o_t">Late out Time</label>
                 <div class="controls">
-                    <select id="country" class="span3" name="country"></select>
+                        <input type="text" class="span2" id="l_o_t" name="l_o_t" placeholder="Late out Time">
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="type">Type</label>
-                <div class="controls">
-                    <select id="type" class="span3" name="type"></select>
-                </div>
-            </div>
-            <div class="controls">
-                <button type="button" class="btn" onclick="calculate();">Submit</button>
+            
+			<div class="controls">
+                <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
+                <button type="button" class="btn" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
             </div>
         </form>
-        <div id="result"></div>
     </div>
 </body>
 </html>

@@ -2,7 +2,7 @@ function init() {
 	$.ajax({
 		type: "GET",
 		async: true,
-		url: "/courier/php/main.php?util=courier&fx=getSettings",
+		url: "/embarc-utils/php/main.php?util=courier&fx=getSettings",
 		success: function(data) {
 			data = getJSONFromString(data);
 			fillSettings(data);
@@ -16,7 +16,7 @@ function saveSettings() {
 		type: "POST",
 		async: true,
 		data: {'pref': JSON.stringify(jsn)},
-		url: "/courier/php/main.php?util=courier&fx=setSettings",
+		url: "/embarc-utils/php/main.php?util=courier&fx=setSettings",
 		success: function (data) {
 		    if (data == "SUCCESS") {
 		        $("#messages").append(

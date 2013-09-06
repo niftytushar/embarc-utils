@@ -13,9 +13,8 @@ $session->check();
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
 <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<!--	<script src="/embarc-utils/bootstrap/js/bootstrap-alert.js"></script>-->
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/dhl_settings.js"></script>
 

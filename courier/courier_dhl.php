@@ -41,7 +41,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
             	<div class="pull-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                        <li class="active"><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
                         <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>

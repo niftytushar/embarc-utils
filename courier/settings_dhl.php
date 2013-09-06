@@ -4,67 +4,22 @@ $session = new SESSIONS();
 $session->check();
 ?>
 <!DOCTYPE html>
-<html><head>
+<html>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
     <title></title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
-    <link href="/embarc-utils/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/embarc-utils/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="/embarc-utils/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/embarc-utils/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!--	<script src="/embarc-utils/bootstrap/js/bootstrap-alert.js"></script>-->
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/dhl_settings.js"></script>
 
-    <style type="text/css">
-        *::-moz-selection {
-            background: none repeat scroll 0 0 #E9AC44;
-            color: #FFFFFF;
-            text-shadow: none;
-        }
 
-        body {
-        }
-
-        .header_wrap {
-            height: auto;
-            background-color: #1e1e1e;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .header {
-            height: 60px;
-            margin: 0 auto;
-            padding-top: 10px;
-        }
-
-        .containt {
-            overflow: hidden;
-            margin: 0 auto;
-            width: 800px;
-            padding-top: 100px;
-        }
-
-        .align_center {
-            text-align: center;
-        }
-
-        .links {
-            padding-top: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .containt {
-                overflow: hidden;
-                margin: 0 auto;
-                width: auto;
-                padding-top: 0px;
-            }
-        }
-    </style>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>
@@ -72,117 +27,137 @@ $session->check();
 
 </head>
 <body onload="init();">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner links">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="brand" href="index.html">
-                    <img src="image/logo.png" />
-
-                </a>
-                <div class="nav-collapse collapse links">
-                    <div class="pull-right">
-                        <ul class="nav">
-                            <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
-                            <li class="active"><a href="#">Settings</a></li>
-                            <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
-                        </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    	<div class="container">
+        	<div class="navbar-header">
+            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="index.html">
+                        <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
+                    </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
+            	<div class="pull-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                        <li class="active"><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
+                        <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
+                    </ul>
+                    </div>
+            </div>
+    	</div>
+    </nav>
+    <div class="containt container">
+		<div id="messages"></div>
+        <form class="form-horizontal" id="settingsForm">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="d_value">Dollar Value</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">₹</span>
+                        <input type="text" class="form-control" id="dollarValue" name="dollarValue" placeholder="Dollar Value">
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="containt container">
-		<div id="messages"></div>
-        <form class="form-horizontal" id="settingsForm">
-            <div class="control-group">
-                <label class="control-label" for="d_value">Dollar Value</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">₹</span>
-                        <input type="text" class="span2" id="dollarValue" name="dollarValue" placeholder="Dollar Value">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="e_value">Euro Value</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">₹</span>
+                        <input type="text" class="form-control" id="euroValue" name="euroValue" placeholder="Euro Value">
                     </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="e_value">Euro Value</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">₹</span>
-                        <input type="text" class="span2" id="euroValue" name="euroValue" placeholder="Euro Value">
+       </div>
+       <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="f_surcharge">Fuel Surcharge</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">%</span>
+                        <input type="text" class="form-control" id="fuelSurcharge" name="fuelSurcharge" placeholder="Fuel Surcharge">
                     </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="f_surcharge">Fuel Surcharge</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">%</span>
-                        <input type="text" class="span2" id="fuelSurcharge" name="fuelSurcharge" placeholder="Fuel Surcharge">
+      </div>
+      <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">%</span>
+                        <input type="text" class="form-control" id="misc" name="misc" placeholder="Miscellaneous">
                     </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="misc">Miscellaneous</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">%</span>
-                        <input type="text" class="span2" id="misc" name="misc" placeholder="Miscellaneous">
+     </div>
+     <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="c_cost">Clearance Cost</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">₹</span>
+                        <input type="text" class="form-control" id="clearanceCost" name="clearanceCost" placeholder="Clearance Cost">
                     </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="c_cost">Clearance Cost</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">₹</span>
-                        <input type="text" class="span2" id="clearanceCost" name="clearanceCost" placeholder="Clearance Cost">
+     </div>
+     <div class="row">
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="c_cost">USD Handling Charges</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" id="handlingCharges_USD" name="handlingCharges_USD" placeholder="USD Handling Charges">
                     </div>
                 </div>
             </div>
-			<div class="control-group">
-                <label class="control-label" for="c_cost">USD Handling Charges</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
-                        <input type="text" class="span2" id="handlingCharges_USD" name="handlingCharges_USD" placeholder="USD Handling Charges">
+     </div>
+     <div class="row">
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="c_cost">USD Minimum Billing</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" id="minBilling_USD" name="minBilling_USD" placeholder="USD Minimum Billing">
                     </div>
                 </div>
             </div>
-			<div class="control-group">
-                <label class="control-label" for="c_cost">USD Minimum Billing</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
-                        <input type="text" class="span2" id="minBilling_USD" name="minBilling_USD" placeholder="USD Minimum Billing">
+     </div>
+     <div class="row">
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="c_cost">EUR Handling Charges</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">&euro;</span>
+                        <input type="text" class="form-control" id="handlingCharges_EUR" name="handlingCharges_EUR" placeholder="EUR Handling Charges">
+                    </div>
+                </div>     
+            </div>
+     </div>
+     <div class="row">
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="c_cost">EUR Minimum Billing</label>
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">&euro;</span>
+                        <input type="text" class="form-control" id="minBilling_EUR" name="minBilling_EUR" placeholder="EUR Minimum Billing">
                     </div>
                 </div>
             </div>
-			<div class="control-group">
-                <label class="control-label" for="c_cost">EUR Handling Charges</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">&euro;</span>
-                        <input type="text" class="span2" id="handlingCharges_EUR" name="handlingCharges_EUR" placeholder="EUR Handling Charges">
-                    </div>
-                </div>
-            </div>
-			<div class="control-group">
-                <label class="control-label" for="c_cost">EUR Minimum Billing</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                        <span class="add-on">&euro;</span>
-                        <input type="text" class="span2" id="minBilling_EUR" name="minBilling_EUR" placeholder="EUR Minimum Billing">
-                    </div>
-                </div>
-            </div>
-            <div class="controls">
+     </div>
+            <div class="row">
+            <div class="col-lg-offset-4 col-lg-4">
                 <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
-                <button type="button" class="btn" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
+                <button type="button" class="btn btn-default" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
+            </div>
             </div>
         </form>
     </div>

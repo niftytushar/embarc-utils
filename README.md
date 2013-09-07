@@ -5,6 +5,7 @@ Utilities for Embarc Information Technology
 ##Modules
 - [x] DHL Courier Service Management
 - [ ] Employee Attendance Management
+- [ ] Inventory Management
 - [ ] Settings
 
 ##Setting up the database

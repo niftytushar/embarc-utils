@@ -69,6 +69,21 @@ $session->check();
             </div>
             <div class="job-thumb" style="opacity: 1">
                 <div class="job-image">
+                    <a href="/embarc-utils/inventory/stock_in.php" class="">
+                        <img width="600" height="600" alt="" src="/embarc-utils/images/inventory.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/inventory.png' alt=' width='600' height='600'' /&gt;</noscript>
+                    </a>
+                </div>
+                <div class="job-heading">
+                    <h2 class="thumb-heading">
+                        <a href="/embarc-utils/inventory/stock_in.php">Inventory Manager
+                            <br>
+                            <p>Track Stock-In and Stock-Out</p>
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            <div class="job-thumb" style="opacity: 1">
+                <div class="job-image">
                     <a href="#" class="">
                         <img width="600" height="600" alt="" src="/embarc-utils/images/settings.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/settings.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>

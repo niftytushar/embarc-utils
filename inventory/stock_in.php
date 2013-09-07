@@ -41,7 +41,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
             	<div class="pull-right">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                        <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
                         <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
@@ -52,40 +52,76 @@ $session->check();
     <div class="containt container">
 
         <form class="form-horizontal" role="form" id="packageDetailsForm">
+       <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="invoice">Invoice No.</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number">
+                </div>
+            </div>
+       </div>        
         <div class="row">
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="weight">Weight</label>
-                <div class="col-lg-4">
-                	<div class="input-group">
-                    	<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight">	
-                        <span class="input-group-addon">kgs</span>
-                    </div>                 					
+                <label class="col-lg-4 control-label" for="trackerSerial">Tracker Serial</label>
+                <div class="col-lg-4">                	
+                    	<input type="text" class="form-control" id="trackerSerial" name="trackerSerial" placeholder="Tracker Serial">	                                          
                 </div>
             </div>
        </div>
        <div class="row">
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="country">Country</label>
+                <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
-                    <select id="country" class="form-control" name="country"></select>
+                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
                 </div>
             </div>
        </div>
        <div class="row">
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="type">Type</label>
+                <label class="col-lg-4 control-label" for="type">Model</label>
                 <div class="col-lg-4">
-                    <select id="type" class="form-control" name="type"></select>
+                    <select id="model" class="form-control" name="model"></select>
                 </div>
             </div>
        </div>
        <div class="row">
-            <div class="col-lg-offset-2 col-lg-4">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="other">Other</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="other" name="other" placeholder="Other (Not in list)">
+                </div>
+            </div>
+       </div>
+       <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="dop">Date of Purchase</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="dop" name="dop" placeholder="Date of Purchase">
+                </div>
+            </div>
+       </div>
+       <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="warranty">Warranty</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+                </div>
+            </div>
+       </div>
+       <div class="row">
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="vendor">Vendor</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
+                </div>
+            </div>
+       </div>
+       <div class="row">
+            <div class="col-lg-offset-4 col-lg-4">
                 <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
             </div>
        </div>
-        </form>
-        <div id="result"></div>
+        </form>        
     </div>
 </body>
 </html>

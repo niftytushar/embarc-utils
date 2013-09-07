@@ -21,10 +21,10 @@ var preferences = null;
 
 function init() {
     //Fill type
-	var typeDDN = document.getElementById("type");
-    dropDownFiller(typeDDN, types, "name", "value");
-	typeDDN.value = "NDOC";
-
+	var $typeDDN = $("#type");
+    fillDropDown($typeDDN, types, "name", "value");
+	$typeDDN.val("NDOC");
+	
     //Fill countries
     $.ajax({
         type: "GET",
@@ -32,7 +32,7 @@ function init() {
         url: "/embarc-utils/php/main.php?util=courier&fx=getCountries",
         success: function (data) {
             data = getJSONFromString(data);
-            dropDownFiller(document.getElementById("country"), data, "name", "code");
+            fillDropDown("#country", data, "name", "code");
         }
     });
 

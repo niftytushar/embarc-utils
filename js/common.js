@@ -54,112 +54,6 @@ var CREATE = {
 ******************************************Create Element End******************************************
 *****************************************************************************************************/
 
-/*****************************************************************************************************
-**********************************************Dates Start*********************************************
-*****************************************************************************************************/
-/*
-@params
-    options : Object
-        container: element in which the dates should be created
-        enabledClass: class to be applied when dates are enabled
-        disabledClass: class to be applied when dates are disabled
-        clickedClass: class to apply when user click a date
-*/
-function DATES(options) {
-    this.options = options;
-    this.selectedDates = new Object();
-    this.allDates = new Object();
-
-    this.createElements();
-}
-
-DATES.prototype.createElements = function () {
-    //check for prerequisites
-    if (!this.options.container) throw "DATES: Container not found";
-
-    var table = CREATE.genericElement({ 'tagName': 'table', 'parentElement': this.options.container, 'style': 'margin: 0 10px;' });
-
-    var tr, td, date = 0;
-
-    for (var i = 1; i <= 5; i++) {
-        tr = CREATE.genericElement({ 'tagName': 'tr', 'parentElement': table });
-        for (var j = 1; j <= 7; j++) {
-            td = CREATE.genericElement({ 'tagName': 'td', 'parentElement': tr });
-            if (date > 0 && date < 32) {
-                td.innerHTML = date;
-                td.className = this.options.enabledClass;
-                this.allDates[date] = td;
-                this.setClick(td, date);
-            }
-            date++;
-        }
-    }
-}
-
-DATES.prototype.setClick = function (el, date) {
-    var self = this;
-    if (!this.options.clickedClass) throw "DATES: Clicked class not found";
-
-    el.addEventListener('click', function (ev) {
-        if (self.options.disabled) { console.log("DATES: disabled\n"); return; }
-
-        if (ClassList.contains(this, self.options.clickedClass)) {
-            ClassList.remove(this, self.options.clickedClass);
-            delete self.selectedDates[date];
-        }
-        else {
-            ClassList.add(this, self.options.clickedClass);
-            self.selectedDates[date] = this;
-        }
-    }, false);
-}
-
-DATES.prototype.selectAll = function () {
-    for (var key in this.allDates) {
-        if (!ClassList.contains(this.allDates[key], this.options.clickedClass)) ClassList.add(this.allDates[key], this.options.clickedClass);
-    }
-}
-
-DATES.prototype.reset = function () {
-    for (var key in this.allDates) {
-        if (ClassList.contains(this.allDates[key], this.options.clickedClass)) ClassList.remove(this.allDates[key], this.options.clickedClass);
-    }
-}
-
-DATES.prototype.disable = function () {
-    if (!this.options.disabledClass) throw "DATES: Disabled class not found";
-
-    for (var key in this.allDates) {
-        if (ClassList.contains(this.allDates[key], this.options.enabledClass)) ClassList.remove(this.allDates[key], this.options.enabledClass);
-        if (ClassList.contains(this.allDates[key], this.options.clickedClass)) ClassList.remove(this.allDates[key], this.options.clickedClass);
-        if (!ClassList.contains(this.allDates[key], this.options.disabledClass)) ClassList.add(this.allDates[key], this.options.disabledClass);
-    }
-    this.options.disabled = true;
-}
-
-DATES.prototype.enable = function () {
-    if (!this.options.enabledClass) throw "DATES: Enabled class not found";
-
-    for (var key in this.allDates) {
-        if (ClassList.contains(this.allDates[key], this.options.disabledClass)) ClassList.remove(this.allDates[key], this.options.disabledClass);
-        if (ClassList.contains(this.allDates[key], this.options.clickedClass)) ClassList.remove(this.allDates[key], this.options.clickedClass);
-        if (!ClassList.contains(this.allDates[key], this.options.enabledClass)) ClassList.add(this.allDates[key], this.options.enabledClass);
-    }
-    this.options.disabled = false;
-}
-
-DATES.prototype.getSelected = function () {
-    var dates = [];
-    for (var key in this.selectedDates) {
-        dates.push(key);
-    }
-    return dates;
-}
-
-/*****************************************************************************************************
-**********************************************Dates End*********************************************
-*****************************************************************************************************/
-
 function getJSONFromString(str) {
     if (JSON) return JSON.parse(str);
     else return eval('(' + str + ')');
@@ -169,9 +63,9 @@ function strncmp(a, b, n) {
     return a.substring(0, n) == b.substring(0, n);
 }
 
-function dropDownFiller(el, data, name, value) {
+function fillDropDown($el, data, name, value) {
     for (var i = 0; i < data.length; i++) {
-        CREATE.genericElement({ 'tagName': 'option', 'parentElement': el, 'innerHTML': data[i][name], 'value': data[i][value] });
+        $('<option/>').text(data[i][name]).attr('value', data[i][value]).appendTo($($el));
     }
 }
 

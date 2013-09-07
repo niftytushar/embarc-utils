@@ -53,7 +53,6 @@ $session->check();
     <div class="containt container">
 		<div id="messages"></div>
         <form class="form-horizontal" id="settingsForm">
-        <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="d_value">Dollar Value</label>
                 <div class="col-lg-4">
@@ -63,8 +62,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="e_value">Euro Value</label>
                 <div class="col-lg-4">
@@ -74,8 +71,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="f_surcharge">Fuel Surcharge</label>
                 <div class="col-lg-4">
@@ -85,8 +80,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-      </div>
-      <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
                 <div class="col-lg-4">
@@ -96,8 +89,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-     </div>
-     <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="c_cost">Clearance Cost</label>
                 <div class="col-lg-4">
@@ -107,8 +98,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-     </div>
-     <div class="row">
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="c_cost">USD Handling Charges</label>
                 <div class="col-lg-4">
@@ -118,8 +107,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-     </div>
-     <div class="row">
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="c_cost">USD Minimum Billing</label>
                 <div class="col-lg-4">
@@ -129,8 +116,6 @@ $session->check();
                     </div>
                 </div>
             </div>
-     </div>
-     <div class="row">
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="c_cost">EUR Handling Charges</label>
                 <div class="col-lg-4">
@@ -140,8 +125,6 @@ $session->check();
                     </div>
                 </div>     
             </div>
-     </div>
-     <div class="row">
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="c_cost">EUR Minimum Billing</label>
                 <div class="col-lg-4">
@@ -151,12 +134,9 @@ $session->check();
                     </div>
                 </div>
             </div>
-     </div>
-            <div class="row">
             <div class="col-lg-offset-4 col-lg-4">
                 <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
                 <button type="button" class="btn btn-default" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
-            </div>
             </div>
         </form>
     </div>

@@ -35,15 +35,16 @@ $session->check();
             </div>
         </div>
        </nav>
-    <div class="container containt ">
+    <div class="containt ">
         <div class="gallery">
-            <div class="job-thumb" style="opacity: 1">
-                <div class="job-image">
+            <div id="job-thumb" style="opacity: 1">
+                <div id="job-image">
                     <a href="/embarc-utils/courier/courier_dhl.php" class="">
-                        <img width="600" height="600" alt="" src="/embarc-utils/images/courier.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/courier.png' alt=' width='600' height='600'' /&gt;</noscript>
+                        <img width="600" height="600" alt="" src="/embarc-utils/images/courier.png" class="lazy" style="visibility: visible; opacity: 1;">
+                        <noscript><img class='' src='/embarc-utils/images/courier.png' alt=' width='600' height='600''></noscript>
                     </a>
                 </div>
-                <div class="job-heading">
+                <div id="job-heading">
                     <h2 class="thumb-heading">
                         <a href="/embarc-utils/courier/courier_dhl.php">DHL Courier Service
                             <br />
@@ -52,13 +53,13 @@ $session->check();
                     </h2>
                 </div>
             </div>
-            <div class="job-thumb" style="opacity: 1">
-                <div class="job-image">
+            <div id="job-thumb" style="opacity: 1">
+                <div id="job-image">
                     <a href="/embarc-utils/attendance/home_attend.php" class="">
                         <img width="600" height="600" alt="" src="/embarc-utils/images/attend.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/attend.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>
                 </div>
-                <div class="job-heading">
+                <div id="job-heading">
                     <h2 class="thumb-heading">
                         <a href="/embarc-utils/attendance/home_attend.php">Barcamp Omaha 2012
                             <br>
@@ -67,13 +68,13 @@ $session->check();
                     </h2>
                 </div>
             </div>
-            <div class="job-thumb" style="opacity: 1">
-                <div class="job-image">
+            <div id="job-thumb" style="opacity: 1">
+                <div id="job-image">
                     <a href="/embarc-utils/inventory/stock_in.php" class="">
                         <img width="600" height="600" alt="" src="/embarc-utils/images/inventory.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/inventory.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>
                 </div>
-                <div class="job-heading">
+                <div id="job-heading">
                     <h2 class="thumb-heading">
                         <a href="/embarc-utils/inventory/stock_in.php">Inventory Manager
                             <br>
@@ -82,13 +83,13 @@ $session->check();
                     </h2>
                 </div>
             </div>
-            <div class="job-thumb" style="opacity: 1">
-                <div class="job-image">
+            <div id="job-thumb" style="opacity: 1">
+                <div id="job-image">
                     <a href="#" class="">
                         <img width="600" height="600" alt="" src="/embarc-utils/images/settings.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/settings.png' alt=' width='600' height='600'' /&gt;</noscript>
                     </a>
                 </div>
-                <div class="job-heading">
+                <div id="job-heading">
                     <h2 class="thumb-heading">
                         <a href="http://google.com">Barcamp Omaha 2012
                             <br>

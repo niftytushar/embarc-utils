@@ -33,7 +33,7 @@
 .links {
     padding-top: 10px;
 }
-        @media (max-width: 480px) {
+/*        @media (max-width: 480px) {
             .containt {
                 overflow: hidden;
                 margin: 0 auto;
@@ -41,4 +41,4 @@
                 padding-top:0px;
             }
         }
-		
+		*/

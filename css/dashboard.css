@@ -16,6 +16,7 @@
             overflow: hidden;
             margin: 0 auto;
 			 padding-top:100px;
+			 width:1000px;
         }
 
         .gallery {
@@ -27,38 +28,30 @@
             vertical-align: baseline;
         }
 
-        .job-thumb {
+        #job-thumb {
             background: none repeat scroll 0 0 #E9AC44;
             float: left;
             margin: 1px;
             width: 33%;
-            position: relative;
+			position:relative;
         }
 
-        @media (max-width: 767px) {
-            .job-thumb {
-                float: left;
-                margin: 1px;
-                width: 49%;
-            }
-        }
-
-        .job-image {
+        #job-image {
             opacity: 1;
             position: relative;
             transition: opacity 0.25s ease-in-out 0s;
             z-index: 2;
         }
 
-            .job-image:hover {
+            #job-image:hover {
                 opacity: 0;
             }
 
-            .job-image a img {
+            #job-image a img {
                 margin: 0;
             }
 
-        .job-heading {
+        #job-heading {
             float: left;
             padding: 20px;
             position: absolute;
@@ -66,11 +59,11 @@
             top: 0;
         }
 
-            .job-heading a {
+            #job-heading a {
                 color: #FFFFFF;
             }
 
-            .job-heading h2 {
+            #job-heading h2 {
                 font-size: 18px;
             }
 
@@ -85,9 +78,31 @@
             height: auto;
             max-width: 100%;
         }
-
+        @media (max-width: 767px) {
+			.containt{
+				width:90%;
+				}
+            #job-thumb {
+                float: left;
+                margin: 1px;
+                width: 49%;
+            }
+        }
+		@media (max-width: 950px) {
+			.containt{
+				width:80%;
+				}
+            #job-thumb {
+                float: left;
+                margin: 1px;
+                width: 49%;
+            }
+        }
         @media (max-width: 480px) {
-            .job-thumb {
+			.containt{
+				width:90%;
+				}				
+            #job-thumb {
                 background: none repeat scroll 0 0 #FFFFFF;
                 border: 1px solid #E1E3E2;
                 box-shadow: 0 0 1px 1px #DEE0DF;
@@ -95,27 +110,34 @@
                 width: 99%;
             }
 
-            .job-image img {
+            #job-image img {
                 width: 150px;
+				float:left;
             }
 
-            .job-image:hover {
+            #job-image:hover {
                 opacity: 1;
             }
 
-            .job-heading a {
-                color: #5E6E70;
-                display: block;
-                height: 107px;
-                width: 100%;
-            }
-
-            .job-heading {
-                padding: 10px 0 0 170px;
-                width: 40%;
-            }
-
-                .job-heading h2 {
-                    font-size: 12px;
-                }
+            #job-heading {
+				padding: 10px;
+				width: 40%;
+			}
+			#job-heading a {
+				color: #5E6E70;
+				display: block;
+				height: 107px;
+				width: 100%;
+				text-decoration:none;
+			}
+			#job-heading h2 {
+				font-size: 16px !important;
+				font-weight:normal !important;
+			}
+			#job-heading h2 p {
+				font-size: 12px;
+			}
+			#job-heading {
+				position: static;
+			}
         }

@@ -56,6 +56,7 @@ $session->check();
     <div class="containt container">
 
         <form class="form-horizontal" role="form" id="packageDetailsForm">
+                 
        <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="invoice">Invoice No.</label>

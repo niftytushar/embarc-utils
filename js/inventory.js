@@ -63,10 +63,13 @@ var stock_in = {
     },
 
     defaults: {
+        'serial': "",
+        'imei': "",
         'warranty': "12",
         'model': "VT-60",
         'vendor': "Teltonika",
-        'dateOfPurchase': "today"
+        'dateOfPurchase': "today",
+        'invoice_no': ""
     },
 
     trackers: [],
@@ -84,7 +87,8 @@ var stock_in = {
     },
 
     saveStock: function () {
-        var jsn = createObject(["stockInForm"]);
+        var jsn = createObject(["stockInForm"]),
+            self = this;
         dropElements(jsn, ["warranty", "vendor"]);
         jsn.dateOfPurchase = getFormattedDate(jsn.dateOfPurchase);
         
@@ -93,8 +97,27 @@ var stock_in = {
             url: "/embarc-utils/php/main.php?util=inventory&fx=saveStockItem",
             async: true,
             data: jsn,
-            success: function (data) {
-                debugger;
+            success: function (result) {
+                var $errorMsg = $("#errorMessage-1"),
+                    $successMsg = $("#successMessage-1");
+                
+                if (strncmp(result, "SUCCESS", 7)) {
+                    //hide error message and show success message
+                    $errorMsg.hide();
+                    $successMsg.show();
+
+                    //set default values again
+                    self.setDefaults();
+
+                    //hide success message after 5 seconds
+                    window.setTimeout(function () {
+                        $successMsg.hide();
+                    }, 5000);
+                } else {
+                    //show error message and hide success message
+                    $successMsg.hide();
+                    $errorMsg.show();
+                }
             }
         });
     }

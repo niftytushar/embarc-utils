@@ -25,8 +25,8 @@
             margin: 0 auto;            
             padding-top:100px;
         }
-div [id*="errorMessage-"] {
-    display:block;
+div [id*="errorMessage-"], div [id*="successMessage-"] {
+    display:none;
 }
         .align_center {
             text-align: center;

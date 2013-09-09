@@ -51,7 +51,10 @@ $session->check();
     </nav>
     <div class="containt container">
 	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item successfully saved. </div>
+
           <form class="form-horizontal" role="form" id="stockInForm">        
+
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
                 <div class="col-lg-4">                	

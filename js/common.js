@@ -73,6 +73,12 @@ function getURLParameter(name) {
     return (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1];
 }
 
+function getFormattedDate(date) {
+    if (date == null || date == "") return "";
+    var m = date.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    return (m[3] + "-" + m[2] + "-" + m[1]);
+}
+
 function createObject(formsList) {	//Create JSON style object to send data from form
     var inputs, selects, json = {};
     for (var i = 0; i < formsList.length; i++) {

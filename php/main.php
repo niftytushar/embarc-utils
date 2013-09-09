@@ -94,6 +94,12 @@ function inventory($fx)
 			echo json_encode($inventory->getTrackersList());
 			break;
 			
+		case "saveStockItem":
+			require_once("inventory.php");
+			$inventory = new STOCK_IN();
+			echo $inventory->saveItem($_POST);
+			break;
+			
 		case "out":
 			break;
 	}

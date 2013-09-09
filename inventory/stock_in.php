@@ -51,11 +51,11 @@ $session->check();
     </nav>
     <div class="containt container">
 	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
-          <form class="form-horizontal" role="form" id="packageDetailsForm">        
+          <form class="form-horizontal" role="form" id="stockInForm">        
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="trackerSerial">Tracker Serial</label>
+                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
                 <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="trackerSerial" name="trackerSerial" placeholder="Tracker Serial">	                                          
+                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial">	                                          
                 </div>
             </div>
             <div class="form-group">
@@ -65,21 +65,24 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="type">Model</label>
+                <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
                     <select id="model" class="form-control" name="model"></select>
                 </div>
             </div>            
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="dop">Date of Purchase</label>
+                <label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dop" name="dop" placeholder="Date of Purchase">
+                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="warranty">Warranty</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+                   <div class="input-group">
+                    	<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+						<span class="input-group-addon">Months</span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -89,13 +92,13 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice">Invoice No.</label>
+                <label class="col-lg-4 control-label" for="invoice_no">Invoice No.</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number">
+                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice Number">
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default">Submit</button>
+                <button type="button" class="btn btn-default" id="saveStockButton">Submit</button>
             </div>
         </form>      
     </div>

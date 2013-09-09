@@ -79,5 +79,11 @@ class MYSQL_INTERFACE
 		
 		return $this->db_object->getResultSet();
 	}
+	
+	public function in_addStockItem($queryPart) {
+		$query = "INSERT INTO in_stock set ".$queryPart;
+		echo $query;
+		return $this->db_object->query_db($query);
+	}
 }
 ?>

@@ -15,12 +15,16 @@ var stock_in = {
         //initialize datepicker
         $('.datepicker').datepicker({
             'autoclose': true,
-            'format': "dd/mm/yy"
+            'format': "dd/mm/yyyy"
         });
 
         //add change listener on model drop down
         $("#model").on('change', function (ev) {
             self.fillModelDetails($(this).val());
+        });
+
+        $("#saveStockButton").on('click', function () {
+            self.saveStock();
         });
 
         //fetch list of trackers from server
@@ -73,9 +77,25 @@ var stock_in = {
             //set today's date
             if(key === "dateOfPurchase" && value === "today")
                 $('.datepicker').datepicker('setDate', new Date());
+            else
+                //set all other values
+                $("#" + key).val(value);
+        });
+    },
 
-            //set all other values
-            $("#" + key).val(value);
+    saveStock: function () {
+        var jsn = createObject(["stockInForm"]);
+        dropElements(jsn, ["warranty", "vendor"]);
+        jsn.dateOfPurchase = getFormattedDate(jsn.dateOfPurchase);
+        
+        $.ajax({
+            type: "POST",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=saveStockItem",
+            async: true,
+            data: jsn,
+            success: function (data) {
+                debugger;
+            }
         });
     }
 };

@@ -12,10 +12,13 @@ $session->check();
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
+	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
+	<script src="/embarc-utils/js/inventory.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -37,19 +40,17 @@ $session->check();
                         <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
                     </a>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
-            	<div class="pull-right">
-                    <ul class="nav navbar-nav">
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">         	
+                    <ul class="nav navbar-nav navbar-right links">
                         <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
-                        <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
+                        <li><a href="/embarc-utils/courier/settings.php">Settings</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
-                    </ul>
-                    </div>
+                    </ul>              
             </div>
     	</div>
     </nav>
     <div class="containt container">
-
+	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
           <form class="form-horizontal" role="form" id="packageDetailsForm">        
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="trackerSerial">Tracker Serial</label>
@@ -68,17 +69,11 @@ $session->check();
                 <div class="col-lg-4">
                     <select id="model" class="form-control" name="model"></select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="other">Other</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="other" name="other" placeholder="Other (Not in list)">
-                </div>
-            </div>
+            </div>            
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="dop">Date of Purchase</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="dop" name="dop" placeholder="Date of Purchase">
+                    <input type="text" class="form-control datepicker" id="dop" name="dop" placeholder="Date of Purchase">
                 </div>
             </div>
             <div class="form-group">
@@ -100,7 +95,7 @@ $session->check();
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
+                <button type="button" class="btn btn-default">Submit</button>
             </div>
         </form>      
     </div>

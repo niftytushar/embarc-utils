@@ -39,20 +39,19 @@ $session->check();
                     </a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
-            	<div class="pull-right">
-                    <ul class="nav navbar-nav">
+            	
+                    <ul class="nav navbar-nav navbar-right links">
                         <li class="active"><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
                         <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
-                    </div>
+                    
             </div>
     	</div>
     </nav>
     <div class="containt container">
 
         <form class="form-horizontal" role="form" id="packageDetailsForm">
-        <div class="row">
             <div class="form-group">
                 <label class="col-lg-2 control-label" for="weight">Weight</label>
                 <div class="col-lg-4">
@@ -62,28 +61,21 @@ $session->check();
                     </div>                 					
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-2 control-label" for="country">Country</label>
                 <div class="col-lg-4">
                     <select id="country" class="form-control" name="country"></select>
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-2 control-label" for="type">Type</label>
                 <div class="col-lg-4">
                     <select id="type" class="form-control" name="type"></select>
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="col-lg-offset-2 col-lg-4">
                 <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
             </div>
-       </div>
         </form>
         <div id="result"></div>
     </div>

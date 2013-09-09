@@ -72,5 +72,12 @@ class MYSQL_INTERFACE
 		$this->db_object->query_db($query);
 		return $this->db_object->getResultRow();
 	}
+	
+	public function in_getTrackers() {
+		$query = "SELECT * from in_trackers";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
 }
 ?>

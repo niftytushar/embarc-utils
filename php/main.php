@@ -8,6 +8,10 @@ switch ($_GET['util']) {
 		courier($_GET['fx']);
 		break;
 		
+	case "inventory":
+		inventory($_GET['fx']);
+		break;
+		
 	case "attendance":
 		attendance($_GET['fx']);
 		break;
@@ -76,6 +80,21 @@ function attendance($fx)
 			$attend = new ATTENDANCE();
 			
 			$attend->getSummary(21);
+			break;
+	}
+}
+
+function inventory($fx)
+{
+	switch($fx)
+	{
+		case "getTrackers":
+			require_once("inventory.php");
+			$inventory = new STOCK_IN();
+			echo json_encode($inventory->getTrackersList());
+			break;
+			
+		case "out":
 			break;
 	}
 }

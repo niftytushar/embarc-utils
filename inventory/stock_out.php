@@ -51,76 +51,56 @@ $session->check();
     </nav>
     <div class="containt container">
 
-        <form class="form-horizontal" role="form" id="packageDetailsForm">
-       <div class="row">
+        <form class="form-horizontal" role="form" id="stockInForm">        
+
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice">Invoice No.</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number">
-                </div>
-            </div>
-       </div>        
-        <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="trackerSerial">Tracker Serial</label>
+                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
                 <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="trackerSerial" name="trackerSerial" placeholder="Tracker Serial">	                                          
+                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial">	                                          
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
                     <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="type">Model</label>
+                <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
                     <select id="model" class="form-control" name="model"></select>
                 </div>
-            </div>
-       </div>
-       <div class="row">
+            </div>            
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="other">Other</label>
+                <label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="other" name="other" placeholder="Other (Not in list)">
+                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase">
                 </div>
             </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="dop">Date of Purchase</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="dop" name="dop" placeholder="Date of Purchase">
-                </div>
-            </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="warranty">Warranty</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+                   <div class="input-group">
+                    	<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+						<span class="input-group-addon">Months</span>
+                    </div>
                 </div>
             </div>
-       </div>
-       <div class="row">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="vendor">Vendor</label>
                 <div class="col-lg-4">
                     <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
                 </div>
             </div>
-       </div>
-       <div class="row">
-            <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="invoice_no">Invoice No.</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice Number">
+                </div>
             </div>
-       </div>
+            <div class="col-lg-offset-4 col-lg-4">
+                <button type="button" class="btn btn-default" id="saveStockButton">Submit</button>
+            </div>
         </form>        
     </div>
 </body>

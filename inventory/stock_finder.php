@@ -56,76 +56,27 @@ $session->check();
     <div class="containt container">
 
         <form class="form-horizontal" role="form" id="packageDetailsForm">
-                 
-       <div class="row">
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice">Invoice No.</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number">
-                </div>
-            </div>
-       </div>        
-        <div class="row">
+               <div class="col-lg-6">
+				<div class="input-group">
+      				<span class="input-group-btn">
+        				<button class="btn btn-default" type="button">Go!</button>
+				    </span>
+      				<input type="text" class="form-control">
+    				</div><!-- /input-group -->
+  				</div><!-- /.col-lg-6 -->
+            </div>     
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="trackerSerial">Tracker Serial</label>
-                <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="trackerSerial" name="trackerSerial" placeholder="Tracker Serial">	                                          
-                </div>
+               <div class="col-lg-6">
+				<div class="input-group">     				
+      				<input type="text" class="form-control">
+                    <span class="input-group-btn">
+        				<button class="btn btn-default" type="button">Go!</button>
+				    </span>
+    				</div><!-- /input-group -->
+  				</div><!-- /.col-lg-6 -->
             </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="imei">IMEI</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="type">Model</label>
-                <div class="col-lg-4">
-                    <select id="model" class="form-control" name="model"></select>
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="other">Other</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="other" name="other" placeholder="Other (Not in list)">
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="dop">Date of Purchase</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="dop" name="dop" placeholder="Date of Purchase">
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="warranty">Warranty</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="vendor">Vendor</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
-                </div>
-            </div>
-       </div>
-       <div class="row">
-            <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
-            </div>
-       </div>
+
         </form>        
     </div>
 </body>

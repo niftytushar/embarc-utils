@@ -176,7 +176,7 @@
 			});
 			o.orientation = {x: 'auto', y: 'auto'};
 			if (!_plc || _plc === 'auto')
-				; // no action
+				[] // no action
 			else if (plc.length === 1){
 				switch(plc[0]){
 					case 'top':

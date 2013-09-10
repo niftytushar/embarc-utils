@@ -9,9 +9,9 @@ class LOGIN
 		$this->mInterface = new MYSQL_INTERFACE();
 	}
 	
-	public function verify($username, $password) {
+	public function verify($username, $hash) {
 		$user = $this->mInterface->getUser($username);
-		if($password == $user["password"]) {
+		if($hash == hash("sha256", $user["password"])) {
 			$_SESSION['user'] = $username;
 			header("Location: /embarc-utils/dashboard.php");
 		} else {

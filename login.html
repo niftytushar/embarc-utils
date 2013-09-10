@@ -9,6 +9,7 @@
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/sha256.min.js"></script>
 
     <style type="text/css">
       body {
@@ -52,10 +53,10 @@
 <body>
         <div class="container">
 
-      <form class="form-signin" method="post" action="/embarc-utils/php/main.php?util=login&fx=login">
+      <form class="form-signin" method="post" action="/embarc-utils/php/main.php?util=login&fx=login" onsubmit="this.hash.value = CryptoJS.SHA256(this.hash.value).toString(CryptoJS.enc.Hex);">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input type="text" class="input-block-level" placeholder="Username" name="username">
-        <input type="password" class="input-block-level" placeholder="Password" name="password">
+        <input type="password" class="input-block-level" placeholder="Password" name="hash">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>

@@ -28,7 +28,8 @@ function login($fx)
 		case "login":
 			require_once('login.php');
 			$login = new LOGIN();
-			$login->verify($_POST['username'], $_POST['password']);
+			$login->verify($_POST['username'], $_POST['hash']);
+			echo $_POST['hash'];
 			break;
 			
 		case "logout":

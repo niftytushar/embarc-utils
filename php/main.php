@@ -19,6 +19,10 @@ switch ($_GET['util']) {
 	case "login":
 		login($_GET['fx']);
 		break;
+		
+	case "misc":
+		misc($_GET['fx']);
+		break;
 }
 
 function login($fx)
@@ -87,21 +91,35 @@ function attendance($fx)
 
 function inventory($fx)
 {
+	require_once("inventory.php");
 	switch($fx)
 	{
 		case "getTrackers":
-			require_once("inventory.php");
 			$inventory = new STOCK_IN();
 			echo json_encode($inventory->getTrackersList());
 			break;
 			
 		case "saveStockItem":
-			require_once("inventory.php");
 			$inventory = new STOCK_IN();
 			echo $inventory->saveItem($_POST);
 			break;
 			
 		case "out":
+			break;
+	}
+}
+
+function misc($fx)
+{
+	require_once("misc.php");
+	$misc = new MISC();
+	
+	switch($fx)
+	{
+		case "getModules":
+			$modules = $misc->getModules();
+			if(gettype($modules) == "string") echo $modules;
+			else echo json_encode($modules);
 			break;
 	}
 }

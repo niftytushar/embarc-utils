@@ -13,10 +13,11 @@ $session->check();
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
 <link href="/embarc-utils/css/dashboard.css" rel="stylesheet">
+<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
-	<script src="/embarc-utils/js/dhl_settings.js"></script>
+	<script src="/embarc-utils/js/dashboard.js"></script>
 
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -29,76 +30,29 @@ $session->check();
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
         	<div class="navbar-header">
-            <a class="navbar-brand" href="index.html">
+            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        
+                    </button>
+                <a class="navbar-brand" href="index.html">
                         <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
                     </a>
             </div>
-        </div>
-       </nav>
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
+            	
+                    <ul class="nav navbar-nav navbar-right links">
+                   
+                        <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
+                    </ul>
+                    
+            </div>
+    	</div>
+    </nav>
     <div class="containt ">
-        <div class="gallery">
-            <div id="job-thumb" style="opacity: 1">
-                <div id="job-image">
-                    <a href="/embarc-utils/courier/courier_dhl.php" class="">
-                        <img width="600" height="600" alt="" src="/embarc-utils/images/courier.png" class="lazy" style="visibility: visible; opacity: 1;">
-                        <noscript><img class='' src='/embarc-utils/images/courier.png' alt=' width='600' height='600''></noscript>
-                    </a>
-                </div>
-                <div id="job-heading">
-                    <h2 class="thumb-heading">
-                        <a href="/embarc-utils/courier/courier_dhl.php">DHL Courier Service
-                            <br />
-                            <p>Calculate courier package costs</p>
-                        </a>
-                    </h2>
-                </div>
-            </div>
-            <div id="job-thumb" style="opacity: 1">
-                <div id="job-image">
-                    <a href="/embarc-utils/attendance/home_attend.php" class="">
-                        <img width="600" height="600" alt="" src="/embarc-utils/images/attend.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/attend.png' alt=' width='600' height='600'' /&gt;</noscript>
-                    </a>
-                </div>
-                <div id="job-heading">
-                    <h2 class="thumb-heading">
-                        <a href="/embarc-utils/attendance/home_attend.php">Barcamp Omaha 2012
-                            <br>
-                            <p>Apparel, Identity, Motion, Print, Web</p>
-                        </a>
-                    </h2>
-                </div>
-            </div>
-            <div id="job-thumb" style="opacity: 1">
-                <div id="job-image">
-                    <a href="/embarc-utils/inventory/stock_in.php" class="">
-                        <img width="600" height="600" alt="" src="/embarc-utils/images/inventory.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/inventory.png' alt=' width='600' height='600'' /&gt;</noscript>
-                    </a>
-                </div>
-                <div id="job-heading">
-                    <h2 class="thumb-heading">
-                        <a href="/embarc-utils/inventory/stock_in.php">Inventory Manager
-                            <br>
-                            <p>Track Stock-In and Stock-Out</p>
-                        </a>
-                    </h2>
-                </div>
-            </div>
-            <div id="job-thumb" style="opacity: 1">
-                <div id="job-image">
-                    <a href="#" class="">
-                        <img width="600" height="600" alt="" src="/embarc-utils/images/settings.png" class="lazy " style="visibility: visible; opacity: 1;"><noscript>&lt;img class='' src='image/settings.png' alt=' width='600' height='600'' /&gt;</noscript>
-                    </a>
-                </div>
-                <div id="job-heading">
-                    <h2 class="thumb-heading">
-                        <a href="http://google.com">Barcamp Omaha 2012
-                            <br>
-                            <p>Apparel, Identity, Motion, Print, Web</p>
-                        </a>
-                    </h2>
-                </div>
-            </div>
-            <div style="clear: both"></div>
+        <div class="gallery" id="modulesContainer">
+            
+            <!--<div style="clear: both"></div>-->
         </div>
     </div>
 </body>

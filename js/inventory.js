@@ -5,6 +5,10 @@ function init() {
         case "/embarc-utils/inventory/stock_in.php":
             stock_in.initialize();
             break;
+
+        case "/embarc-utils/inventory/stock_out.php":
+            stock_out.initialize();
+            break;
     }
 }
 
@@ -23,8 +27,22 @@ var stock_in = {
             self.fillModelDetails($(this).val());
         });
 
-        $("#saveStockButton").on('click', function () {
-            self.saveStock();
+        //validate and submit form when done
+        $("#stockInForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                //call method to submit this form
+                self.saveStock();
+
+                //focus on serial number to start again quickly
+                $("#serial").focus();
+                return false;
+            }
         });
 
         //fetch list of trackers from server
@@ -121,4 +139,45 @@ var stock_in = {
             }
         });
     }
+};
+
+var stock_out = {
+    initialize: function () {
+        //initialize datepicker
+        $('.datepicker').datepicker({
+            'autoclose': true,
+            'format': "dd/mm/yyyy"
+        });
+
+        //initialize typeahead on serial number
+        $("#serial").typeahead({
+            name: "serial",
+            local: ["123456", "87564", "7432", "55321", "52182"]
+        });
+
+        stock_in.getTrackersList.apply(this);
+    },
+
+    trackers: [],
+
+    defaults: {
+        'serial': "",
+        'imei': "",
+        'out_warranty': "12",
+        'model': "VT-60",
+        'dateOfSale': "today",
+        'out_invoice_no': ""
+    },
+
+    //set default values for each form field
+    setDefaults: function () {
+        $.each(this.defaults, function (key, value) {
+            //set today's date
+            if (key === "dateOfSale" && value === "today")
+                $('.datepicker').datepicker('setDate', new Date());
+            else
+                //set all other values
+                $("#" + key).val(value);
+        });
+    },
 };

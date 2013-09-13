@@ -19,6 +19,7 @@ $session->check();
 	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/inventory.js"></script>
+	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -58,13 +59,13 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
                 <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial">	                                          
+                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial" required>	                                          
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
+                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
                 </div>
             </div>
             <div class="form-group">
@@ -76,7 +77,7 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase">
+                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase" required>
                 </div>
             </div>
             <div class="form-group">
@@ -101,7 +102,7 @@ $session->check();
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default" id="saveStockButton">Submit</button>
+                <button type="submit" class="btn btn-default" id="saveStockButton">Submit</button>
             </div>
         </form>      
     </div>

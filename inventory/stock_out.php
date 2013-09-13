@@ -12,11 +12,16 @@ $session->check();
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
+	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
+	<link href="/embarc-utils/css/typeahead.js-bootstrap.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
+	<script src="/embarc-utils/js/typeahead.min.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
-    <script src="/embarc-utils/js/dhl_main.js"></script>
+	<script src="/embarc-utils/js/inventory.js"></script>
+	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -42,7 +47,7 @@ $session->check();
             	
                     <ul class="nav navbar-nav navbar-right links">
                         <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
-                        <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
+                        <li><a href="/embarc-utils/inventory/settings_dhl.php">Settings</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
                 
@@ -51,7 +56,7 @@ $session->check();
     </nav>
     <div class="containt container">
 
-        <form class="form-horizontal" role="form" id="stockInForm">        
+        <form class="form-horizontal" role="form" id="stockOutForm">        
 
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
@@ -72,30 +77,30 @@ $session->check();
                 </div>
             </div>            
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
+                <label class="col-lg-4 control-label" for="dateOfSale">Date of Sale</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase">
+                    <input type="text" class="form-control datepicker" id="dateOfSale" name="dateOfSale" placeholder="Date of Sale">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="warranty">Warranty</label>
                 <div class="col-lg-4">
                    <div class="input-group">
-                    	<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+                    	<input type="text" class="form-control" id="out_warranty" name="out_warranty" placeholder="Warranty">
 						<span class="input-group-addon">Months</span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="vendor">Vendor</label>
+                <label class="col-lg-4 control-label" for="vendor">Client Name</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
+                    <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice_no">Invoice No.</label>
+                <label class="col-lg-4 control-label" for="out_invoice_no">Invoice No.</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice Number">
+                    <input type="text" class="form-control" id="out_invoice_no" name="out_invoice_no" placeholder="Invoice Number">
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">

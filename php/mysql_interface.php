@@ -80,20 +80,37 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
+	public function in_getStockByIMEI($imei) {
+		$query = "SELECT * from in_stock where imei='".$imei."'";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultRow();
+	}
+	
 	public function in_addStockItem($queryPart) {
 		$query = "INSERT INTO in_stock set ".$queryPart;
+		
 		return $this->db_object->query_db($query);
+	}
+	
+	public function in_getDetailsOfItemsInStock($queryPart) {
+		$query = "SELECT $queryPart from in_stock where inStock=1";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultArray();
 	}
 	
 	public function misc_getUserModules($username) {
 		$query = "SELECT modules from users where username='".$username."'";
 		$this->db_object->query_db($query);
+		
 		return $this->db_object->getResultRow()[0];
 	}
 	
 	public function misc_getAllModules() {
 		$query = "SELECT * from modules";
 		$this->db_object->query_db($query);
+		
 		return $this->db_object->getResultSet();
 	}
 }

@@ -58,6 +58,20 @@ class MYSQL_DB
 		return $dataArray;
 	}
 	
+	//selects the values of the first column only
+	function getResultArray() {
+		if($this->result == false) return false;
+		
+		$dataArray = array();
+		while($rows = $this->result->fetch_array(MYSQLI_NUM)) {
+			array_push($dataArray, $rows[0]);
+		}
+		$this->result->free();
+		$this->result = false;
+		
+		return $dataArray;
+	}
+	
 	function escapeString($string) {
 		return $this->connection->real_escape_string($string);
 	}

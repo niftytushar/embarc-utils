@@ -45,6 +45,28 @@ var stock_in = {
             }
         });
 
+        var $in_invoice = $("#in_invoice"),
+            $serial = $("#serial");
+
+        //set focus to invoice number by default
+        $in_invoice.focus();
+
+        //prevent form submit on enter press on invoice number (useful when scanned via barcode scanner) also set focus to serial number if required
+        $($in_invoice).keypress(function (ev) {
+            if (ev.which === 13) {
+                ev.preventDefault();
+                $serial.focus();
+            }
+        });
+
+        //prevent form submit on enter press on serial number (useful when scanned via barcode scanner) also set focus to IMEI if required
+        $($serial).keypress(function (ev) {
+            if (ev.which === 13) {
+                ev.preventDefault();
+                $("#imei").focus();
+            }
+        });
+
         //fetch list of trackers from server
         this.getTrackersList();
     },
@@ -117,11 +139,13 @@ var stock_in = {
             data: jsn,
             success: function (result) {
                 var $errorMsg = $("#errorMessage-1"),
-                    $successMsg = $("#successMessage-1");
+                    $successMsg = $("#successMessage-1"),
+                    $imeiExistsMsg = $("#errorMessage-2");
                 
                 if (strncmp(result, "SUCCESS", 7)) {
                     //hide error message and show success message
                     $errorMsg.hide();
+                    $imeiExistsMsg.hide();
                     $successMsg.show();
 
                     //set default values again
@@ -131,9 +155,14 @@ var stock_in = {
                     window.setTimeout(function () {
                         $successMsg.hide();
                     }, 5000);
+                } else if (strncmp(result, "IMEI_EXISTS", 11)) {
+                    $successMsg.hide();
+                    $errorMsg.hide();
+                    $imeiExistsMsg.show();
                 } else {
                     //show error message and hide success message
                     $successMsg.hide();
+                    $imeiExistsMsg.hide();
                     $errorMsg.show();
                 }
             }
@@ -150,9 +179,10 @@ var stock_out = {
         });
 
         //initialize typeahead on serial number
-        $("#serial").typeahead({
-            name: "serial",
-            local: ["123456", "87564", "7432", "55321", "52182"]
+        $("#imei").typeahead({
+            name: "imei",
+            prefetch: "/embarc-utils/php/main.php?util=inventory&fx=getItemsInStock&prop=imei",
+            //remote: "/embarc-utils/php/main.php?util=inventory&fx=getItemsInStock&prop=imei"
         });
 
         stock_in.getTrackersList.apply(this);

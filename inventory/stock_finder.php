@@ -35,6 +35,7 @@ $session->check();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                 <a class="navbar-brand" href="index.html">
                         <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
@@ -46,7 +47,8 @@ $session->check();
                         <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
                         <li><a href="/embarc-utils/inventory/stock_in.php">Stock In</a></li>
                         <li><a href="/embarc-utils/inventory/stock_out.php">Stock Out</a></li>
-                        <li><a href="/embarc-utils/inventory/stock_finder.php">Stock Finder</a></li>
+                        <li class="active"><a href="/embarc-utils/inventory/stock_finder.php">Stock Finder</a></li>
+                        <li><a href="/embarc-utils/inventory/preferences.php">Preferences</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
                 

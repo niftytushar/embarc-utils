@@ -36,38 +36,42 @@ $session->check();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                 <a class="navbar-brand" href="index.html">
                         <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
                     </a>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">         	
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
+            	
                     <ul class="nav navbar-nav navbar-right links">
                         <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
-                        <li><a href="/embarc-utils/courier/settings.php">Settings</a></li>
+                        <li class="active"><a href="/embarc-utils/inventory/stock_in.php">Stock In</a></li>
+                        <li><a href="/embarc-utils/inventory/stock_out.php">Stock Out</a></li>
+                        <li><a href="/embarc-utils/inventory/stock_finder.php">Stock Finder</a></li>
+                        <li><a href="/embarc-utils/inventory/preferences.php">Preferences</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
-                    </ul>              
+                    </ul>
+                
             </div>
     	</div>
     </nav>
     <div class="containt container">
 	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+    <div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI number already exists. </div>
     	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item successfully saved. </div>
 
-          <form class="form-horizontal" role="form" id="stockInForm">        
-
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
-                <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial" required>	                                          
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="imei">IMEI</label>
+          <form class="form-horizontal" role="form" id="stockInForm">
+		  
+		  <div class="form-group">
+                <label class="col-lg-4 control-label" for="invoice_no">Invoice #</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
+                    <input type="text" class="form-control" id="in_invoice" name="in_invoice" placeholder="Invoice Number">
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
@@ -81,7 +85,7 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="warranty">Warranty</label>
+                <label class="col-lg-4 control-label" for="warranty">Warranty Received</label>
                 <div class="col-lg-4">
                    <div class="input-group">
                     	<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
@@ -95,10 +99,16 @@ $session->check();
                     <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
                 </div>
             </div>
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
+                <div class="col-lg-4">                	
+                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial" required>	                                          
+                </div>
+            </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice_no">Invoice No.</label>
+                <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="invoice_no" name="invoice_no" placeholder="Invoice Number">
+                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">

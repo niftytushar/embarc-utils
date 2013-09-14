@@ -92,16 +92,19 @@ function attendance($fx)
 function inventory($fx)
 {
 	require_once("inventory.php");
+	$inventory = new STOCK();
 	switch($fx)
 	{
 		case "getTrackers":
-			$inventory = new STOCK_IN();
 			echo json_encode($inventory->getTrackersList());
 			break;
 			
 		case "saveStockItem":
-			$inventory = new STOCK_IN();
 			echo $inventory->saveItem($_POST);
+			break;
+			
+		case "getItemsInStock":
+			echo json_encode($inventory->getItemsInStock($_GET["prop"]));
 			break;
 			
 		case "out":

@@ -38,6 +38,9 @@ $session->check();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                     </button>
                 <a class="navbar-brand" href="index.html">
                         <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
@@ -47,7 +50,10 @@ $session->check();
             	
                     <ul class="nav navbar-nav navbar-right links">
                         <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
-                        <li><a href="/embarc-utils/inventory/settings_dhl.php">Settings</a></li>
+                        <li><a href="/embarc-utils/inventory/stock_in.php">Stock In</a></li>
+                        <li class="active"><a href="/embarc-utils/inventory/stock_out.php">Stock Out</a></li>
+                        <li><a href="/embarc-utils/inventory/stock_finder.php">Stock Finder</a></li>
+                        <li><a href="/embarc-utils/inventory/preferences.php">Preferences</a></li>
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
                 
@@ -57,25 +63,19 @@ $session->check();
     <div class="containt container">
 
         <form class="form-horizontal" role="form" id="stockOutForm">        
-
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
-                <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial">	                                          
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="out_invoice_no">Invoice #</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="out_invoice" name="out_invoice" placeholder="Invoice Number" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="imei">IMEI</label>
+                <label class="col-lg-4 control-label" for="vendor">Client Name</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
+                    <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" />
+					<input type="hidden" id="clientID" name="clientID" />
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="model">Model</label>
-                <div class="col-lg-4">
-                    <select id="model" class="form-control" name="model"></select>
-                </div>
-            </div>            
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="dateOfSale">Date of Sale</label>
                 <div class="col-lg-4">
@@ -83,7 +83,7 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="warranty">Warranty</label>
+                <label class="col-lg-4 control-label" for="warranty">Warranty Provided</label>
                 <div class="col-lg-4">
                    <div class="input-group">
                     	<input type="text" class="form-control" id="out_warranty" name="out_warranty" placeholder="Warranty">
@@ -92,17 +92,34 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="vendor">Client Name</label>
+                <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name">
+                    <!--<input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">-->
+                    <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
+            <input type="text" disabled="" spellcheck="off" autocomplete="off" class="tt-hint" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background: none repeat scroll 0% 0% rgb(255, 255, 255);" />
+            <input type="text" placeholder="IMEI" class="typeahead tt-query" autocomplete="off" name="imei" id="imei" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent;" dir="auto" />            
+        </span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="out_invoice_no">Invoice No.</label>
+                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
+                   <div class="col-lg-4">
+        <input type="text" class="form-control" id="serial" name="serial" disabled placeholder="Tracker Serial">
+        
+    </div>
+    </div>
+            
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="out_invoice_no" name="out_invoice_no" placeholder="Invoice Number">
+                	<input type="text" id="model" class="form-control" disabled name="model" placeholder="Model">
+                   
                 </div>
-            </div>
+            </div>            
+            
+            
+            
+            
             <div class="col-lg-offset-4 col-lg-4">
                 <button type="button" class="btn btn-default" id="saveStockButton">Submit</button>
             </div>

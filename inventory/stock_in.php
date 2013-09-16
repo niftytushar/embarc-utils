@@ -8,7 +8,7 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title></title>
+    <title>Inventory - In</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
@@ -61,7 +61,7 @@ $session->check();
     <div class="containt container">
 	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
     <div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI number already exists. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item successfully saved. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked in successfully. </div>
 
           <form class="form-horizontal" role="form" id="stockInForm">
 		  

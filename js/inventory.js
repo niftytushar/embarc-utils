@@ -152,8 +152,8 @@ var stock_in = {
                     $imeiExistsMsg.hide();
                     $successMsg.show();
 
-                    //set default values again
-                    self.setDefaults();
+                    //clear quick fill fields
+                    self.clearToQuickFill();
 
                     //hide success message after 5 seconds
                     window.setTimeout(function () {
@@ -171,6 +171,10 @@ var stock_in = {
                 }
             }
         });
+    },
+
+    clearToQuickFill: function () {
+        $("#imei,#serial").val("");
     }
 };
 
@@ -184,36 +188,36 @@ var stock_out = {
             'format': "dd/mm/yyyy"
         });
 
-        var $out_invoice = $("#out_invoice");
+        var $out_invoice = $("#out_invoice"),
+            $imei = $("#imei");
 
         //initially, set focus to invoice number
         $out_invoice.focus();
 
-        $("#imei").on("blur", function () {
-            $.ajax({
-                type: "GET",
-                async: true,
-                url: "/embarc-utils/php/main.php?util=inventory&fx=getItemInStock&prop=imei&val=" + $(this).val(),
-                success: function (data) {
-                    if (strncmp(data, "ERROR", 5)) {
-                        alert("this item does is not available in stock. add this item to continue.");
-                        $("#serial").val("");
-                        $("#model").val("");
-                        $("#id").val("");
-                    } else {
-                        data = getJSONFromString(data);
-                        $("#serial").val(data["serial"]);
-                        $("#model").val(data["model"]);
-                        $("#id").val(data["id"]);
-                    }
-                }
-            });
+        $imei.keypress(function (ev) {
+            if (ev.which === 13) {
+                ev.preventDefault();
+                //self.checkForItemInStock();
+                self.checkForItemInStock.apply($imei);
+            }
         });
 
-        $("#stockOutForm").on("submit", function () {
-            self.saveStockOut();
+        //validate and submit form when done
+        $("#stockOutForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                //call method to submit this form
+                self.saveStockOut();
 
-            return false;
+                //focus on serial number to start again quickly
+                $imei.focus();
+                return false;
+            }
         });
 
         //get list of clients
@@ -221,6 +225,44 @@ var stock_out = {
 
         //fill in default values
         this.setDefaults();
+    },
+
+    checkForItemInStock: function () {
+        var $errorMsg = $("#errorMessage-1"),
+                    $imei_no_exist = $("#errorMessage-2"),
+                    $successMsg = $("#successMessage-1");
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getItemInStock&prop=imei&val=" + $(this).val(),
+            success: function (data) {
+                if (strncmp(data, "ERROR", 5)) {
+                    //show an error
+                    $errorMsg.hide();
+                    $imei_no_exist.show();
+                    $successMsg.hide();
+
+                    //clean up
+                    $("#serial").val("");
+                    $("#model").val("");
+                    $("#id").val("");
+                } else {
+                    //hide the error message, if visible, or anyways
+                    $errorMsg.hide();
+                    $imei_no_exist.hide();
+                    $successMsg.hide();
+
+                    //fill it up
+                    data = getJSONFromString(data);
+                    $("#serial").val(data["serial"]);
+                    $("#model").val(data["model"]);
+                    $("#id").val(data["id"]);
+                    
+                    $("#stockOutForm").submit();
+                }
+            }
+        });
     },
 
     getClients: function () {
@@ -271,9 +313,40 @@ var stock_out = {
             url: "/embarc-utils/php/main.php?util=inventory&fx=updateStockItem",
             data: jsn,
             success: function (result) {
-                debugger;
+                var $errorMsg = $("#errorMessage-1"),
+                    $imei_no_exist = $("#errorMessage-2"),
+                    $successMsg = $("#successMessage-1");
+
+                if (strncmp(result, "SUCCESS", 7)) {
+                    //hide error message and show success message
+                    $errorMsg.hide();
+                    $imei_no_exist.hide();
+                    $successMsg.show();
+
+                    //hide success message after 5 seconds
+                    window.setTimeout(function () {
+                        $successMsg.hide();
+                    }, 5000);
+
+                    //clear quick fill fields
+                    self.clearToQuickFill();
+                } else if (strncmp(result, "IMEI_NOT_STOCK", 14)) {
+                    //show message that IMEI number does not exist
+                    $errorMsg.hide();
+                    $imei_no_exist.show();
+                    $successMsg.hide();
+                } else {
+                    //an error occured - dunno what?
+                    $errorMsg.show();
+                    $imei_no_exist.hide();
+                    $successMsg.hide();
+                }
             }
         });
+    },
+
+    clearToQuickFill: function () {
+        $("#imei,#serial,#model").val("");
     }
 };
 

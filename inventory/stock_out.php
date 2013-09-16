@@ -8,7 +8,7 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title></title>
+    <title>Inventory - Out</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
@@ -59,7 +59,10 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-
+		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+		<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI is not is stock. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked out successfully. </div>
+		
         <form class="form-horizontal" role="form" id="stockOutForm">        
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="out_invoice">Invoice #</label>
@@ -68,10 +71,9 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="clientName">Client Name</label>
+                <label class="col-lg-4 control-label" for="clientName">Client</label>
                 <div class="col-lg-4">
-                    <!--<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" />-->
-					<select id="clientID" name="clientID" class="form-control"></select>
+					<select id="clientID" name="clientID" class="form-control" required></select>
                 </div>
             </div>
             <div class="form-group">
@@ -93,13 +95,13 @@ $session->check();
                 <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
 					<input type="hidden" id="id" name="id" />
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
+                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
                    <div class="col-lg-4">
-        <input type="text" class="form-control" id="serial" name="serial" disabled placeholder="Tracker Serial">
+        <input type="text" class="form-control" id="serial" name="serial" disabled placeholder="Tracker Serial" required>
         
     </div>
     </div>
@@ -107,7 +109,7 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
-                	<input type="text" id="model" class="form-control" disabled name="model" placeholder="Model">
+                	<input type="text" id="model" class="form-control" disabled name="model" placeholder="Model" required>
                    
                 </div>
             </div>            

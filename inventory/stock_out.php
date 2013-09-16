@@ -13,12 +13,10 @@ $session->check();
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
 	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
-	<link href="/embarc-utils/css/typeahead.js-bootstrap.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
-	<script src="/embarc-utils/js/typeahead.min.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/inventory.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
@@ -29,7 +27,7 @@ $session->check();
     <![endif]-->
 
 </head>
-<body onload="init();">
+<body>
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
         	<div class="navbar-header">
@@ -64,16 +62,16 @@ $session->check();
 
         <form class="form-horizontal" role="form" id="stockOutForm">        
 			<div class="form-group">
-                <label class="col-lg-4 control-label" for="out_invoice_no">Invoice #</label>
+                <label class="col-lg-4 control-label" for="out_invoice">Invoice #</label>
                 <div class="col-lg-4">
                     <input type="text" class="form-control" id="out_invoice" name="out_invoice" placeholder="Invoice Number" />
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="vendor">Client Name</label>
+                <label class="col-lg-4 control-label" for="clientName">Client Name</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" />
-					<input type="hidden" id="clientID" name="clientID" />
+                    <!--<input type="text" class="form-control" id="clientName" name="clientName" placeholder="Client Name" />-->
+					<select id="clientID" name="clientID" class="form-control"></select>
                 </div>
             </div>
             <div class="form-group">
@@ -83,7 +81,7 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="warranty">Warranty Provided</label>
+                <label class="col-lg-4 control-label" for="out_warranty">Warranty Provided</label>
                 <div class="col-lg-4">
                    <div class="input-group">
                     	<input type="text" class="form-control" id="out_warranty" name="out_warranty" placeholder="Warranty">
@@ -94,11 +92,8 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="imei">IMEI</label>
                 <div class="col-lg-4">
-                    <!--<input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">-->
-                    <span class="twitter-typeahead" style="position: relative; display: inline-block; direction: ltr;">
-            <input type="text" disabled="" spellcheck="off" autocomplete="off" class="tt-hint" style="position: absolute; top: 0px; left: 0px; border-color: transparent; box-shadow: none; background: none repeat scroll 0% 0% rgb(255, 255, 255);" />
-            <input type="text" placeholder="IMEI" class="typeahead tt-query" autocomplete="off" name="imei" id="imei" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent;" dir="auto" />            
-        </span>
+					<input type="hidden" id="id" name="id" />
+                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI">
                 </div>
             </div>
             <div class="form-group">
@@ -116,12 +111,9 @@ $session->check();
                    
                 </div>
             </div>            
-            
-            
-            
-            
+
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="button" class="btn btn-default" id="saveStockButton">Submit</button>
+                <button type="submit" class="btn btn-default" id="saveStockButton">Submit</button>
             </div>
         </form>        
     </div>

@@ -103,11 +103,22 @@ function inventory($fx)
 			echo $inventory->saveItem($_POST);
 			break;
 			
+		case "updateStockItem":
+			echo $inventory->updateItem($_POST);
+			break;
+			
 		case "getItemsInStock":
 			echo json_encode($inventory->getItemsInStock($_GET["prop"]));
 			break;
 			
-		case "out":
+		case "getItemInStock":
+			$item = $inventory->getItemInStock($_GET["prop"], $_GET["val"]);
+			if(gettype($item) == "string") echo $item;
+			else echo json_encode($item);
+			break;
+			
+		case "getClients":
+			echo json_encode($inventory->getClients());
 			break;
 	}
 }

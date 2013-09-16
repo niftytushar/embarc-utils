@@ -80,11 +80,11 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
-	public function in_getStockByIMEI($imei) {
-		$query = "SELECT * from in_stock where imei='".$imei."'";
+	public function in_getStock($field, $val) {
+		$query = "SELECT * from in_stock where $field='".$val."'";
 		$this->db_object->query_db($query);
 		
-		return $this->db_object->getResultRow();
+		return $this->db_object->getResultSet();
 	}
 	
 	public function in_addStockItem($queryPart) {
@@ -93,11 +93,24 @@ class MYSQL_INTERFACE
 		return $this->db_object->query_db($query);
 	}
 	
-	public function in_getDetailsOfItemsInStock($queryPart) {
-		$query = "SELECT $queryPart from in_stock where inStock=1";
+	public function in_updateStockItem($queryPart, $id) {
+		$query = "UPDATE in_stock set ".$queryPart. " where id=$id";
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function in_getItemInStock($field, $val) {
+		$query = "SELECT * from in_stock where inStock=1 and $field='".$val."'";
 		$this->db_object->query_db($query);
 		
-		return $this->db_object->getResultArray();
+		return $this->db_object->getResultSet();
+	}
+	
+	public function in_getClients() {
+		$query = "SELECT * from in_clients";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
 	}
 	
 	public function misc_getUserModules($username) {

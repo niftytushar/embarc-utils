@@ -9,6 +9,10 @@ function init() {
         case "/embarc-utils/inventory/stock_out.php":
             stock_out.initialize();
             break;
+
+        case "/embarc-utils/inventory/preferences.php":
+            preferences.initialize();
+            break;
     }
 }
 
@@ -80,7 +84,7 @@ var stock_in = {
             async: true,
             success: function (data) {
                 data = getJSONFromString(data);
-
+                
                 //save list of trackers
                 self.trackers = data;
 
@@ -172,29 +176,73 @@ var stock_in = {
 
 var stock_out = {
     initialize: function () {
+        var self = this;
+
         //initialize datepicker
         $('.datepicker').datepicker({
             'autoclose': true,
             'format': "dd/mm/yyyy"
         });
 
-        //initialize typeahead on serial number
-        $("#imei").typeahead({
-            name: "imei",
-            prefetch: "/embarc-utils/php/main.php?util=inventory&fx=getItemsInStock&prop=imei",
-            //remote: "/embarc-utils/php/main.php?util=inventory&fx=getItemsInStock&prop=imei"
+        var $out_invoice = $("#out_invoice");
+
+        //initially, set focus to invoice number
+        $out_invoice.focus();
+
+        $("#imei").on("blur", function () {
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: "/embarc-utils/php/main.php?util=inventory&fx=getItemInStock&prop=imei&val=" + $(this).val(),
+                success: function (data) {
+                    if (strncmp(data, "ERROR", 5)) {
+                        alert("this item does is not available in stock. add this item to continue.");
+                        $("#serial").val("");
+                        $("#model").val("");
+                        $("#id").val("");
+                    } else {
+                        data = getJSONFromString(data);
+                        $("#serial").val(data["serial"]);
+                        $("#model").val(data["model"]);
+                        $("#id").val(data["id"]);
+                    }
+                }
+            });
         });
 
-        stock_in.getTrackersList.apply(this);
+        $("#stockOutForm").on("submit", function () {
+            self.saveStockOut();
+
+            return false;
+        });
+
+        //get list of clients
+        this.getClients();
+
+        //fill in default values
+        this.setDefaults();
     },
 
-    trackers: [],
+    getClients: function () {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getClients",
+            async: true,
+            success: function (data) {
+                data = getJSONFromString(data);
+                
+                //fill clients list in client select drop down
+                fillDropDown("#clientID", data, "name", "id");
+            }
+        });
+    },
 
     defaults: {
         'serial': "",
         'imei': "",
         'out_warranty': "12",
-        'model': "VT-60",
         'dateOfSale': "today",
         'out_invoice_no': ""
     },
@@ -210,4 +258,32 @@ var stock_out = {
                 $("#" + key).val(value);
         });
     },
+
+    saveStockOut: function () {
+        var jsn = createObject(["stockOutForm"]),
+            self = this;
+        dropElements(jsn, ["model", "serial"]);
+        jsn.dateOfSale = getFormattedDate(jsn.dateOfSale);
+        
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=inventory&fx=updateStockItem",
+            data: jsn,
+            success: function (result) {
+                debugger;
+            }
+        });
+    }
+};
+
+var preferences = {
+    initialize: function () {
+        stock_in.getTrackersList.apply(this);
+    },
+
+    trackers: [],
+
+    setDefaults: function () {
+    }
 };

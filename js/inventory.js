@@ -194,11 +194,12 @@ var stock_out = {
         //initially, set focus to invoice number
         $out_invoice.focus();
 
+        $imei.on("blur", this.checkForItemInStock);
+
         $imei.keypress(function (ev) {
             if (ev.which === 13) {
                 ev.preventDefault();
-                //self.checkForItemInStock();
-                self.checkForItemInStock.apply($imei);
+                $imei.blur();
             }
         });
 

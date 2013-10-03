@@ -173,3 +173,8 @@ FormFiller.prototype.fillData = function(dataObj)
 function gotoPage(pageName) {
 	window.location = pageName;
 }
+
+//get cookie from browser, for key provided
+function getCookieValue(key) {
+    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+}

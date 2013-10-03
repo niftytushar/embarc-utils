@@ -7,9 +7,42 @@
     <title>Embarc Utilities</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="/embarc-utils/js/sha256.min.js"></script>
+    <script src="/embarc-utils/js/common.js"></script>
+    <script>
+
+        function init() {
+            var username = getCookieValue("username");
+            if (username) $("#username").val(username);
+
+            if (!$("#username").val()) {
+                $("#username").focus();
+            } else {
+                $("#hash").focus();
+            }
+        }
+
+        function postForm() {
+            var jsdata = createObject(["loginForm"]);
+            jsdata.hash = CryptoJS.SHA256(jsdata.hash).toString(CryptoJS.enc.Hex);
+            
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: "/embarc-utils/php/main.php?util=login&fx=login",
+                data: jsdata,
+                success: function (result) {
+                    if (strncmp(result, "success", 7)) {
+                        window.location = "/embarc-utils/dashboard.php";
+                    } else {
+                        window.location = "/embarc-utils/login.html?au=" + result;
+                    }
+                }
+            });
+        }
+    </script>
 
     <style type="text/css">
       body {
@@ -25,11 +58,11 @@
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,.05);
       }
       .form-signin .form-signin-heading,
       .form-signin .checkbox {
@@ -50,15 +83,15 @@
     <![endif]-->
 
 </head>
-<body>
+<body onload="init();">
         <div class="container">
 
-      <form class="form-signin" method="post" action="/embarc-utils/php/main.php?util=login&fx=login" onsubmit="this.hash.value = CryptoJS.SHA256(this.hash.value).toString(CryptoJS.enc.Hex);">
+      <form class="form-signin" id="loginForm" onsubmit="postForm(); return false;">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Username" name="username">
-        <input type="password" class="input-block-level" placeholder="Password" name="hash">
+        <input type="text" class="input-block-level" placeholder="Username" name="username" id="username" />
+        <input type="password" class="input-block-level" placeholder="Password" name="hash" id="hash" />
         <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
+          <input type="checkbox" name="remember" checked="checked" /> Remember me
         </label>
         <button class="btn btn-large btn-primary" type="submit">Sign in</button>
       </form>

@@ -152,6 +152,118 @@ INSERT INTO `cs_settings` VALUES ('DHL','{\"dollarValue\":\"50\",\"euroValue\":\
 UNLOCK TABLES;
 
 --
+-- Table structure for table `in_clients`
+--
+
+DROP TABLE IF EXISTS `in_clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `in_clients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `in_clients`
+--
+
+LOCK TABLES `in_clients` WRITE;
+/*!40000 ALTER TABLE `in_clients` DISABLE KEYS */;
+INSERT INTO `in_clients` VALUES (1,'Embarc Information Technology');
+/*!40000 ALTER TABLE `in_clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `in_stock`
+--
+
+DROP TABLE IF EXISTS `in_stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `in_stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `imei` varchar(32) NOT NULL,
+  `serial` varchar(32) NOT NULL,
+  `model` varchar(8) NOT NULL,
+  `dateOfPurchase` date NOT NULL,
+  `in_invoice` varchar(32) NOT NULL,
+  `in_username` varchar(128) NOT NULL,
+  `dateOfSale` date DEFAULT NULL,
+  `clientID` int(8) DEFAULT NULL,
+  `out_invoice` varchar(32) NOT NULL,
+  `out_warranty` int(8) NOT NULL,
+  `out_username` varchar(128) NOT NULL,
+  `inStock` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='complete stock in/out';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `in_stock`
+--
+
+LOCK TABLES `in_stock` WRITE;
+/*!40000 ALTER TABLE `in_stock` DISABLE KEYS */;
+INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(9,'5645','15165','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(12,'651','5641561','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(13,'651466513','51','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1);
+/*!40000 ALTER TABLE `in_stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `in_trackers`
+--
+
+DROP TABLE IF EXISTS `in_trackers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `in_trackers` (
+  `model` varchar(8) NOT NULL,
+  `vendorName` varchar(32) NOT NULL,
+  `vendorModel` varchar(32) NOT NULL,
+  `warranty` int(8) DEFAULT '12',
+  PRIMARY KEY (`model`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='list of available trackers';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `in_trackers`
+--
+
+LOCK TABLES `in_trackers` WRITE;
+/*!40000 ALTER TABLE `in_trackers` DISABLE KEYS */;
+INSERT INTO `in_trackers` VALUES ('FS-64','System & Technology Corp.','A1',12),('VT-20','Wonde Proud','VT-200',12),('VT-60','Teltonika','FM-1100',12),('VT-62','Teltonika','FM-1200',12),('VT-70','Teltonika','FM-4200',12),('VT-80','Teltonika','FM-5300',12);
+/*!40000 ALTER TABLE `in_trackers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `modules`
+--
+
+DROP TABLE IF EXISTS `modules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `modules` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `description` varchar(128) NOT NULL,
+  `image` varchar(64) NOT NULL COMMENT 'image icon of module',
+  `href` varchar(128) NOT NULL COMMENT 'linked page of module',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='list of modules';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `modules`
+--
+
+LOCK TABLES `modules` WRITE;
+/*!40000 ALTER TABLE `modules` DISABLE KEYS */;
+INSERT INTO `modules` VALUES (1,'DHL Courier Service','Calculate courier package costs','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png','');
+/*!40000 ALTER TABLE `modules` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -161,6 +273,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
+  `modules` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -172,7 +285,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('embarc','embarc123#'),('tushar','123');
+INSERT INTO `users` VALUES ('embarc','embarc123#','1'),('tushar','123','1,2');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -185,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-09-06 12:58:03
+-- Dump completed on 2013-10-03 16:23:26

@@ -2,6 +2,7 @@
 session_start();
 
 require_once("mysql_interface.php");
+require_once('login.php');
 
 switch ($_GET['util']) {
 	case "courier":
@@ -27,20 +28,17 @@ switch ($_GET['util']) {
 
 function login($fx)
 {
+	$login = new LOGIN();
+	
 	switch ($fx)
 	{
 		case "login":
-			require_once('login.php');
-			$login = new LOGIN();
-			$login->verify($_POST['username'], $_POST['hash']);
-			echo $_POST['hash'];
+			echo $login->authenticate($_POST['username'], $_POST['hash'], $_POST['remember']);
 			break;
 			
 		case "logout":
-			require_once('sessions.php');
-			unset($_SESSION['user']);
-			$session = new SESSIONS();
-			$session->check();
+			$login->logout();
+			header("Location: /embarc-utils/login.html");
 			break;
 	}
 }

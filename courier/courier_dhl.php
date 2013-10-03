@@ -56,7 +56,7 @@ $session->check();
                 <label class="col-lg-2 control-label" for="weight">Weight</label>
                 <div class="col-lg-4">
                 	<div class="input-group">
-                    	<input type="text" class="form-control" id="weight" name="weight" placeholder="Weight">	
+                    	<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight">	
                         <span class="input-group-addon">kgs</span>
                     </div>                 					
                 </div>

@@ -33,5 +33,17 @@ class MISC
 		
 		return $allowedModules;
 	}
+	
+	public function getPreferences($module) {
+		return json_decode($this->mInterface->misc_getPreferences($_SESSION["user"], $module)[0]);
+	}
+	
+	public function savePreferences($module, $postData) {
+		if($this->mInterface->misc_savePreferences($_SESSION["user"], $module, json_encode($postData))) {
+			return "success";
+		} else {
+			return "error";
+		}
+	}
 }
 ?>

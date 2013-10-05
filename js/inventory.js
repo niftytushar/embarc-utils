@@ -92,7 +92,7 @@ var stock_in = {
                 fillDropDown("#model", self.trackers, "model", "model");
 
                 //set default values
-                self.setDefaults();
+                if (self.setDefaults) self.setDefaults();
             }
         });
     },
@@ -212,11 +212,20 @@ var stock_out = {
                 $(element).parent().removeClass("has-error");
             },
             submitHandler: function (form) {
-                //call method to submit this form
-                self.saveStockOut();
+                //set current state of submit button to loading
+                $("#saveStockButton").button('loading');
 
-                //focus on serial number to start again quickly
-                $imei.focus();
+                //call method to submit this form after a few wait seconds
+                window.setTimeout(function () {
+                    self.saveStockOut();
+
+                    //reset button loading state
+                    $("#saveStockButton").button('reset');
+
+                    //focus on serial number to start again quickly
+                    $imei.focus();
+                }, 2000);
+
                 return false;
             }
         });
@@ -353,11 +362,73 @@ var stock_out = {
 
 var preferences = {
     initialize: function () {
+        var self = this;
+
         stock_in.getTrackersList.apply(this);
+
+        $("#preferencesForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                self.savePreferences();
+
+                return false;
+            }
+        });
+    },
+
+    setDefaults: function () {
+        //fill default preferences
+        this.getPreferences();
+    },
+
+    getPreferences: function () {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=misc&fx=getPreferences&module=2",
+            success: function (data) {
+                try {
+                    data = getJSONFromString(data);
+                } catch (ex) {
+                    console("Inventory: preferences not found");
+                    return;
+                }
+
+                self.fill(data);
+            }
+        });
+    },
+
+    savePreferences: function () {
+        var jsdata = createObject(["preferencesForm"]);
+        
+        $.ajax({
+            type: "POST",
+            async: true,
+            data: jsdata,
+            url: "/embarc-utils/php/main.php?util=misc&fx=savePreferences&module=2",
+            success: function (result) {
+                if (strncmp(result, "success", 7)) {
+                    alert("Preferences saved successfully.");
+                } else {
+                    alert("Unable to save preferences.");
+                }
+            }
+        });
     },
 
     trackers: [],
 
-    setDefaults: function () {
+    fill: function (prefs) {
+        var formFiller = new FormFiller(document.getElementById("preferencesForm", ""));
+
+        formFiller.fillData(prefs);
     }
 };

@@ -206,7 +206,7 @@ CREATE TABLE `in_stock` (
 
 LOCK TABLES `in_stock` WRITE;
 /*!40000 ALTER TABLE `in_stock` DISABLE KEYS */;
-INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',0),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(9,'5645','15165','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',0),(12,'651','5641561','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(13,'651466513','51','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar',NULL,NULL,'',0,'',1);
+INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(9,'5645','15165','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(12,'651','5641561','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(13,'651466513','51','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1);
 /*!40000 ALTER TABLE `in_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,6 +264,30 @@ INSERT INTO `modules` VALUES (1,'DHL Courier Service','Calculate courier package
 UNLOCK TABLES;
 
 --
+-- Table structure for table `preferences`
+--
+
+DROP TABLE IF EXISTS `preferences`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `preferences` (
+  `username` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `module` tinyint(4) NOT NULL,
+  `preference` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `preferences`
+--
+
+LOCK TABLES `preferences` WRITE;
+/*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
+INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"1\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"1\",\"autoSaveOUT\":\"0\",\"model\":\"VT-62\"}');
+/*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -298,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-03 16:23:26
+-- Dump completed on 2013-10-05 18:55:43

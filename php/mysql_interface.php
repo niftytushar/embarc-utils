@@ -126,5 +126,24 @@ class MYSQL_INTERFACE
 		
 		return $this->db_object->getResultSet();
 	}
+	
+	public function misc_getPreferences($username, $module) {
+		$query = "SELECT preference from preferences where username='".$username."' and module=".$module;
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultRow();
+	}
+	
+	public function misc_savePreferences($username, $module, $prefsJSON) {
+		$prefsJSON = $this->db_object->escapeString($prefsJSON);
+		
+		if($this->misc_getPreferences($username, $module)) {
+			$query = "UPDATE preferences set preference='".$prefsJSON."' where username='".$username."' and module=".$module;
+		} else {
+			$query = "INSERT INTO preferences set username='".$username."',module=".$module.",preference=".$prefsJSON;
+		}
+		
+		return $this->db_object->query_db($query);
+	}
 }
 ?>

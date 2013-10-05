@@ -133,6 +133,14 @@ function misc($fx)
 			if(gettype($modules) == "string") echo $modules;
 			else echo json_encode($modules);
 			break;
+			
+		case "getPreferences":
+			echo json_encode($misc->getPreferences($_GET["module"]));
+			break;
+			
+		case "savePreferences":
+			echo $misc->savePreferences($_GET["module"], $_POST);
+			break;
 	}
 }
 ?>

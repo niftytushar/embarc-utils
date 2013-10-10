@@ -13,6 +13,10 @@ function init() {
         case "/embarc-utils/inventory/preferences.php":
             preferences.initialize();
             break;
+
+        case "/embarc-utils/inventory/stock_finder.php":
+            stock_finder.initialize();
+            break;
     }
 }
 
@@ -40,17 +44,25 @@ var stock_in = {
                 $(element).parent().removeClass("has-error");
             },
             submitHandler: function (form) {
-                //call method to submit this form
-                self.saveStock();
+                //set current state of submit button to loading
+                $("#saveStockButton").button('loading');
 
-                //focus on serial number to start again quickly
-                $("#serial").focus();
+                window.setTimeout(function () {
+                    //call method to submit this form
+                    self.saveStock();
+
+                    //reset state of submit button
+                    $("#saveStockButton").button('reset');
+
+                    //focus on serial number to start again quickly
+                    $("#serial").focus();
+                }, (self.defaults.waitTime * 1000));
                 return false;
             }
         });
 
         var $in_invoice = $("#in_invoice"),
-            $serial = $("#serial");
+            $serial = $("#serial")
 
         //set focus to invoice number by default
         $in_invoice.focus();
@@ -73,6 +85,9 @@ var stock_in = {
 
         //fetch list of trackers from server
         this.getTrackersList();
+
+        //fetch preferences and update defaults
+        preferences.get.apply(this, [this.updateDefaults]);
     },
 
     getTrackersList: function () {
@@ -109,24 +124,45 @@ var stock_in = {
     defaults: {
         'serial': "",
         'imei': "",
-        'warranty': "12",
-        'model': "VT-60",
-        'vendor': "Teltonika",
+        'model': "VT-62",
         'dateOfPurchase': "today",
         'invoice_no': ""
     },
 
     trackers: [],
 
+    updateDefaults: function (preferences) {
+        if (!preferences) preferences = {};
+
+        this.defaults['autoSave'] = + preferences.autoSaveIN || 0;
+        this.defaults['model'] = preferences.model || this.defaults.model;
+        this.defaults['waitTime'] = + preferences.waitTimeIN || 1;
+
+        //disable auto save if required
+        if (!this.defaults.autoSave) {
+            //prevent form submit on enter press on IMEI number (useful when scanned via barcode scanner)
+            $("#imei").keypress(function (ev) {
+                if (ev.which === 13) {
+                    ev.preventDefault();
+                }
+            });
+        }
+    },
+
     //set default values for each form field
     setDefaults: function () {
+        var self = this;
+
         $.each(this.defaults, function (key, value) {
             //set today's date
-            if(key === "dateOfPurchase" && value === "today")
+            if (key === "dateOfPurchase" && value === "today") {
                 $('.datepicker').datepicker('setDate', new Date());
-            else
+            } else {
+                if (key == "model") self.fillModelDetails(value);
+
                 //set all other values
                 $("#" + key).val(value);
+            }
         });
     },
 
@@ -224,7 +260,7 @@ var stock_out = {
 
                     //focus on serial number to start again quickly
                     $imei.focus();
-                }, 2000);
+                }, (self.defaults.waitTime * 1000));
 
                 return false;
             }
@@ -233,12 +269,13 @@ var stock_out = {
         //get list of clients
         this.getClients();
 
-        //fill in default values
-        this.setDefaults();
+        //fetch preferences and update defaults
+        preferences.get.apply(this, [this.updateDefaults]);
     },
 
     checkForItemInStock: function () {
-        var $errorMsg = $("#errorMessage-1"),
+        var self = this,
+            $errorMsg = $("#errorMessage-1"),
                     $imei_no_exist = $("#errorMessage-2"),
                     $successMsg = $("#successMessage-1");
 
@@ -269,7 +306,8 @@ var stock_out = {
                     $("#model").val(data["model"]);
                     $("#id").val(data["id"]);
                     
-                    $("#stockOutForm").submit();
+                    //submit form if preference allows
+                    if(self.defaults.autoSave) $("#stockOutForm").submit();
                 }
             }
         });
@@ -297,6 +335,17 @@ var stock_out = {
         'out_warranty': "12",
         'dateOfSale': "today",
         'out_invoice_no': ""
+    },
+
+    updateDefaults: function (preferences) {
+        if (!preferences) preferences = {};
+
+        this.defaults['autoSave'] = +preferences.autoSaveOUT || 0;
+        this.defaults['waitTime'] = +preferences.waitTimeOUT || 1;
+        this.defaults['out_warranty'] = +preferences.out_warranty || this.defaults.out_warranty;
+
+        //fill in default values
+        this.setDefaults();
     },
 
     //set default values for each form field
@@ -366,6 +415,9 @@ var preferences = {
 
         stock_in.getTrackersList.apply(this);
 
+        //remove independent 'required' messages
+        jQuery.validator.messages.required = "";
+
         $("#preferencesForm").validate({
             highlight: function (element, errorClass, validClass) {
                 $(element).parent().addClass("has-error");
@@ -377,16 +429,23 @@ var preferences = {
                 self.savePreferences();
 
                 return false;
+            },
+            invalidHandler: function (ev, validator) {
+                if (validator.numberOfInvalids()) {
+                    $("#errorMessage-1").show();
+                } else {
+                    $("#errorMessage-1").hide();
+                }
             }
         });
     },
 
     setDefaults: function () {
         //fill default preferences
-        this.getPreferences();
+        this.get(this.fill);
     },
 
-    getPreferences: function () {
+    get: function (callback) {
         var self = this;
 
         $.ajax({
@@ -401,12 +460,15 @@ var preferences = {
                     return;
                 }
 
-                self.fill(data);
+                if (callback) callback.apply(self, [data]);
             }
         });
     },
 
     savePreferences: function () {
+        $("#errorMessage-1").hide();
+        $("#successMessage-1").hide();
+
         var jsdata = createObject(["preferencesForm"]);
         
         $.ajax({
@@ -416,9 +478,13 @@ var preferences = {
             url: "/embarc-utils/php/main.php?util=misc&fx=savePreferences&module=2",
             success: function (result) {
                 if (strncmp(result, "success", 7)) {
-                    alert("Preferences saved successfully.");
+                    $("#successMessage-1").show();
+
+                    window.setTimeout(function () {
+                        $("#successMessage-1").hide();
+                    }, 5000);
                 } else {
-                    alert("Unable to save preferences.");
+                    $("#errorMessage-1").show();
                 }
             }
         });
@@ -430,5 +496,170 @@ var preferences = {
         var formFiller = new FormFiller(document.getElementById("preferencesForm", ""));
 
         formFiller.fillData(prefs);
+    }
+};
+
+var stock_finder = {
+    initialize: function () {
+        var self = this;
+
+        //attach change event on search criteria
+        $("#stockSearchForm input[type=radio]").on("change", function () {
+            self.changeCriteria(this.value);
+        });
+
+        //start with search textbox focussed
+        $("#searchTextbox").focus();
+        
+        //get list of trackers
+        this.getTrackersList(function (trackersList) {
+            //save list of trackers
+            self.trackers = trackersList;
+
+            //if trackers list is scheduled to be filled on load
+            if (self.doFillOnLoad.models) {
+                self.fillTrackersList();
+                self.doFillOnLoad.models = false;
+            }
+        });
+
+        //get list of clients
+        this.getClientsList(function (clientsList) {
+            //save list of clients
+            self.clients = clientsList;
+
+            //if clients list is scheduled to be filled on load
+            if (self.doFillOnLoad.clients) {
+                self.fillClientsList();
+                self.doFillOnLoad.clients = false;
+            }
+        });
+
+        //find something in stock
+        $("#searchStockButton").on("click", function () {
+            self.find();
+        });
+    },
+
+    changeCriteria: function (criteria) {
+        var $searchDropdown = $("#searchDropdown"),
+            $searchTextbox = $("#searchTextbox");
+
+        $searchDropdown.val("");
+        $searchTextbox.val("");
+
+        switch (criteria) {
+            case "serial":
+            case "imei":
+                //hide dropdown and show textbox
+                $searchDropdown.hide();
+                $searchTextbox.show();
+                break;
+
+            case "model":
+                //show dropdown and hide textbox
+                $searchDropdown.show();
+                $searchTextbox.hide();
+
+                //populate list of trackers if available otherwise schedule for later
+                if (this.trackers.length > 0) {
+                    this.fillTrackersList();
+                } else {
+                    this.doFillOnLoad.models = true;
+                    this.doFillOnLoad.clients = false;
+                }
+                break;
+
+            case "client":
+                //show dropdown and hide textbox
+                $searchDropdown.show();
+                $searchTextbox.hide();
+
+                //populate list of clients if available otherwise schedule for later
+                if (this.clients.length > 0) {
+                    this.fillClientsList();
+                } else {
+                    this.doFillOnLoad.models = false;
+                    this.doFillOnLoad.clients = true;
+                }
+                break;
+        }
+    },
+
+    doFillOnLoad: {
+        models: false,
+        clients: false
+    },
+
+    trackers: [],
+
+    getTrackersList: function (callback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getTrackers",
+            async: true,
+            success: function (data) {
+                data = getJSONFromString(data);
+
+                if (callback) callback(data);
+            }
+        });
+    },
+
+    fillTrackersList: function () {
+        $("#searchDropdown").html("");
+
+        //fill trackers in model select drop down
+        fillDropDown("#searchDropdown", this.trackers, "model", "model");
+    },
+
+    clients: [],
+
+    clientsMap: {},
+
+    getClientsList: function (callback) {
+        $.ajax({
+            type: "GET",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getClients",
+            async: true,
+            success: function (data) {
+                data = getJSONFromString(data);
+
+                if (callback) callback(data);
+            }
+        });
+    },
+
+    fillClientsList: function () {
+        $("#searchDropdown").html("");
+
+        //fill clients list in client select drop down
+        fillDropDown("#searchDropdown", this.clients, "name", "id");
+    },
+
+    find: function () {
+        var jsdata = createObject(["stockSearchForm"]);
+        if (jsdata.query1 === "" && jsdata.query2 === "") return;
+
+        jsdata.query = jsdata.query1 || jsdata.query2;
+        delete jsdata.query1;
+        delete jsdata.query2;
+        
+        $.ajax({
+            type: "POST",
+            async: true,
+            data: jsdata,
+            url: "/embarc-utils/php/main.php?util=inventory&fx=search",
+            success: function (data) {
+                data = getJSONFromString(data);
+                debugger;
+            }
+        });
+    },
+
+    fillResultsInTable: function () {
+
     }
 };

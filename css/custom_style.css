@@ -4,9 +4,6 @@
     text-shadow: none;
 }
 
-body {
-}
-
 .header_wrap {
     height: auto;
     background-color: #1e1e1e;
@@ -40,6 +37,14 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 
 .links {
     padding-top: 10px;
+}
+.sold{
+	color:#F30;
+	font-weight:bold;
+}
+.stock{
+	color:#090;
+	font-weight:bold;
 }
 
 @media (max-width: 480px) {

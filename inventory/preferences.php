@@ -57,10 +57,14 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
+	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Preferences successfully saved. </div>
 
           <form class="form-horizontal" role="form" id="preferencesForm">
-		  <h3>Stock IN</h3>
+		  <div class="row">
+          <h3>Stock IN</h3>
           <hr>
+          </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
@@ -75,7 +79,7 @@ $session->check();
 					<span class="input-group-addon">seconds</span>
                 </div>
             </div>
-			
+			<div class="form-group">
             <div class="col-lg-offset-4 col-lg-4 margin-bottom">
 				<div class="checkbox">
 					<label>
@@ -83,9 +87,11 @@ $session->check();
 					</label>
 				</div>         
 			</div>
-			
+			</div>
+			<div class="row">
 			<h3>Stock OUT</h3>
 			<hr>
+			</div>
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="model">Warranty Provided</label>
                 <div class="col-lg-4">

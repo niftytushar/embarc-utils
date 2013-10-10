@@ -118,6 +118,10 @@ function inventory($fx)
 		case "getClients":
 			echo json_encode($inventory->getClients());
 			break;
+			
+		case "search":
+			echo json_encode($inventory->findItems($_POST));
+			break;
 	}
 }
 

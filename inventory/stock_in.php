@@ -112,7 +112,7 @@ $session->check();
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="submit" class="btn btn-default" id="saveStockButton">Submit</button>
+                <button type="submit" class="btn btn-default" id="saveStockButton" data-loading-text="Saving...">Submit</button>
             </div>
         </form>      
     </div>

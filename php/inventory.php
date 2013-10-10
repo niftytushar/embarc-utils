@@ -65,5 +65,17 @@ class STOCK
 	public function getClients() {
 		return $this->mInterface->in_getClients();
 	}
+	
+	public function findItems($data) {
+		if($data["wholeWord"] == 1) {
+			$queryPart = $data["criteria"]."='".$data["query"]."'";
+		} else {
+			$queryPart = $data["criteria"]." like '%".$data["query"]."%'";
+		}
+		
+		if($data["inStock"] == 0) $queryPart .= " and inStock=0";
+		
+		return $this->mInterface->in_matchStock($data["count"], $queryPart);
+	}
 }
 ?>

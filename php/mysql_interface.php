@@ -106,6 +106,20 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
+	public function in_matchStock($isCount, $queryPart) {
+		$query = "";
+		if($isCount == 1) {
+			$query = "SELECT count(*) from in_stock where ";
+		} else {
+			$query = "SELECT * from in_stock where ";
+		}
+		$query .= $queryPart;
+				
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
 	public function in_getClients() {
 		$query = "SELECT * from in_clients";
 		$this->db_object->query_db($query);
@@ -140,7 +154,7 @@ class MYSQL_INTERFACE
 		if($this->misc_getPreferences($username, $module)) {
 			$query = "UPDATE preferences set preference='".$prefsJSON."' where username='".$username."' and module=".$module;
 		} else {
-			$query = "INSERT INTO preferences set username='".$username."',module=".$module.",preference=".$prefsJSON;
+			$query = "INSERT INTO preferences set username='".$username."',module=".$module.",preference='".$prefsJSON."'";
 		}
 		
 		return $this->db_object->query_db($query);

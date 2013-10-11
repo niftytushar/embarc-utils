@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `in_clients`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `in_clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -197,7 +197,7 @@ CREATE TABLE `in_stock` (
   `out_username` varchar(128) NOT NULL,
   `inStock` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='complete stock in/out';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='complete stock in/out';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `in_stock` (
 
 LOCK TABLES `in_stock` WRITE;
 /*!40000 ALTER TABLE `in_stock` DISABLE KEYS */;
-INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(9,'5645','15165','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(12,'651','5641561','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(13,'651466513','51','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1);
+INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(9,'5645','15165','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(12,'651','5641561','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(13,'651466513','51','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar','2013-10-10',1,'',12,'tushar',0),(15,'456456','45645','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(17,'45687658765','456456','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(18,'2567865','45465','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(21,'6784536345756','678567','VT-62','2013-10-11','','tushar',NULL,NULL,'',0,'',1);
 /*!40000 ALTER TABLE `in_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +223,7 @@ CREATE TABLE `in_trackers` (
   `vendorModel` varchar(32) NOT NULL,
   `warranty` int(8) DEFAULT '12',
   PRIMARY KEY (`model`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='list of available trackers';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of available trackers';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,7 +283,6 @@ CREATE TABLE `preferences` (
 
 LOCK TABLES `preferences` WRITE;
 /*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"1\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"1\",\"autoSaveOUT\":\"0\",\"model\":\"VT-62\"}');
 /*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -300,7 +299,7 @@ CREATE TABLE `users` (
   `modules` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`username`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-05 18:55:43
+-- Dump completed on 2013-10-11 22:03:18

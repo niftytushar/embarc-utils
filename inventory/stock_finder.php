@@ -12,9 +12,11 @@ $session->check();
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
+	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
     <script src="/embarc-utils/js/inventory.js"></script>
 
@@ -62,23 +64,28 @@ $session->check();
               <div class="text-center">
 			  
 				<label class="radio-inline">
-                  <input type="radio" name="criteria" id="imei" value="imei" checked>
+                  <input type="radio" name="criteria" value="imei" checked>
                   IMEI
                 </label>
 				
                 <label class="radio-inline">
-                  <input type="radio" name="criteria" id="model" value="model">
+                  <input type="radio" name="criteria" value="model">
                   Model
                 </label>
              
                 <label class="radio-inline">
-                  <input type="radio" name="criteria" id="serial" value="serial" >
+                  <input type="radio" name="criteria" value="serial" >
                   Serial
                 </label>
              
                 <label class="radio-inline">
-                  <input type="radio" name="criteria" id="client" value="client" >
+                  <input type="radio" name="criteria" value="clientID" >
                   Client
+                </label>
+				
+				<label class="radio-inline">
+                  <input type="radio" name="criteria" value="dateOfSale" >
+                  Sales Date
                 </label>
               </div>
             </div>
@@ -88,10 +95,16 @@ $session->check();
                   <div class="panel-body">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="inStock">
-                        Include items in stock
+                        <input type="checkbox" name="inStock_ex">
+                        Exclude items in stock
                       </label>
-                    </div>                
+                    </div>
+					<div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="outStock_ex">
+                        Exclude items out of stock
+                      </label>
+                    </div>
                   <div class="checkbox">
                       <label>
                         <input type="checkbox" name="count">
@@ -120,7 +133,27 @@ $session->check();
                 </div>
             </div>                         
         </form>  
-        <div class="container" style="margin-top:20px;">
+        <div class="container" style="margin-top:20px; display:none;" id="noResults">
+        <div class="row">
+        	<div class="col-lg-12">
+            	<div class="div-parameter">
+                    <ul class="list-group custom-list-group">
+                        <li class="list-group-item defult-list-element text-center"><em><strong>Sorry!</strong> No results found</em></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="container" style="margin-top:20px; display:none;" id="countResultContainer">
+        <div class="row">
+        	<div class="col-lg-12">
+            	<div class="well well-lg">
+                	<h3>Found&nbsp;<span id="countResult"></span>&nbsp;item(s)&nbsp;matching&nbsp;this&nbsp;query</h3>
+                </div>
+            </div>
+        </div>
+        </div>        
+        <div class="container" style="margin-top:20px; display:none;" id="tableResultContainer">
         <div class="row">
         	<div class="col-lg-12">
             	<div class="table-responsive">                
@@ -140,34 +173,7 @@ $session->check();
                         <th>Out by</th>                        
                       </tr>
                       </thead>
-                      <tbody>
-                      <tr>
-                      	<td class="sold">Sold</td>
-                      	<td>210001212</td>
-                        <td>DF34343434</td>
-                        <td>VT-20</td>
-                        <td>12-08-2012</td>
-                        <td>2034</td>
-                        <td>Pritpal</td>
-                        <td>01-01-2013</td>
-                        <td>Anil</td>
-                        <td>1001</td>
-                        <td>Akhil</td>                        
-                      </tr>
-                      <tr>
-                      	<td class="stock">In Stock</td>
-                      	<td>210001212</td>
-                        <td>DF34343434</td>
-                        <td>VT-20</td>
-                        <td>12-08-2012</td>
-                        <td>2034</td>
-                        <td>Pritpal</td>
-                        <td>01-01-2013</td>
-                        <td>Anil</td>
-                        <td>1001</td>
-                        <td>Akhil</td>                        
-                      </tr>
-                      </tbody>
+                      <tbody id="tableResult"></tbody>
                     </table>
 				</div>
             </div>

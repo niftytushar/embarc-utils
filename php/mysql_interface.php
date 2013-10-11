@@ -117,7 +117,12 @@ class MYSQL_INTERFACE
 				
 		$this->db_object->query_db($query);
 		
-		return $this->db_object->getResultSet();
+		if($isCount == 1) {
+			return $this->db_object->getResultRow()[0];
+		} else {
+			return $this->db_object->getResultSet();
+		}
+		
 	}
 	
 	public function in_getClients() {

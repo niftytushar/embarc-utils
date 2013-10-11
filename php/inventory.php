@@ -73,7 +73,8 @@ class STOCK
 			$queryPart = $data["criteria"]." like '%".$data["query"]."%'";
 		}
 		
-		if($data["inStock"] == 0) $queryPart .= " and inStock=0";
+		if($data["inStock_ex"] == 1) $queryPart .= " and inStock<>1";
+		if($data["outStock_ex"] == 1) $queryPart .= " and inStock<>0";
 		
 		return $this->mInterface->in_matchStock($data["count"], $queryPart);
 	}

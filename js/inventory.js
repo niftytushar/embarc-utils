@@ -17,6 +17,10 @@ function init() {
         case "/embarc-utils/inventory/stock_finder.php":
             stock_finder.initialize();
             break;
+
+        case "/embarc-utils/inventory/clients.php":
+            clients.initialize();
+            break;
     }
 }
 
@@ -528,6 +532,11 @@ var stock_finder = {
             //save list of clients
             self.clients = clientsList;
 
+            //fill clients mapper
+            for (var i = 0, l = self.clients.length; i < l; i++) {
+                self.clientsMap[self.clients[i].id] = self.clients[i].name;
+            }
+
             //if clients list is scheduled to be filled on load
             if (self.doFillOnLoad.clients) {
                 self.fillClientsList();
@@ -537,7 +546,13 @@ var stock_finder = {
 
         //find something in stock
         $("#searchStockButton").on("click", function () {
-            self.find();
+            self.find(self.fillResultsInTable);
+        });
+
+        //initialize datepicker
+        $("#searchTextbox").datepicker({
+            'autoclose': true,
+            'format': "yyyy-mm-dd"
         });
     },
 
@@ -547,15 +562,9 @@ var stock_finder = {
 
         $searchDropdown.val("");
         $searchTextbox.val("");
+        $searchTextbox.datepicker("hide");
 
         switch (criteria) {
-            case "serial":
-            case "imei":
-                //hide dropdown and show textbox
-                $searchDropdown.hide();
-                $searchTextbox.show();
-                break;
-
             case "model":
                 //show dropdown and hide textbox
                 $searchDropdown.show();
@@ -570,7 +579,7 @@ var stock_finder = {
                 }
                 break;
 
-            case "client":
+            case "clientID":
                 //show dropdown and hide textbox
                 $searchDropdown.show();
                 $searchTextbox.hide();
@@ -582,6 +591,22 @@ var stock_finder = {
                     this.doFillOnLoad.models = false;
                     this.doFillOnLoad.clients = true;
                 }
+                break;
+
+            case "dateOfSale":
+                //hide dropdown and show textbox
+                $searchDropdown.hide();
+                $searchTextbox.show();
+
+                //show datepicker and set todays date to current date
+                $searchTextbox.datepicker("show");
+                $searchTextbox.datepicker("setDate", new Date());
+                break;
+
+            default:
+                //hide dropdown and show textbox
+                $searchDropdown.hide();
+                $searchTextbox.show();
                 break;
         }
     },
@@ -639,8 +664,9 @@ var stock_finder = {
         fillDropDown("#searchDropdown", this.clients, "name", "id");
     },
 
-    find: function () {
-        var jsdata = createObject(["stockSearchForm"]);
+    find: function (callback) {
+        var self = this,
+            jsdata = createObject(["stockSearchForm"]);
         if (jsdata.query1 === "" && jsdata.query2 === "") return;
 
         jsdata.query = jsdata.query1 || jsdata.query2;
@@ -654,12 +680,78 @@ var stock_finder = {
             url: "/embarc-utils/php/main.php?util=inventory&fx=search",
             success: function (data) {
                 data = getJSONFromString(data);
-                debugger;
+                
+                if (callback) callback.apply(self, [data, +jsdata.count]);
             }
         });
     },
 
-    fillResultsInTable: function () {
+    fillResultsInTable: function (results, isCount) {
+        var $tableResult = $("#tableResult"),
+            $countResult = $("#countResult");
 
+        //clear all previous results
+        $tableResult.html("");
+        $countResult.html("");
+
+        //hide all containers
+        $("#tableResultContainer").hide();
+        $("#countResultContainer").hide();
+        $("#noResults").hide();
+
+        //populate new results
+        if (isCount) {
+            $("#countResultContainer").show();            
+
+            $countResult.html(results);
+        } else {
+            
+            var l = results.length;
+            if (l > 0) {
+                $("#tableResultContainer").show();
+            }
+            else {                
+                $("#noResults").show();
+            }
+
+            for (var i = 0; i < l; i++) {
+                $tableResult.append(this.createResultsRow(results[i]));
+            }
+        }
+    },
+
+    createResultsRow: function (rowData) {
+        return '<tr>'+
+                    (+rowData.inStock ? "<td class=\"stock\">In Stock" : "<td class=\"sold\">Sold") + '</td>\
+                    <td>' + rowData.imei + '</td>\
+                    <td>' + rowData.serial + '</td>\
+                    <td>' + rowData.model + '</td>\
+                    <td>' + dateStampToString(rowData.dateOfPurchase) + '</td>\
+                    <td>' + rowData.in_invoice + '</td>\
+                    <td>' + rowData.in_username + '</td>\
+                    <td>' + (rowData.dateOfSale ? dateStampToString(rowData.dateOfSale) : "") + '</td>\
+                    <td>' + (rowData.clientID ? this.clientsMap[rowData.clientID] : "") + '</td>\
+                    <td>' + rowData.out_invoice + '</td>\
+                    <td>' + rowData.out_username + '</td>\
+                </tr>';
+    }
+};
+
+var clients = {
+    initialize: function () {
+
+    },
+
+    save: function () {
+        var jsdata = createObject(["newClientForm"]);
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "",
+            data: jsdata,
+            success: function (result) {
+            }
+        });
     }
 };

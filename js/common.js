@@ -79,6 +79,15 @@ function getFormattedDate(date) {
     return (m[3] + "-" + m[2] + "-" + m[1]);
 }
 
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function dateStampToString(date) {
+    if (date == null || date == "") return "";
+
+    var m = date.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    return (m[3] + " " + months[m[2]-1] + ", " + m[1]);
+}
+
 function createObject(formsList) {	//Create JSON style object to send data from form
     var inputs, selects, json = {};
     for (var i = 0; i < formsList.length; i++) {

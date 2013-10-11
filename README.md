@@ -7,6 +7,7 @@ Utilities for Embarc Information Technology
 - [ ] Employee Attendance Management
 - [ ] Inventory Management
 - [ ] Server Maintenance & Update Store
+- [ ] Password Manager
 - [ ] Settings
 
 ##Setting up the database

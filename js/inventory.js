@@ -234,7 +234,9 @@ var stock_out = {
         //initially, set focus to invoice number
         $out_invoice.focus();
 
-        $imei.on("blur", this.checkForItemInStock);
+        $imei.on("blur", function () {
+            self.checkForItemInStock($(this).val());
+        });
 
         $imei.keypress(function (ev) {
             if (ev.which === 13) {
@@ -277,7 +279,7 @@ var stock_out = {
         preferences.get.apply(this, [this.updateDefaults]);
     },
 
-    checkForItemInStock: function () {
+    checkForItemInStock: function (value) {
         var self = this,
             $errorMsg = $("#errorMessage-1"),
                     $imei_no_exist = $("#errorMessage-2"),
@@ -286,7 +288,7 @@ var stock_out = {
         $.ajax({
             type: "GET",
             async: true,
-            url: "/embarc-utils/php/main.php?util=inventory&fx=getItemInStock&prop=imei&val=" + $(this).val(),
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getItemInStock&prop=imei&val=" + value,
             success: function (data) {
                 if (strncmp(data, "ERROR", 5)) {
                     //show an error

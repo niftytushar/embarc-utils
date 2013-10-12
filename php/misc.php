@@ -21,6 +21,8 @@ class MISC
 		if($userModules == null) {
 			$allowedModules = "ERROR";
 		} else {
+			//get first user only
+			$userModules = $userModules[0];
 			
 			$allowedModules = array();
 			$userModules = explode(",", $userModules);

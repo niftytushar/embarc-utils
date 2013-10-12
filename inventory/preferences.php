@@ -34,25 +34,32 @@ $session->check();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" href="index.html">
-                        <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
-                    </a>
+                <a class="navbar-brand" href="/embarc-utils/dashboard.php">
+                        <!--<img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />-->
+                        Embarc
+				</a>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
-                    <ul class="nav navbar-nav navbar-right links">
-                        <li><a href="/embarc-utils/dashboard.php">Dashboard</a></li>
+                    <ul class="nav navbar-nav">                        
                         <li><a href="/embarc-utils/inventory/stock_in.php">Stock In</a></li>
                         <li><a href="/embarc-utils/inventory/stock_out.php">Stock Out</a></li>
                         <li><a href="/embarc-utils/inventory/stock_finder.php">Stock Finder</a></li>
-                        <li class="active"><a href="/embarc-utils/inventory/preferences.php">Preferences</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="/embarc-utils/inventory/preferences.php">Preferences</a></li>
+                              <li><a href="/embarc-utils/inventory/clients.php">Clients</a></li>
+                              <li><a href="/embarc-utils/inventory/trackers.php">Trackers</a></li>                              
+                            </ul>
+                          </li>  
+                         </ul>
+					<ul class="nav navbar-nav navbar-right">
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
                     </ul>
-                
             </div>
     	</div>
     </nav>

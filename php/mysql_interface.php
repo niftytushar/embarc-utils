@@ -118,7 +118,7 @@ class MYSQL_INTERFACE
 		$this->db_object->query_db($query);
 		
 		if($isCount == 1) {
-			return $this->db_object->getResultRow()[0];
+			return $this->db_object->getResultRow();
 		} else {
 			return $this->db_object->getResultSet();
 		}
@@ -136,7 +136,7 @@ class MYSQL_INTERFACE
 		$query = "SELECT modules from users where username='".$username."'";
 		$this->db_object->query_db($query);
 		
-		return $this->db_object->getResultRow()[0];
+		return $this->db_object->getResultRow();
 	}
 	
 	public function misc_getAllModules() {

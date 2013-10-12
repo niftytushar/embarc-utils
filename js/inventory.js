@@ -548,12 +548,6 @@ var stock_finder = {
         $("#searchStockButton").on("click", function () {
             self.find(self.fillResultsInTable);
         });
-
-        //initialize datepicker
-        $("#searchTextbox").datepicker({
-            'autoclose': true,
-            'format': "yyyy-mm-dd"
-        });
     },
 
     changeCriteria: function (criteria) {
@@ -562,7 +556,7 @@ var stock_finder = {
 
         $searchDropdown.val("");
         $searchTextbox.val("");
-        $searchTextbox.datepicker("hide");
+        $searchTextbox.datepicker("remove");
 
         switch (criteria) {
             case "model":
@@ -598,6 +592,11 @@ var stock_finder = {
                 $searchDropdown.hide();
                 $searchTextbox.show();
 
+                //initialize datepicker
+                $("#searchTextbox").datepicker({
+                    'autoclose': true,
+                    'format': "yyyy-mm-dd"
+                });
                 //show datepicker and set todays date to current date
                 $searchTextbox.datepicker("show");
                 $searchTextbox.datepicker("setDate", new Date());

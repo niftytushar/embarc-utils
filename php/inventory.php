@@ -76,7 +76,13 @@ class STOCK
 		if($data["inStock_ex"] == 1) $queryPart .= " and inStock<>1";
 		if($data["outStock_ex"] == 1) $queryPart .= " and inStock<>0";
 		
-		return $this->mInterface->in_matchStock($data["count"], $queryPart);
+		$result = $this->mInterface->in_matchStock($data["count"], $queryPart);
+		
+		if($data["count"] == 1) {
+			return $result[0];
+		} else {
+			return $result;
+		}
 	}
 }
 ?>

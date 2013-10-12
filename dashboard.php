@@ -33,19 +33,16 @@ $session->check();
             	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
-                        
-                    </button>
-                <a class="navbar-brand" href="index.html">
-                        <img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />
-                    </a>
+				</button>
+                <a class="navbar-brand" href="#">
+                        <!--<img src="/embarc-utils/images/logo.png" class="img-responsive img-resize-small" />-->
+                        Embarc
+				</a>
             </div>
-            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable links">
-            	
-                    <ul class="nav navbar-nav navbar-right links">
-                   
-                        <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
-                    </ul>
-                    
+            <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
+				</ul>
             </div>
     	</div>
     </nav>

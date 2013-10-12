@@ -37,7 +37,8 @@ class MISC
 	}
 	
 	public function getPreferences($module) {
-		return json_decode($this->mInterface->misc_getPreferences($_SESSION["user"], $module)[0]);
+		$result = $this->mInterface->misc_getPreferences($_SESSION["user"], $module);
+		return json_decode($result[0]);
 	}
 	
 	public function savePreferences($module, $postData) {

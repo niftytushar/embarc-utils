@@ -84,5 +84,25 @@ class STOCK
 			return $result;
 		}
 	}
+	
+	public function saveClient($data) {
+		$str = array();
+		foreach($data as $key=>$value) {
+			array_push($str, $key."='".$value."'");
+		}
+				
+		if($this->mInterface->in_addClient(join(",", $str))) return "SUCCESS";
+		else return "ERROR";
+	}
+	
+	public function saveTracker($data) {
+		$str = array();
+		foreach($data as $key=>$value) {
+			array_push($str, $key."='".$value."'");
+		}
+				
+		if($this->mInterface->in_addTracker(join(",", $str))) return "SUCCESS";
+		else return "ERROR";
+	}
 }
 ?>

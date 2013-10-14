@@ -8,7 +8,7 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title>Inventory - Clients</title>
+    <title>Inventory - Trackers</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
@@ -65,55 +65,62 @@ $session->check();
     </nav>
     <div class="containt container">
 
-        <form class="form-horizontal" role="form" id="addClientForm">
+        <form class="form-horizontal" role="form" id="addTrackerForm">
             <div class="form-group">
-                <label class="col-lg-4 control-label" for="name">Company Name</label>
+                <label class="col-lg-4 control-label" for="model">Model</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Company Name" required>
+                    <input type="text" class="form-control" id="model" name="model" placeholder="Model" required>
                 </div>
             </div>
 			<div class="form-group">
-                <label class="col-lg-4 control-label" for="person">Contact Person</label>
+                <label class="col-lg-4 control-label" for="vendorName">Vendor Name</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="person" name="person" placeholder="Contact Person">
+                    <input type="text" class="form-control" id="vendorName" name="vendorName" placeholder="Vendor Name" required>
                 </div>
             </div>
 			<div class="form-group">
-                <label class="col-lg-4 control-label" for="email">Email</label>
+                <label class="col-lg-4 control-label" for="vendorModel">Vendor Model</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <input type="text" class="form-control" id="vendorModel" name="vendorModel" placeholder="Vendor Model">
+                </div>
+            </div>
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="warranty">Warranty</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty" required>
                 </div>
             </div>
             <div class="row">
             <div class="col-lg-offset-4 col-lg-4">
-                <button type="submit" class="btn btn-default margin-bottom" id="saveClientButton" data-loading-text="Saving...">Submit</button>
+                <button type="submit" class="btn btn-default margin-bottom" id="saveTrackerButton" data-loading-text="Saving...">Submit</button>
             </div>           
             </div>                           
         </form>  
-        <div class="container" style="margin-top:20px; display: none;" id="noClients">
+        <div class="container" style="margin-top:20px; display: none;" id="noTrackers">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="div-parameter">
 						<ul class="list-group custom-list-group">
-							<li class="list-group-item defult-list-element text-center"><em><strong>Sorry!</strong> No clients available</em></li>
+							<li class="list-group-item defult-list-element text-center"><em><strong>Sorry!</strong> No trackers available</em></li>
 						</ul>
 					</div>
 				</div>
 			</div>
         </div>
-        <div class="container" style="margin-top:20px;" id="clientsListContainer">
+        <div class="container" style="margin-top:20px;" id="trackersListContainer">
         <div class="row">
         	<div class="col-lg-12">
             	<div class="table-responsive">                
                     <table class="table table-hover">
                       <thead>
                       <tr>
-                      	<th>Company Name</th>
-                      	<th>Contact Person</th>
-                        <th>Email ID</th>
+                      	<th>Model</th>
+                      	<th>Vendor Name</th>
+                        <th>Vendor Model</th>
+						<th>Warranty</th>
                       </tr>
                       </thead>
-                      <tbody id="clientsList"></tbody>
+                      <tbody id="trackersList"></tbody>
                     </table>
 				</div>
             </div>

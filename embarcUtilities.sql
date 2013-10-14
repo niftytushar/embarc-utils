@@ -161,6 +161,8 @@ DROP TABLE IF EXISTS `in_clients`;
 CREATE TABLE `in_clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `person` varchar(64) NOT NULL,
+  `email` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -171,7 +173,7 @@ CREATE TABLE `in_clients` (
 
 LOCK TABLES `in_clients` WRITE;
 /*!40000 ALTER TABLE `in_clients` DISABLE KEYS */;
-INSERT INTO `in_clients` VALUES (1,'Embarc Information Technology');
+INSERT INTO `in_clients` VALUES (1,'Embarc Information Technology','Shailendra Bansal','shailendra.bansal@findnsecure.com');
 /*!40000 ALTER TABLE `in_clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +208,7 @@ CREATE TABLE `in_stock` (
 
 LOCK TABLES `in_stock` WRITE;
 /*!40000 ALTER TABLE `in_stock` DISABLE KEYS */;
-INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(9,'5645','15165','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(12,'651','5641561','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(13,'651466513','51','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(14,'561651','1651651','VT-60','2013-09-16','','tushar','2013-10-10',1,'',12,'tushar',0),(15,'456456','45645','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(17,'45687658765','456456','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(18,'2567865','45465','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(21,'6784536345756','678567','VT-62','2013-10-11','','tushar',NULL,NULL,'',0,'',1),(22,'234324324354','434254325435','VT-62','2013-10-12','','tushar',NULL,NULL,'',0,'',1);
+INSERT INTO `in_stock` VALUES (1,'2000000001','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(2,'2000000002','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(3,'2000000003','2000000001','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(4,'2000000004','2000000004','VT-60','2013-09-16','1','tushar','2013-09-16',1,'23423',12,'tushar',1),(5,'2000000005','2000000005','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(6,'2000000006','2000000006','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(7,'2000000007','2000000007','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(8,'2000000008','2000000008','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(9,'5645','15165','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(10,'654156','6546541','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(11,'3','514561','VT-60','2013-09-16','','tushar','2013-09-16',1,'',12,'tushar',1),(12,'651','5641561','VT-60','2013-09-16','','tushar','2013-10-05',1,'',12,'tushar',1),(13,'651466513','51','VT-60','2013-09-16','','tushar','2013-10-12',1,'',12,'tushar',0),(14,'561651','1651651','VT-60','2013-09-16','','tushar','2013-10-10',1,'',12,'tushar',0),(15,'456456','45645','VT-62','2013-07-08','','tushar','2013-07-08',1,'',1,'tushar',0),(17,'45687658765','456456','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(18,'2567865','45465','VT-62','2013-10-08','','tushar','2013-10-08',1,'',15,'tushar',0),(21,'6784536345756','678567','VT-62','2013-10-11','','tushar',NULL,NULL,'',0,'',1),(22,'234324324354','434254325435','VT-62','2013-10-12','','tushar',NULL,NULL,'',0,'',1);
 /*!40000 ALTER TABLE `in_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +234,7 @@ CREATE TABLE `in_trackers` (
 
 LOCK TABLES `in_trackers` WRITE;
 /*!40000 ALTER TABLE `in_trackers` DISABLE KEYS */;
-INSERT INTO `in_trackers` VALUES ('FS-64','System & Technology Corp.','A1',12),('VT-20','Wonde Proud','VT-200',12),('VT-60','Teltonika','FM-1100',12),('VT-62','Teltonika','FM-1200',12),('VT-70','Teltonika','FM-4200',12),('VT-80','Teltonika','FM-5300',12);
+INSERT INTO `in_trackers` VALUES ('FS-64','System & Technology Corp.','A1',12),('PT-51','Queclink','GT-500',18),('VT-20','Wonde Proud','VT-200',12),('VT-60','Teltonika','FM-1100',12),('VT-62','Teltonika','FM-1200',12),('VT-70','Teltonika','FM-4200',12),('VT-80','Teltonika','FM-5300',12);
 /*!40000 ALTER TABLE `in_trackers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,4 +324,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-12 10:49:28
+-- Dump completed on 2013-10-14 18:23:59

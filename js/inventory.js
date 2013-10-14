@@ -21,6 +21,10 @@ function init() {
         case "/embarc-utils/inventory/clients.php":
             clients.initialize();
             break;
+
+        case "/embarc-utils/inventory/trackers.php":
+            trackers.initialize();
+            break;
     }
 }
 
@@ -722,6 +726,13 @@ var stock_finder = {
     },
 
     createResultsRow: function (rowData) {
+        var remainingWarranty = "";
+        if (rowData.dateOfSale) {
+            remainingWarranty = this.getRemainingWarranty(rowData.dateOfSale, +rowData.out_warranty);
+            if (remainingWarranty < 0) remainingWarranty = "Expired " + Math.abs(remainingWarranty) + " days ago";
+            else remainingWarranty += " days";
+        }
+
         return '<tr>'+
                     (+rowData.inStock ? "<td class=\"stock\">In Stock" : "<td class=\"sold\">Sold") + '</td>\
                     <td>' + rowData.imei + '</td>\
@@ -733,26 +744,241 @@ var stock_finder = {
                     <td>' + (rowData.dateOfSale ? dateStampToString(rowData.dateOfSale) : "") + '</td>\
                     <td>' + (rowData.clientID ? this.clientsMap[rowData.clientID] : "") + '</td>\
                     <td>' + rowData.out_invoice + '</td>\
+                    <td>' + remainingWarranty + '</td>\
                     <td>' + rowData.out_username + '</td>\
                 </tr>';
+    },
+
+    //get remaining warranty, using sales date and warranty provided
+    getRemainingWarranty: function (salesDate, warrantyProvided) {
+        var today = new Date(),
+            salesDate = new Date(salesDate),
+            difference = dayDiff(salesDate, today),
+            warrantyEnd = new Date(salesDate);
+        warrantyEnd.setMonth(warrantyEnd.getMonth() + warrantyProvided);
+
+        return Math.floor(dayDiff(salesDate, warrantyEnd) - difference);
     }
 };
 
 var clients = {
     initialize: function () {
+        var self = this;
 
+        //validate and submit form when done
+        $("#addClientForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                //set current state of submit button to loading
+                $("#saveClientButton").button('loading');
+
+                //call method to submit this form
+                self.save();
+
+                //reset state of submit button
+                $("#saveClientButton").button('reset');
+
+                //focus on company name to start again quickly
+                $("#name").focus();
+
+                //clear form when done
+                form.reset();
+
+                return false;
+            }
+        });
+
+        //populate list of clients
+        this.get(function (clientsList) {
+            self.checkNfill(clientsList);
+        });
     },
 
+    checkNfill: function (clientsList) {
+        var self = this,
+            l = clientsList.length,
+            i = 0;
+
+        if (l > 0) {
+            //hide no clients message
+            $("#noClients").hide();
+
+            //show clients list
+            $("#clientsListContainer").show();
+
+            for (; i < l; i++) self.addClient2List(clientsList[i]);
+        } else {
+            //show no clients message
+            $("#noClients").show();
+
+            //hide clients list
+            $("#clientsListContainer").hide();
+        }
+    },
+
+    //get list of clients
+    get: function (callback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getClients",
+            async: true,
+            success: function (data) {
+                data = getJSONFromString(data);
+
+                if (callback) callback(data);
+            }
+        });
+    },
+
+    //save a client
     save: function () {
-        var jsdata = createObject(["newClientForm"]);
+        var self = this,
+            jsdata = createObject(["addClientForm"]);
 
         $.ajax({
             type: "POST",
             async: true,
-            url: "",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=saveClient",
             data: jsdata,
             success: function (result) {
+                if (strncmp(result, "SUCCESS", 7)) {
+                    self.checkNfill([jsdata]);
+                }
             }
         });
+    },
+
+    //add a client to list of clients
+    addClient2List: function (clientDetails) {
+        $("#clientsList").append(this.createClientRow(clientDetails));
+    },
+
+    //create a row for list of clients
+    createClientRow: function (rowData) {
+        return '<tr>\
+                    <td>' + rowData.name + '</td>\
+                    <td>' + rowData.person + '</td>\
+                    <td>' + rowData.email + '</td>\
+                </tr>';
+    }
+};
+
+var trackers = {
+    initialize: function () {
+        var self = this;
+
+        //focus model
+        $("#model").focus();
+
+        //validate and submit form when done
+        $("#addTrackerForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                //set current state of submit button to loading
+                $("#saveTrackerButton").button('loading');
+
+                //call method to submit this form
+                self.save();
+
+                //reset state of submit button
+                $("#saveTrackerButton").button('reset');
+
+                //focus on company name to start again quickly
+                $("#model").focus();
+
+                //clear form when done
+                form.reset();
+
+                return false;
+            }
+        });
+
+        //populate list of trackers
+        this.get(function (trackersList) {
+            self.checkNfill(trackersList);
+        });
+    },
+
+    checkNfill: function (trackersList) {
+        var self = this,
+            l = trackersList.length,
+            i = 0;
+
+        if (l > 0) {
+            //hide no trackers message
+            $("#noTrackers").hide();
+
+            //show trackers list
+            $("#trackersListContainer").show();
+
+            for (; i < l; i++) self.addTracker2List(trackersList[i]);
+        } else {
+            //show no trackers message
+            $("#noTrackers").show();
+
+            //hide trackers list
+            $("#trackersListContainer").hide();
+        }
+    },
+
+    //get list of trackers
+    get: function (callback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            url: "/embarc-utils/php/main.php?util=inventory&fx=getTrackers",
+            async: true,
+            success: function (data) {
+                data = getJSONFromString(data);
+
+                if (callback) callback(data);
+            }
+        });
+    },
+
+    //save a tracker
+    save: function () {
+        var self = this,
+            jsdata = createObject(["addTrackerForm"]);
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=inventory&fx=saveTracker",
+            data: jsdata,
+            success: function (result) {
+                if (strncmp(result, "SUCCESS", 7)) {
+                    self.checkNfill([jsdata]);
+                }
+            }
+        });
+    },
+
+    //add a client to list of trackers
+    addTracker2List: function (details) {
+        $("#trackersList").append(this.createTrackerRow(details));
+    },
+
+    //create a row for list of trackers
+    createTrackerRow: function (rowData) {
+        return '<tr>\
+                    <td>' + rowData.model + '</td>\
+                    <td>' + rowData.vendorName + '</td>\
+                    <td>' + rowData.vendorModel + '</td>\
+                    <td>' + rowData.warranty + '</td>\
+                </tr>';
     }
 };

@@ -122,6 +122,14 @@ function inventory($fx)
 		case "search":
 			echo json_encode($inventory->findItems($_POST));
 			break;
+			
+		case "saveClient":
+			echo $inventory->saveClient($_POST);
+			break;
+			
+		case "saveTracker":
+			echo $inventory->saveTracker($_POST);
+			break;
 	}
 }
 

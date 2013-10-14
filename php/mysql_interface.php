@@ -125,6 +125,18 @@ class MYSQL_INTERFACE
 		
 	}
 	
+	public function in_addClient($queryPart) {
+		$query = "INSERT INTO in_clients set ".$queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function in_addTracker($queryPart) {
+		$query = "INSERT INTO in_trackers set ".$queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
 	public function in_getClients() {
 		$query = "SELECT * from in_clients";
 		$this->db_object->query_db($query);

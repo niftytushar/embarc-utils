@@ -187,3 +187,17 @@ function gotoPage(pageName) {
 function getCookieValue(key) {
     return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(key).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
 }
+
+//get difference of months between 2 dates
+function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
+//get difference of days between 2 dates
+function dayDiff(d1, d2) {
+    return (d2 - d1) / (1000 * 60 * 60 * 24);
+}

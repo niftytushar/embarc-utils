@@ -177,7 +177,8 @@ $session->check();
                         <th>Sales Date</th>
                         <th>Client Name</th>
                         <th><abbr title="Sales">S.</abbr> Invoice #</th>
-                        <th>Out by</th>                        
+						<th>Warranty</th>
+                        <th>Out by</th>
                       </tr>
                       </thead>
                       <tbody id="tableResult"></tbody>

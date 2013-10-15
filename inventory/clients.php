@@ -85,7 +85,7 @@ $session->check();
                 </div>
             </div>
             <div class="row">
-            <div class="col-lg-offset-4 col-lg-4">
+            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
                 <button type="submit" class="btn btn-default margin-bottom" id="saveClientButton" data-loading-text="Saving...">Submit</button>
             </div>           
             </div>                           

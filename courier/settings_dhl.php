@@ -135,7 +135,7 @@ $session->check();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-offset-4 col-lg-4">
+            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
                 <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
                 <button type="button" class="btn btn-default" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
             </div>

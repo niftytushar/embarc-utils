@@ -74,7 +74,7 @@ $session->check();
                     <select id="type" class="form-control" name="type"></select>
                 </div>
             </div>
-            <div class="col-lg-offset-2 col-lg-4">
+            <div class="col-lg-offset-2 col-lg-4 margin-bottom">
                 <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
             </div>
         </form>

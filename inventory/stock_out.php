@@ -121,7 +121,7 @@ $session->check();
                 </div>
             </div>            
 
-            <div class="col-lg-offset-4 col-lg-4">
+            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
                 <button type="submit" class="btn btn-default" id="saveStockButton" data-loading-text="Saving...">Submit</button>
             </div>
         </form>        

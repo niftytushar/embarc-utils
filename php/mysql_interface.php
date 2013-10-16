@@ -176,5 +176,18 @@ class MYSQL_INTERFACE
 		
 		return $this->db_object->query_db($query);
 	}
+	
+	public function sm_addServer($queryPart) {
+		$query = "INSERT INTO sm_servers set ".$queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function sm_getServers() {
+		$query = "SELECT * from sm_servers";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
 }
 ?>

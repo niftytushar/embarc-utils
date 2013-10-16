@@ -21,6 +21,10 @@ switch ($_GET['util']) {
 		login($_GET['fx']);
 		break;
 		
+	case "servers":
+		server($_GET['fx']);
+		break;
+		
 	case "misc":
 		misc($_GET['fx']);
 		break;
@@ -153,6 +157,23 @@ function misc($fx)
 		case "savePreferences":
 			echo $misc->savePreferences($_GET["module"], $_POST);
 			break;
+	}
+}
+
+function server($fx)
+{
+	require_once("servers.php");
+	$servers = new SERVER();
+	
+	switch($fx)
+	{
+		case "add":
+			echo $servers->addServer($_POST);
+			break;
+			
+		case "list":
+			echo json_encode($servers->getServersList());
+			break
 	}
 }
 ?>

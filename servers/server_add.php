@@ -19,6 +19,7 @@ $session->check();
 	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/servers.js"></script>
+	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -57,8 +58,8 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> New server added successfully. </div>
+	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> You have successfully added a new server. </div>
 
           <form class="form-horizontal" role="form" id="serverAddForm">
 		  <div class="row">
@@ -68,20 +69,20 @@ $session->check();
 		  <div class="form-group">
                 <label class="col-lg-4 control-label" for="company">Company</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="company" name="company" placeholder="Company">
+                    <input type="text" class="form-control" id="company" name="company" placeholder="Company" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="contact">Contact Person</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact Person">
+                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Contact Person" required>
                 </div>
             </div>            
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="email">Email</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
             </div>
             
@@ -98,7 +99,7 @@ $session->check();
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="sw_version">Software Version</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="sw_version" name="sw_version" placeholder="4.1.2" required>
+                    <input type="text" class="form-control" id="sw_version" name="sw_version" placeholder="4.1.2">
                 </div>
             </div>
 			<div class="form-group">
@@ -110,13 +111,13 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="ip_address">IP</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="127.0.0.1">
+                    <input type="text" class="form-control" id="ip_address" name="ip_address" placeholder="127.0.0.1" required>
                 </div>
             </div>
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="port">Port</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="port" name="port" placeholder="21000">
+                    <input type="text" class="form-control" id="port" name="port" placeholder="21000" required>
                 </div>
             </div>
 			<div class="form-group">

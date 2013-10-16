@@ -69,6 +69,15 @@ function fillDropDown($el, data, name, value) {
     }
 }
 
+//Fill a HTML <select></select> with list of values in JavaScript data object
+function fillDropDown2($el, data, nameKey, valueKey) {
+    $.each(data, function (key, value) {
+        if (valueKey) key = value[valueKey];
+        if (nameKey) value = value[nameKey];
+        $('<option/>').text(value).attr('value', key).appendTo($($el));
+    });
+}
+
 function getURLParameter(name) {
     return (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1];
 }

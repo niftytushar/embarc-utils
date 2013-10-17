@@ -47,7 +47,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">                        
-                        <li><a href="/embarc-utils/inventory/server_list.php">List</a></li>
+                        <li><a href="/embarc-utils/servers/server_list.php">List</a></li>
                         <li class="active"><a href="#">Add</a></li>
                         <li><a href="#">Kill</a></li>
 					</ul>

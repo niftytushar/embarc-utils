@@ -173,7 +173,7 @@ function server($fx)
 			
 		case "list":
 			echo json_encode($servers->getServersList());
-			break
+			break;
 	}
 }
 ?>

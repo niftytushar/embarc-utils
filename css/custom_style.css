@@ -57,10 +57,20 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .panel-title > .row > a{
 	color:#FFF;
 }
-.panel-title > .row > a > .col-lg-2 > .badge{
+.panel-title > .row > .col-lg-2 > code{
+	cursor:pointer;
+}
+.panel-title > .row > .col-lg-2 > .badge{
 	background-color:#ffffff;
 	color:#333;
 }
+.panel-title > .row > .col-lg-2 > a{
+	color:#fff;
+}
+.panel-title > .row{
+	color:#fff;
+}
+
 @media (max-width: 480px) {
     /*            .containt {
                 overflow: hidden;

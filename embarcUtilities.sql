@@ -252,7 +252,7 @@ CREATE TABLE `modules` (
   `image` varchar(64) NOT NULL COMMENT 'image icon of module',
   `href` varchar(128) NOT NULL COMMENT 'linked page of module',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='list of modules';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='list of modules';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +261,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png','');
+INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.png','servers/server_add.php');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,6 +290,42 @@ INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sm_servers`
+--
+
+DROP TABLE IF EXISTS `sm_servers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_servers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company` varchar(128) NOT NULL,
+  `contact` varchar(64) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `country` varchar(8) NOT NULL,
+  `sw_version` varchar(8) NOT NULL,
+  `root_password` varchar(64) NOT NULL,
+  `ip_address` varchar(32) NOT NULL,
+  `port` int(8) NOT NULL,
+  `url` varchar(128) NOT NULL,
+  `hosted_at` int(4) NOT NULL,
+  `server_name` varchar(32) NOT NULL,
+  `user2_username` varchar(32) NOT NULL,
+  `user2_password` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_servers`
+--
+
+LOCK TABLES `sm_servers` WRITE;
+/*!40000 ALTER TABLE `sm_servers` DISABLE KEYS */;
+INSERT INTO `sm_servers` VALUES (1,'Embarc Information Technology Pvt. Ltd.','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','','Emba04rc@esecure*$','71.19.240.175',21000,'http://trackv4.findnsecure.com',1,'ESS004391','','');
+/*!40000 ALTER TABLE `sm_servers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -311,7 +347,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('embarc','embarc123#','1'),('tushar','123','1,2');
+INSERT INTO `users` VALUES ('embarc','embarc123#','1'),('tushar','123','1,2,4');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -324,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-14 18:23:59
+-- Dump completed on 2013-10-18 18:36:54

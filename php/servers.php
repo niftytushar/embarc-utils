@@ -22,5 +22,16 @@ class SERVER
 		if($this->mInterface->sm_addServer(join(",", $str))) return "SUCCESS";
 		else return "ERROR";
 	}
+	
+	public function getStatus($ip) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://$ip/status/status.php");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		
+		return $data;
+	}
 }
 ?>

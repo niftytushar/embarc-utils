@@ -174,6 +174,10 @@ function server($fx)
 		case "list":
 			echo json_encode($servers->getServersList());
 			break;
+			
+		case "status":
+			echo $servers->getStatus($_GET['ip']);
+			break;
 	}
 }
 ?>

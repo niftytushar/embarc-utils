@@ -54,6 +54,39 @@ var CREATE = {
 ******************************************Create Element End******************************************
 *****************************************************************************************************/
 
+//Method to create a HTML DOM element
+function createElement(element, parent, attributes) {
+    /**
+    * @params
+    *
+    * element
+    * Type: Selector
+    * e.g. "<div/>"
+    * String name of element which is required to be created
+    *
+    * parent
+    * Type: String | Element
+    * e.g. "#foo", $("#foo"), document.getElementById('foo')
+    * Parent element of the newly created element
+    *
+    * attributes
+    * Type: Object
+    * e.g. {'className': 'bar', html: "Lorem Ipsum", id: "foo"}
+    * Object of attributes to be applied to this element
+    */
+
+    if (!attributes) attributes = {};
+
+    //create specified element
+    var $el = $(element, attributes);
+
+    //append this element to parent, if available
+    if (parent) $el.appendTo($(parent));
+
+    //return the newly created element
+    return $el;
+}
+
 function getJSONFromString(str) {
     if (JSON) return JSON.parse(str);
     else return eval('(' + str + ')');

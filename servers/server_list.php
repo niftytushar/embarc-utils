@@ -11,7 +11,8 @@ $session->check();
     <title>Servers - Add</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
 	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
@@ -58,19 +59,22 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-	<div class="panel-group" id="accordion">
+	<div class="panel-group" id="workingServersList">
   <div class="panel panel-default ">
     <div class="panel-heading">
       <h4 class="panel-title">
       <div class="row">
       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-      	<div class="col-lg-1"><span class="glyphicon glyphicon-hdd" title="Disk Usage"></span><span>&nbsp;10%</span></div>
-        <div class="col-lg-1"><span class="glyphicon glyphicon-tasks" title="Memory Usage"></span><span>&nbsp;100%</span></div>
+      	<div class="col-lg-1"><i class="icon-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;10%</span></div>
+        <div class="col-lg-1"><i class="icon-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;100%</span></div>
         <div class="col-lg-3">MCM Electronics</div>
         <div class="col-lg-2"><code>71.19.240.175</code></div>        
         <div class="col-lg-2"><code>Copy password</code><input type="hidden" id="root_pass"></div>
         <div class="col-lg-2">http://mcm.findnsecure.com</div>
-        <div class="col-lg-1"><button type="button" class="close" aria-hidden="true">&times;</button></div>
+        <div class="col-lg-1">
+        <button type="button" class="close" aria-hidden="true"><i class="icon-chevron-sign-down" style="font-size:15px;"></i></button>
+        <button type="button" class="close" aria-hidden="true"><i class="icon-refresh" style="font-size:15px;"></i>&nbsp;</button>
+        </div>
                  
         </a>
         </div>

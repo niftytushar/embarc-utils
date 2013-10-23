@@ -60,24 +60,25 @@ $session->check();
     </nav>
     <div class="containt container">
 	<div class="panel-group" id="workingServersList">
-  <div class="panel panel-default ">
+  <!--<div class="panel panel-default ">
     <div class="panel-heading">
-      <h4 class="panel-title">
-      <div class="row">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-      	<div class="col-lg-1"><i class="icon-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;10%</span></div>
-        <div class="col-lg-1"><i class="icon-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;100%</span></div>
-        <div class="col-lg-3">MCM Electronics</div>
-        <div class="col-lg-2"><code>71.19.240.175</code></div>        
-        <div class="col-lg-2"><code>Copy password</code><input type="hidden" id="root_pass"></div>
-        <div class="col-lg-2">http://mcm.findnsecure.com</div>
-        <div class="col-lg-1">
-        <button type="button" class="close" aria-hidden="true"><i class="icon-chevron-sign-down" style="font-size:15px;"></i></button>
-        <button type="button" class="close" aria-hidden="true"><i class="icon-refresh" style="font-size:15px;"></i>&nbsp;</button>
-        </div>
-                 
-        </a>
-        </div>
+	<h4 class="panel-title">
+	<div class="row">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+			<div>
+				<div class="col-lg-1"><i class="icon-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;10%</span></div>
+				<div class="col-lg-1"><i class="icon-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;100%</span></div>
+			</div>
+			<div class="col-lg-3">MCM Electronics</div>
+			<div class="col-lg-2"><code>71.19.240.175</code></div>        
+			<div class="col-lg-2"><code>Copy password</code><input type="hidden" id="root_pass"></div>
+			<div class="col-lg-2">http://mcm.findnsecure.com</div>
+			<div class="col-lg-1">
+			<button type="button" class="close" aria-hidden="true"><i class="icon-chevron-sign-down" style="font-size:15px;"></i></button>
+			<button type="button" class="close" aria-hidden="true"><i class="icon-refresh" style="font-size:15px;"></i>&nbsp;</button>
+			</div>
+		</a>
+	</div>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
@@ -85,20 +86,19 @@ $session->check();
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
-  </div>
-  <div class="panel panel-default">
+  </div>-->
+  <!--<div class="panel panel-default">
     <div class="panel-heading panel-heading-notworking">
       <h4 class="panel-title">
         <div class="row">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
       	<div class="col-lg-2"><span class="badge">u</span> <span class="badge">f</span> <span class="badge">m</span> <span class="badge">g</span> <span class="badge">r</span></div>
         <div class="col-lg-3">Embarc Information Technologies Pvt. Ltd.</div>
         <div class="col-lg-2"><code>71.19.240.175</code></div>        
         <div class="col-lg-2"><code>Copy password </code><input type="hidden" id="root_pass"></div>
         <div class="col-lg-2">http://trackv4.findnsecure.com</div>
         <div class="col-lg-1"><button type="button" class="close" aria-hidden="true">&times;</button></div>
-                 
-        </a>
+	</a>
         </div>
       </h4>
     </div>
@@ -107,8 +107,8 @@ $session->check();
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
-  </div>
-  <div class="panel panel-default">
+  </div>-->
+  <!--<div class="panel panel-default">
     <div class="panel-heading panel-heading-partworking">
       <h4 class="panel-title">
         <div class="row">
@@ -129,7 +129,7 @@ $session->check();
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
       </div>
     </div>
-  </div>
+  </div>-->
 </div>
 
 

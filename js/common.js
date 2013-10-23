@@ -111,6 +111,12 @@ function fillDropDown2($el, data, nameKey, valueKey) {
     });
 }
 
+//get number of keys in object
+function getObjectLength(a) {
+    if (!a) return 0;
+    return $.map(a, function (n, i) { return i; }).length;
+}
+
 function getURLParameter(name) {
     return (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1];
 }

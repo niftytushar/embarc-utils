@@ -46,10 +46,10 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 	font-weight:bold;
 }
 .panel-default >.panel-heading{
-	background-color:#00806e;
-}
-.panel-default >.panel-heading-notworking{
 	background-color:#d14836;
+}
+.panel-default >.panel-heading-working{
+	background-color:#00806e;
 }
 .panel-default >.panel-heading-partworking{
 	background-color:#b26d01;
@@ -60,7 +60,7 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .panel-title > .row > .col-lg-2 > code{
 	cursor:pointer;
 }
-.panel-title > .row > .col-lg-2 > .badge{
+.panel-title > .row > .left_status > .col-lg-2 > .badge{
 	background-color:#ffffff;
 	color:#333;
 }

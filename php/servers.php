@@ -16,7 +16,7 @@ class SERVER
 	public function addServer($data) {
 		$str = array();
 		foreach($data as $key=>$value) {
-			array_push($str, $key."='".$value."'");
+			array_push($str, $key."='".$this->mInterface->escapeString($value)."'");
 		}
 		
 		if($this->mInterface->sm_addServer(join(",", $str))) return "SUCCESS";

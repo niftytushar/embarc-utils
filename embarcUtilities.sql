@@ -312,7 +312,7 @@ CREATE TABLE `sm_servers` (
   `user2_username` varchar(32) NOT NULL,
   `user2_password` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +321,7 @@ CREATE TABLE `sm_servers` (
 
 LOCK TABLES `sm_servers` WRITE;
 /*!40000 ALTER TABLE `sm_servers` DISABLE KEYS */;
-INSERT INTO `sm_servers` VALUES (1,'Embarc Information Technology Pvt. Ltd.','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','','Emba04rc@esecure*$','71.19.240.175',21000,'http://trackv4.findnsecure.com',1,'ESS004391','','');
+INSERT INTO `sm_servers` VALUES (1,'Embarc Information Technology Pvt. Ltd.','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','','Emba04rc@esecure*$','71.19.240.175',21000,'http://trackv4.findnsecure.com',1,'ESS004391','',''),(2,'Embarc Information Technology','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','4.1.2','none','74.3.161.86',21000,'http://track.findnsecure.com',1,'','','');
 /*!40000 ALTER TABLE `sm_servers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-18 18:36:54
+-- Dump completed on 2013-10-23 20:52:55

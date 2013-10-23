@@ -1,4 +1,7 @@
 <?php
+/*
+* used by server status utility v2.0.1
+*/
 function createArray($data) {
 	//create array for each line
 	$data = explode("\n", trim($data, "\n"));
@@ -11,7 +14,7 @@ function createArray($data) {
 /*
 * get RAM details
 */
-$mem = createArray(`free -mo`);
+$mem = createArray(`free -m`);
 
 /*
 * get HDD details, of partition type ext4
@@ -29,7 +32,7 @@ function getProcessStatus($pname) {
 		return -1;
 	}
 }
-$processes = array("udp", "frontend", "mailer", "geofence", "rfidman", "gedit");
+$processes = array("udp", "frontend", "mailer", "geofence", "rfidman");
 $proc = array();
 for($i=0; $i<count($processes); $i++) {
 	$proc[$processes[$i]] = getProcessStatus($processes[$i]);

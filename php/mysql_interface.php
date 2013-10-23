@@ -189,5 +189,9 @@ class MYSQL_INTERFACE
 		
 		return $this->db_object->getResultSet();
 	}
+	
+	public function escapeString($str) {
+		return $this->db_object->escapeString($str);
+	}
 }
 ?>

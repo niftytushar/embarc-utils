@@ -98,6 +98,7 @@ var server_list = {
         this.get(this.printList);
     },
 
+    //get list of servers
     get: function (callback) {
         var self = this;
 
@@ -118,10 +119,21 @@ var server_list = {
         });
     },
 
+    //print list of servers
     printList: function (serversList) {
         for (var i = 0, l = serversList.length; i < l; i++) {
             this.addRow(serversList[i]);
         }
+    },
+
+    //reset a row to non-working state
+    resetRow: function ($row) {
+        //remove working and part working options
+        $row.find(".panel-heading").removeClass("panel-heading-working");
+        $row.find(".panel-heading").removeClass("panel-heading-partworking");
+
+        //reset left status column
+        $row.find(".left_status").html('<div class="col-lg-2"></div>');
     },
 
     //update server row
@@ -175,19 +187,49 @@ var server_list = {
 
     //create a server row
     createRow: function (details) {
+        var self = this;
+
         var panel = createElement("<div/>", null, { 'class': "panel panel-default" });
-        var panelHeading = createElement("<div/>", panel, { 'class': "panel-heading panel-heading-notworking" });
-        var panelTitle = createElement("<h4/>", panelHeading, { 'class': "panel-title" });
+        var panelTitle = createElement("<h4/>", null, { 'class': "panel-title" }).appendTo(createElement("<div/>", panel, { 'class': "panel-heading panel-heading-notworking" }));
         var row = createElement("<div/>", panelTitle, { 'class': "row" });
 
-        var leftCover = createElement("<div/>", row, {'class': "left_status"});
-        var col1 = createElement("<div/>", leftCover, { 'class': "col-lg-2", 'html': "" });
+        //left status column
+        createElement("<div/>", null, { 'class': "col-lg-2" }).appendTo(createElement("<div/>", row, {'class': "left_status"}));
 
-        var col2 = createElement("<div/>", row, { 'class': "col-lg-3", 'html': details.company });
-        var col3 = createElement("<div/>", row, { 'class': "col-lg-2", 'html': '<code>' + details.ip_address + '</code>' });
-        var col4 = createElement("<div/>", row, { 'class': "col-lg-2", 'html': '<code>Copy password </code><input type="hidden" id="root_pass">' });
-        var col5 = createElement("<div/>", row, { 'class': "col-lg-2", 'html': '<a href="' + details.url + '" target="_blank">' + details.url + '</a>' });
-        var col6 = createElement("<div/>", row, { 'class': "col-lg-1", 'html': '<button type="button" class="close" aria-hidden="true" data-toggle="collapse" data-target="#col' + details.id + '"><i class="icon-chevron-sign-down" style="font-size:15px;"></i></button><button type="button" class="close" aria-hidden="true"><i class="icon-refresh" style="font-size:15px;"></i>&nbsp;</button>' });
+        //company name
+        createElement("<div/>", row, { 'class': "col-lg-3", 'html': details.company || details.contact });
+
+        //IP address
+        var $ip_add = createElement("<code/>", null, { 'html': details.ip_address }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2" }));
+        $ip_add.on("click", function () {
+            //since only IE allows copy to clipboard automatically, due to security concrens we force user to manually copy password (but quickly)
+            window.prompt("Press Ctrl+C followed by Enter", details.ip_address);
+
+            //for flash based copy method visit: https://github.com/zeroclipboard/zeroclipboard
+        });
+
+        //root password
+        var $root_pass = createElement("<code/>", null, { 'html': "copy password" }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2" }));
+        $root_pass.on("click", function () {
+            //since only IE allows copy to clipboard automatically, due to security concrens we force user to manually copy password (but quickly)
+            window.prompt("Press Ctrl+C followed by Enter", details.root_password);
+
+            //for flash based copy method visit: https://github.com/zeroclipboard/zeroclipboard
+        });
+
+        //URL
+        createElement("<div/>", row, { 'class': "col-lg-2", 'html': '<a href="' + details.url + '" target="_blank">' + details.url + '</a>' });
+
+        //collapse button
+        var buttonsContainer = createElement("<div/>", row, { 'class': "col-lg-1" });
+        createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="icon-chevron-sign-down" style="font-size:15px;"></i>' });
+
+        //refresh button
+        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="icon-refresh" style="font-size:15px;"></i>&nbsp;' });
+        $refreshButton.on("click", function () {
+            self.resetRow(panel);
+            self.getServerStatus(panel, details.ip_address, self.updateRow);
+        });
 
         var panelCollapse = createElement("<div/>", panel, { 'class': "panel-collapse collapse", 'id': "col" + details.id });
         var panelBody = createElement("<div/>", panelCollapse, { 'class': "panel-body", 'html': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a nisi a erat laoreet blandit. Fusce dictum suscipit purus ut euismod. In orci sem, tincidunt hendrerit libero quis, lobortis vehicula massa. Phasellus convallis dictum urna at aliquet. Aenean fringilla volutpat odio sed pulvinar." });

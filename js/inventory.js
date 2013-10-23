@@ -765,6 +765,9 @@ var clients = {
     initialize: function () {
         var self = this;
 
+        //focus on company name - default
+        $("#name").focus();
+
         //validate and submit form when done
         $("#addClientForm").validate({
             highlight: function (element, errorClass, validClass) {

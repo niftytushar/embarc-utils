@@ -261,7 +261,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.png','servers/server_add.php');
+INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.png','servers/server_list.php');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `sm_servers` (
   `user2_username` varchar(32) NOT NULL,
   `user2_password` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +321,7 @@ CREATE TABLE `sm_servers` (
 
 LOCK TABLES `sm_servers` WRITE;
 /*!40000 ALTER TABLE `sm_servers` DISABLE KEYS */;
-INSERT INTO `sm_servers` VALUES (1,'Embarc Information Technology Pvt. Ltd.','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','','Emba04rc@esecure*$','71.19.240.175',21000,'http://trackv4.findnsecure.com',1,'ESS004391','',''),(2,'Embarc Information Technology','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','4.1.2','none','74.3.161.86',21000,'http://track.findnsecure.com',1,'','','');
+INSERT INTO `sm_servers` VALUES (1,'Embarc Information Technology Pvt. Ltd.','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','','Emba04rc@esecure*$','71.19.240.175',21000,'http://trackv4.findnsecure.com',1,'ESS004391','',''),(2,'Embarc Information Technology','Shailendra Bansal','shailendra.bansal@findnsecure.com','IN','4.1.2','none','74.3.161.86',21000,'http://track.findnsecure.com',1,'','',''),(3,'Djibtrack','Mohamed Hassan','mohamedhassan01@gmail.com','DJ','4.1.2','djibouti','71.19.243.225',21000,'http://track.djibtrack.com',1,'ESS004752','',''),(4,'Fusion','Jose','jose.damico@celsouth.cl','CL','4.1.2','Fus*(&^ion123','71.19.240.245',21000,'http://track.fusiongps.cl',1,'ESS004171','',''),(5,'MCM Electronics','James','james@mcmelectronics.com.au','AU','4.1.2','mcm89Electronics','209.17.190.55',21000,'http://mcm.findnsecure.com',1,'ESS003861','',''),(6,'MTC','Biju','','OM','','Mtc45Biju$%','216.18.20.220',21000,'http://trackmeon.com',1,'ESS000591','',''),(7,'Wataniya','wataniya','','MV','4.1.2','W@ta34niya^%$','216.18.22.159',21000,'http://track.wataniya.mv',1,'ESS000924','',''),(8,'Vyantra','Anil Anand','anil.anand@gmail.com','IN','4.1.2','Vyantra*&^Anil123','74.3.161.196',21000,'http://vyantra.findnsecure.com',1,'ESS000206','',''),(9,'Asif Electricals','Aadil','','ZM','','AsaHdhrIlaf#$123','71.19.242.96',21000,'http://asif.findnsecure.com',1,'','',''),(10,'Vivency','Reddy','reddy@vivencyglobal.com','AE','4.1.2','Viv*&^123ency!#$','71.19.255.6',21000,'http://tracer.vivencyglobal.com',1,'ESS004392','',''),(11,'Algeofleet','Ali','','DZ','','Amlhhs*acces*&&','196.41.225.106',21000,'http://localiser.algeofleet.com',1,'','',''),(12,'Vinayak Gps','Vinayak V2','arjunjadeja@vinayakgps.net','IN','4.1.2','Vin@yak75^%$_gps','216.18.20.122',21000,'http://tracking4.vinayakgps.net',1,'ESS000852','',''),(13,'Varuna','Anil','shiv.tiwari@vyantra.net','IN','4.1.2','VaR1una$@anil&','74.3.162.4',21000,'http://varuna.findnsecure.com',1,'ESS000217','',''),(14,'Adata','Navin Kumar Jha','navinj@adatagroup.com','NG','','Ad@t45$6a^Rg5h','71.19.244.102',21000,'http://adata.findnsecure.com',1,'','',''),(15,'Reflex','Funso','f.odugbemi@gmail.com','NG','4.1.2','O=Ie8-%e}0)>K6NQ','69.60.119.19',21000,'http://track.reflextrack.com',2,'','',''),(16,'Offshore','Francisa Emanuel','ocmtracking@gmail.com ','DM','4.1.2','Offs81Hore*$data11','74.3.165.46',21000,'http://offshore.findnsecure.com',1,'ESS000888','',''),(17,'Maliatec','Peter Chalhoub','PeterChalhoub@maliagroup.com','LB','4.1.2','Mali876TEC#$%','209.17.191.12',21000,'http://maliatec.findnsecure.com',1,'ESS000590','',''),(18,'AMI Group','Gary','gary.stockton@amigroup.co.uk','GB','4.1.2','X7815888m','71.19.246.14',21000,'http://login.track4all.co.uk',1,'','',''),(19,'Cgulfc','Rahul','raman@cgulfc.com','QA','4.1.2','Cgu52Lfcrahul^!$','71.19.240.15',21000,'http://www.avls.cgulfc.com',1,'ESS004332','',''),(20,'Creshboxx','Peter F Byrne','Peter@crashboxx.com','US','4.1.2','Cra^%$shBoxx123','71.19.242.120',21000,'http://mycanvasback.com',1,'ESS004229','',''),(21,'Dimatur','Helder Alonso','helderalonso@dimatur.pt','PT','4.1.2','#1tag6GEO!','213.228.191.26',21000,'http://www.geontag.com ',2,'','',''),(22,'Eldom','Ilias Gouroyiannis','tech_support@eldom.gr','GR','4.1.2','eldom','62.103.24.67',21000,'http://track.eldom.gr',2,'','',''),(23,'Eurotracker','Chris Clement','mail@eurotracker.dk','DK','4.1.2','Eurot2008','81.7.150.18',21000,'http://track.eurotracker.dk',2,'','',''),(24,'Eyetracking','Stafford Francis','tstaff@cwjamaica.com','JM','4.1.2','EyE&*)Tra32cking','71.19.246.11',21000,'http://eyetracking.findnsecure.com',1,'ESS004579','','');
 /*!40000 ALTER TABLE `sm_servers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,7 +347,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('embarc','embarc123#','1'),('tushar','123','1,2,4');
+INSERT INTO `users` VALUES ('anshul','anshul123','4'),('embarc','embarc123#','1'),('manish','manish123','4'),('tushar','123','1,2,4');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -360,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-10-23 20:52:55
+-- Dump completed on 2013-10-24 18:39:32

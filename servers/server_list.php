@@ -11,7 +11,8 @@ $session->check();
     <title>Servers - Status</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<!--	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
 	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
@@ -60,22 +61,22 @@ $session->check();
     </nav>
     <div class="containt container">
 	<div class="panel-group" id="workingServersList">
-  <!--<div class="panel panel-default ">
+  <div class="panel panel-default ">
     <div class="panel-heading">
 	<h4 class="panel-title">
 	<div class="row">
 		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-			<div>
-				<div class="col-lg-1"><i class="icon-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;10%</span></div>
-				<div class="col-lg-1"><i class="icon-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;100%</span></div>
+			<div class="left_status">
+				<div class="col-lg-1"><i class="fa fa-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;10%</span></div>
+				<div class="col-lg-1"><i class="fa fa-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;100%</span></div>
 			</div>
-			<div class="col-lg-3">MCM Electronics</div>
+			<div class="col-lg-3">Test</div>
 			<div class="col-lg-2"><code>71.19.240.175</code></div>        
 			<div class="col-lg-2"><code>Copy password</code><input type="hidden" id="root_pass"></div>
 			<div class="col-lg-2">http://mcm.findnsecure.com</div>
 			<div class="col-lg-1">
-			<button type="button" class="close" aria-hidden="true"><i class="icon-chevron-sign-down" style="font-size:15px;"></i></button>
-			<button type="button" class="close" aria-hidden="true"><i class="icon-refresh" style="font-size:15px;"></i>&nbsp;</button>
+			<button type="button" class="close" aria-hidden="true"><i class="fa fa-chevron-circle-down" style="font-size:15px;"></i></button>
+			<button type="button" class="close" aria-hidden="true"><i class="fa fa-refresh" style="font-size:14px;"></i>&nbsp;</button>
 			</div>
 		</a>
 	</div>
@@ -83,10 +84,31 @@ $session->check();
     </div>
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+        <div class="col-lg-4 col-sm-4">
+        	<div class="well well-sm">
+            	<ul class="list-group">
+                  <li class="list-group-item active"><i class="fa fa-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;HDD</span></li>
+                  <li class="list-group-item"><span class="badge">14%</span>/</li>
+                  <li class="list-group-item"><span class="badge">1%</span>/boot</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+        	<div class="well well-sm">
+            	<ul class="list-group">
+                  <li class="list-group-item active"><i class="fa fa-file-text-o" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;Log Files</span></li>
+                  <li class="list-group-item"><span class="badge">14%</span>/</li>
+                  <li class="list-group-item"><span class="badge">1%</span>/boot</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+        	<div class="well well-sm">Third</div>
+        </div>
       </div>
     </div>
-  </div>-->
+  </div>
+  </div>
   <!--<div class="panel panel-default">
     <div class="panel-heading panel-heading-notworking">
       <h4 class="panel-title">

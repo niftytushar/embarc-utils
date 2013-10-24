@@ -133,7 +133,7 @@ var server_list = {
         $row.find(".panel-heading").removeClass("panel-heading-partworking");
 
         //reset left status column
-        $row.find(".left_status").html('<div class="col-lg-2"></div>');
+        $row.find(".left_status").html('<div class="col-lg-2 margin-bottom"></div>');
     },
 
     //update server row
@@ -142,7 +142,7 @@ var server_list = {
             stoppedProcesses = this.checkProceses(statusObject.process || ""),
             $left_status = $row.find(".left_status"),
             showNonWorkingProcesses = function (html) {
-                createElement("<div/>", $left_status, { 'class': "col-lg-2", 'html': html });
+                createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': html });
             };
 
         //remove working and part working options
@@ -177,11 +177,11 @@ var server_list = {
             }
 
             //show HDD and RAM status
-            createElement("<div/>", $left_status, { 'class': "col-lg-1", 'html': '<i class="icon-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;' + diskUsage + '%</span>' });
-            createElement("<div/>", $left_status, { 'class': "col-lg-1", 'html': '<i class="icon-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;' + memoryUsage + '%</span>' });
+            createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;' + diskUsage + '%</span>' });
+            createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;' + memoryUsage + '%</span>' });
         } else {
             //show error message
-            createElement("<div/>", $left_status, { 'class': "col-lg-2", 'html': "unable to connect" });
+            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "unable to connect" });
         }
     },
 
@@ -194,13 +194,13 @@ var server_list = {
         var row = createElement("<div/>", panelTitle, { 'class': "row" });
 
         //left status column
-        createElement("<div/>", null, { 'class': "col-lg-2" }).appendTo(createElement("<div/>", row, {'class': "left_status"}));
+        createElement("<div/>", null, { 'class': "col-lg-2 margin-bottom" }).appendTo(createElement("<div/>", row, {'class': "left_status"}));
 
         //company name
-        createElement("<div/>", row, { 'class': "col-lg-3", 'html': details.company || details.contact });
+        createElement("<div/>", row, { 'class': "col-lg-3 margin-bottom", 'html': details.company || details.contact });
 
         //IP address
-        var $ip_add = createElement("<code/>", null, { 'html': details.ip_address }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2" }));
+        var $ip_add = createElement("<code/>", null, { 'html': details.ip_address }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom" }));
         $ip_add.on("click", function () {
             //since only IE allows copy to clipboard automatically, due to security concrens we force user to manually copy password (but quickly)
             window.prompt("Press Ctrl+C followed by Enter", details.ip_address);
@@ -209,7 +209,7 @@ var server_list = {
         });
 
         //root password
-        var $root_pass = createElement("<code/>", null, { 'html': "copy password" }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2" }));
+        var $root_pass = createElement("<code/>", null, { 'html': "copy password" }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom" }));
         $root_pass.on("click", function () {
             //since only IE allows copy to clipboard automatically, due to security concrens we force user to manually copy password (but quickly)
             window.prompt("Press Ctrl+C followed by Enter", details.root_password);
@@ -218,14 +218,14 @@ var server_list = {
         });
 
         //URL
-        createElement("<div/>", row, { 'class': "col-lg-2", 'html': '<a href="' + details.url + '" target="_blank">' + details.url + '</a>' });
+        createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom", 'html': '<a href="' + details.url + '" target="_blank">' + details.url + '</a>' });
 
         //collapse button
-        var buttonsContainer = createElement("<div/>", row, { 'class': "col-lg-1" });
-        createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="icon-chevron-sign-down" style="font-size:15px;"></i>' });
+        var buttonsContainer = createElement("<div/>", row, { 'class': "col-lg-1 margin-bottom" });
+        createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="fa fa-chevron-circle-down" style="font-size:15px;"></i>' });
 
         //refresh button
-        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="icon-refresh" style="font-size:15px;"></i>&nbsp;' });
+        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh" style="font-size:14px;"></i>&nbsp;' });
         $refreshButton.on("click", function () {
             self.resetRow(panel);
             self.getServerStatus(panel, details.ip_address, self.updateRow);
@@ -241,7 +241,6 @@ var server_list = {
     addRow: function (details) {
         var $row = this.createRow(details);
         $("#workingServersList").append($row);
-
         this.getServerStatus($row, details.ip_address, this.updateRow);
     },
 
@@ -254,7 +253,7 @@ var server_list = {
         $.each(proc, function (key, value) {
             if (value == -1) {
                 result.count++;
-                result.html += '<span class="badge">' + key.substr(0, 1) + '</span> ';
+                result.html += '<span class="badge" title="' + key + '">' + key.substr(0, 1) + '</span> ';
             }
         });
 
@@ -263,9 +262,11 @@ var server_list = {
 
     //get main memory usage
     getPrimaryMemoryUsage: function (mems) {
-        for (var i = 0, l = mems.length; i < l; i++) {
-            if (mems[i][0] == "-/+") {//match -/+
-                return Math.floor((+mems[i][2] / (+mems[i][2] + +mems[i][3])) * 100);
+        if (Array.isArray(mems)) {
+            for (var i = 0, l = mems.length; i < l; i++) {
+                if (mems[i][0] == "-/+") {//match -/+
+                    return Math.floor((+mems[i][2] / (+mems[i][2] + +mems[i][3])) * 100);
+                }
             }
         }
 
@@ -274,10 +275,12 @@ var server_list = {
 
     //get usage of /root disk
     getPrimaryDiskUsage: function (disks) {
-        for (var i = 0, l = disks.length; i < l; i++) {
-            if (disks[i][5] == "/") {//check for root partition
-                //return usage percent
-                return parseInt(disks[i][4], 10);
+        if (Array.isArray(disks)) {
+            for (var i = 0, l = disks.length; i < l; i++) {
+                if (disks[i][5] == "/") {//check for root partition
+                    //return usage percent
+                    return parseInt(disks[i][4], 10);
+                }
             }
         }
 

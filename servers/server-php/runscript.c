@@ -18,9 +18,9 @@
 int main(int argc, char *argv[])
 {
    setuid( 0 );
-   char command[100] = strcat("cat /root/findnsecure/", &argv[1]);
-   printf("%s", command);
-   system( "cat /root/findnsecure/" );
+   char str[100];
+   sprintf(str, "tail -n%s %s", argv[1], argv[2]);
+   system( str );
 
    return 0;
 }

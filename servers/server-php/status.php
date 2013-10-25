@@ -47,7 +47,8 @@ for($i=0; $i<count($processes); $i++) {
 xYq7YPiv0pLY
 */
 function getLog($path) {
-	return shell_exec("./ctest");
+	//get tail 2 lines using runscript, which runs as root - yay!
+	return `./runscript 2 $path`;
 }
 $log_files_path = "/root/findnsecure/";
 $log_files = array("frontend.log", "mailer.log", "geofence.log", "udp_server.log", "rfid.log");

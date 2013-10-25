@@ -182,7 +182,19 @@ var server_list = {
         } else {
             //show error message
             createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "unable to connect" });
+            return;
         }
+
+        /*
+        * fill addtitional details since they are available here
+        */
+        //fill HDD usage
+        var $hddDetailsContainer = $row.find(".hddDetailsContainer");
+        $hddDetailsContainer.html(this.getDisksUsageDetails(statusObject.disk));
+
+        //fill server logs
+        var $logFilesContainer = $row.find(".logFilesContainer");
+        $logFilesContainer.html(this.getServerLogs(statusObject.logs));
     },
 
     //create a server row
@@ -232,7 +244,31 @@ var server_list = {
         });
 
         var panelCollapse = createElement("<div/>", panel, { 'class': "panel-collapse collapse", 'id': "col" + details.id });
-        var panelBody = createElement("<div/>", panelCollapse, { 'class': "panel-body", 'html': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a nisi a erat laoreet blandit. Fusce dictum suscipit purus ut euismod. In orci sem, tincidunt hendrerit libero quis, lobortis vehicula massa. Phasellus convallis dictum urna at aliquet. Aenean fringilla volutpat odio sed pulvinar." });
+
+        var hddDetailed = '<div class="col-lg-4 col-sm-4">\
+        	<div class="well well-sm">\
+            	<ul class="list-group">\
+                  <li class="list-group-item active"><i class="fa fa-hdd" title="Disks Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;HDD</span></li>\
+                    <div class="hddDetailsContainer"></div>\
+                </ul>\
+            </div>\
+        </div>';
+
+        var logFilesDetailed = '<div class="col-lg-4 col-sm-4">\
+        	<div class="well well-sm">\
+            	<ul class="list-group">\
+                  <li class="list-group-item active"><i class="fa fa-file-text-o" title="Server Logs" style="font-size:20px;"></i><span>&nbsp;&nbsp;Log Files</span></li>\
+                    <div class="logFilesContainer"></div>\
+                </ul>\
+            </div>\
+        </div>';
+
+        var serverDetails = '<div class="col-lg-4 col-sm-4">\
+        	<div class="well well-sm">Third</div>\
+        </div>';
+
+
+        var panelBody = createElement("<div/>", panelCollapse, { 'class': "panel-body", 'html': hddDetailed + logFilesDetailed + serverDetails });
 
         return panel;
     },
@@ -273,6 +309,19 @@ var server_list = {
         return "∞";
     },
 
+    //get formatted usage of disks
+    getDisksUsageDetails: function (disks) {
+        var html = "";
+
+        if (Array.isArray(disks)) {
+            for (var i = 0, l = disks.length; i < l; i++) {
+                html += '<li class="list-group-item"><span class="badge">' + parseInt(disks[i][4], 10) + '%</span>' + disks[i][5] + '</li>';
+            }
+        }
+
+        return html;
+    },
+
     //get usage of /root disk
     getPrimaryDiskUsage: function (disks) {
         if (Array.isArray(disks)) {
@@ -285,6 +334,19 @@ var server_list = {
         }
 
         return "∞";
+    },
+
+    //get formatted server logs
+    getServerLogs: function (logs) {
+        var html = "";
+
+        if (logs) {
+            $.each(logs, function (key, value) {
+                html += '<li class="list-group-item"><span class="badge">' + key.substr(0, 1) + '</span>' + value + '</li>';
+            });
+        }
+
+        return html;
     },
 
     //get status of server

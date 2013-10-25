@@ -1,6 +1,10 @@
 <?php
 /*
-* used by server status utility v2.0.1
+* server status v2.0.2 Tushar Agarwal niftytushar@gmail.com
+*
+* server script for server status utility
+* To modify processes change process names in $processes array()
+* Default disk type is ext4, change disk type in $disks (backticks) array()
 */
 function createArray($data) {
 	//create array for each line
@@ -38,8 +42,22 @@ for($i=0; $i<count($processes); $i++) {
 	$proc[$processes[$i]] = getProcessStatus($processes[$i]);
 }
 
+/*
+* read log files
+xYq7YPiv0pLY
+*/
+function getLog($path) {
+	return shell_exec("./ctest");
+}
+$log_files_path = "/root/findnsecure/";
+$log_files = array("frontend.log", "mailer.log", "geofence.log", "udp_server.log", "rfid.log");
+$logs = array();
+for($i=0; $i<count($log_files); $i++) {
+	$logs[$log_files[$i]] = getLog($log_files_path . $log_files[$i]);
+}
+
 //create associative array of disks and RAM
-$data = array("disk"=>$disks, "mem"=>$mem, "process"=>$proc);
+$data = array("disk"=>$disks, "mem"=>$mem, "process"=>$proc, "logs"=>$logs);
 
 echo json_encode($data);
 ?>

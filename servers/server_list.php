@@ -97,8 +97,8 @@ $session->check();
         	<div class="well well-sm">
             	<ul class="list-group">
                   <li class="list-group-item active"><i class="fa fa-file-text-o" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;Log Files</span></li>
-                  <li class="list-group-item"><span class="badge">14%</span>/</li>
-                  <li class="list-group-item"><span class="badge">1%</span>/boot</li>
+                  <li class="list-group-item">/</li>
+                  <li class="list-group-item">/boot</li>
                 </ul>
             </div>
         </div>
@@ -154,8 +154,14 @@ $session->check();
   </div>-->
 </div>
 
-
-                
+<footer>
+	<div class="bs-footer">
+    	<div class="container">
+        	<div class="row">By Dev. Team</div>
+        </div>
     </div>
+</footer>
+                
+    
 </body>
 </html>

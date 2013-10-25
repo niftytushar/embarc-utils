@@ -67,7 +67,13 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .panel-title > .row{
 	color:#fff;
 }
-
+.bs-footer {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+    color: rgb(119, 119, 119);
+    border-top: 1px solid rgb(229, 229, 229);
+}
 @media (max-width: 480px) {
     /*            .containt {
                 overflow: hidden;

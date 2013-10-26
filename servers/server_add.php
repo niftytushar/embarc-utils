@@ -82,7 +82,7 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="email">Email</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email (separate multiple by semicolon)">
                 </div>
             </div>
             

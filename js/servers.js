@@ -48,18 +48,51 @@ var server_add = {
                 //reset state of submit button
                 $("#saveServerButton").button('reset');
 
-                //clean form for next filling
-                if(self.doReset) form.reset();
-
                 //focus on company to start again quickly
                 $("#company").focus();
 
                 return false;
             }
         });
+
+        //check for edit mode
+        if (getURLParameter("edit") == "1") {
+            this.id = getURLParameter("id");
+
+            this.get(this.fill);
+        }
+
     },
 
-    doReset: true,
+    id: null,
+
+    //get details of a server of specified ID
+    get: function (callback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=servers&fx=get&id=" + this.id,
+            success: function (data) {
+                try {
+                    data = getJSONFromString(data)[0];
+                } catch (ex) {
+                    console.log("unable to get data");
+                    return;
+                }
+                
+                if (callback) callback.apply(self, [data]);
+            }
+        });
+    },
+
+    //fill server details
+    fill: function (details) {
+        $.each(details, function (key, value) {
+            $("#" + key).val(value);
+        });
+    },
 
     //save a new server
     save: function () {
@@ -67,22 +100,19 @@ var server_add = {
         $("#errorMessage-1").hide();
 
         var jsdata = createObject(["serverAddForm"]);
-        jsdata.url = "http://" + jsdata.url;
 
         $.ajax({
             type: "POST",
             async: true,
             data: jsdata,
-            url: "/embarc-utils/php/main.php?util=servers&fx=add",
+            url: "/embarc-utils/php/main.php?util=servers&fx=add" + (getURLParameter("edit") == "1"?"&id=" + this.id:""),
             success: function (result) {
                 if (strncmp(result, "SUCCESS", 7)) {
                     $("#successMessage-1").show();
                     window.setTimeout(function () {
                         $("#successMessage-1").hide();
                     }, 5000);
-                    self.doReset = true;
                 } else {
-                    self.doReset = false;
                     $("#errorMessage-1").show();
                 }
             }
@@ -95,7 +125,7 @@ var server_list = {
         var self = this;
 
         //get list of servers and display
-        this.get(this.printList);
+        this.get(this.printList);  
     },
 
     //get list of servers
@@ -192,6 +222,10 @@ var server_list = {
         var $hddDetailsContainer = $row.find(".hddDetailsContainer");
         $hddDetailsContainer.html(this.getDisksUsageDetails(statusObject.disk));
 
+        //fill RAM usage
+        var $ramDetailsContainer = $row.find(".ramDetailsContainer");
+        $ramDetailsContainer.html(this.getMemoryUsageDetails(statusObject.mem));
+
         //fill server logs
         var $logFilesContainer = $row.find(".logFilesContainer");
         $logFilesContainer.html(this.getServerLogs(statusObject.logs));
@@ -209,7 +243,7 @@ var server_list = {
         createElement("<div/>", null, { 'class': "col-lg-2 margin-bottom" }).appendTo(createElement("<div/>", row, {'class': "left_status"}));
 
         //company name
-        createElement("<div/>", row, { 'class': "col-lg-3 margin-bottom", 'html': details.company || details.contact });
+        createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom", 'html': details.company || details.contact });
 
         //IP address
         var $ip_add = createElement("<code/>", null, { 'html': details.ip_address }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom" }));
@@ -230,14 +264,14 @@ var server_list = {
         });
 
         //URL
-        createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom", 'html': '<a href="' + details.url + '" target="_blank">' + details.url + '</a>' });
+        createElement("<div/>", row, { 'class': "col-lg-3 margin-bottom", 'html': '<a href="http://' + details.url + '" target="_blank">' + details.url + '</a>' });
 
         //collapse button
         var buttonsContainer = createElement("<div/>", row, { 'class': "col-lg-1 margin-bottom" });
-        createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="fa fa-chevron-circle-down" style="font-size:15px;"></i>' });
+        createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="fa fa-chevron-circle-down icon-size"></i>' });
 
         //refresh button
-        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh" style="font-size:14px;"></i>&nbsp;' });
+        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh icon-size"></i>&nbsp;' });
         $refreshButton.on("click", function () {
             self.resetRow(panel);
             self.getServerStatus(panel, details.ip_address, self.updateRow);
@@ -250,6 +284,8 @@ var server_list = {
             	<ul class="list-group">\
                   <li class="list-group-item active"><i class="fa fa-hdd" title="Disks Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;HDD</span></li>\
                     <div class="hddDetailsContainer"></div>\
+                  <li class="list-group-item active"><i class="fa fa-tasks" title="Memory Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;RAM</span></li>\
+                    <div class="ramDetailsContainer"></div>\
                 </ul>\
             </div>\
         </div>';
@@ -264,13 +300,52 @@ var server_list = {
         </div>';
 
         var serverDetails = '<div class="col-lg-4 col-sm-4">\
-        	<div class="well well-sm">Third</div>\
+        	<div class="well well-sm">\
+            <ul class="list-group">\
+                <li class="list-group-item active"><i class="fa fa-info" title="Server Details" style="font-size:20px;"></i><span>&nbsp;&nbsp;Information</span></li>\
+                <div class="informationContainer">' +
+                this.getServerDetails(details) +
+                '</div>\
+            </ul>\
+            </div>\
         </div>';
 
+        var panelBody = createElement("<div/>", panelCollapse, { 'class': "panel-body" });
+        createElement("<div/>", panelBody, { 'class': "row", 'html': hddDetailed + logFilesDetailed + serverDetails });
+        
+        var buttonsContainer = createElement("<div/>", null, { 'class': "col-lg-4" }).appendTo(createElement("<div/>", panelBody, { 'class': "row" }));
 
-        var panelBody = createElement("<div/>", panelCollapse, { 'class': "panel-body", 'html': hddDetailed + logFilesDetailed + serverDetails });
-
+        //edit button
+        createElement("<a/>", buttonsContainer, { 'class': "btn btn-default", 'html': "Edit", 'target': "_blank", 'href': "server_add.php?edit=1&id=" + details.id });
+        
+        //delete button
+        var $deleteButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "btn btn-danger margin-left", 'html': "Delete" });
+        $deleteButton.on("click", function () {
+            self.deleteServer(details.id, details.ip_address, panel);
+        });
+        
         return panel;
+    },
+
+    //delete a server
+    deleteServer: function (id, ip, $row) {
+        var confirm_ip = window.prompt("Are you ABSOLUTELY sure?\nThis action CANNOT be undone.\n\nPlease type in the IP address of this server to confirm.");
+        if (confirm_ip != ip) {
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=servers&fx=delete&id=" + id,
+            success: function (result) {
+                if (result == "SUCCESS") {
+                    $row.remove();
+                } else {
+                    alert("Unable to delete server");
+                }
+            }
+        });
     },
 
     //add a server row
@@ -296,6 +371,17 @@ var server_list = {
         return result;
     },
 
+    //get formatted usage of memory
+    getMemoryUsageDetails: function (mems) {
+        if (Array.isArray(mems)) {
+            for (var i = 0, l = mems.length; i < l; i++) {
+                if (mems[i][0] == "-/+") {//match -/+
+                    return '<li class="list-group-item"><span class="badge" title="of ' + (+mems[i][2] + +mems[i][3]) + ' MB">' + Math.floor((+mems[i][2] / (+mems[i][2] + +mems[i][3])) * 100) + '%</span>RAM</li>';
+                }
+            }
+        }
+    },
+
     //get main memory usage
     getPrimaryMemoryUsage: function (mems) {
         if (Array.isArray(mems)) {
@@ -312,10 +398,10 @@ var server_list = {
     //get formatted usage of disks
     getDisksUsageDetails: function (disks) {
         var html = "";
-
+        
         if (Array.isArray(disks)) {
             for (var i = 0, l = disks.length; i < l; i++) {
-                html += '<li class="list-group-item"><span class="badge">' + parseInt(disks[i][4], 10) + '%</span>' + disks[i][5] + '</li>';
+                html += '<li class="list-group-item"><span class="badge" title="of ' + parseInt(disks[i][3], 10) + ' MB">' + parseInt(disks[i][4], 10) + '%</span>' + disks[i][5] + '</li>';
             }
         }
 
@@ -342,7 +428,70 @@ var server_list = {
 
         if (logs) {
             $.each(logs, function (key, value) {
-                html += '<li class="list-group-item"><span class="badge">' + key.substr(0, 1) + '</span>' + value + '</li>';
+                html += '<li class="list-group-item"><span class="badge" title="' + key + '">' + key.substr(0, 1) + '</span>' + value + '</li>';
+            });
+        }
+
+        return html;
+    },
+
+    //get formatted server details
+    getServerDetails: function (info) {
+        var html = "";
+
+        if (info) {
+            $.each(info, function (key, value) {
+                //skip some fields here
+                if (key == "root_password" || key == "ip_address" || key == "url")
+                    return;
+
+                //label other fields or format accordingly
+                if (value) {
+                    switch (key) {
+                        case "id":
+                            html += '<li class="list-group-item">Server Status ID ' + value + '</li>';
+                            break;
+
+                        case "country":
+                            html += '<li class="list-group-item">' + countriesMap[value]["name"] + '</li>';
+                            break;
+
+                        case "port":
+                            html += '<li class="list-group-item">Find\'n\'Secure port ' + value + '</li>';
+                            break;
+
+                        case "hosted_at":
+                            html += '<li class="list-group-item">Server is hosted @ ' + server_hosting_locations[value] + '</li>';
+                            break;
+
+                        case "server_name":
+                            html += '<li class="list-group-item">Server is named ' + value + '</li>';
+                            break;
+
+                        case "sw_version":
+                            html += '<li class="list-group-item">Running Find\'n\'Secure v' + value + '</li>';
+                            break;
+
+                        case "user2_username":
+                            html += '<li class="list-group-item">Sec. User username - ' + value + '</li>';
+                            break;
+
+                        case "user2_password":
+                            html += '<li class="list-group-item">Sec. User password - ' + value + '</li>';
+                            break;
+
+                        case "email":
+                            //iterate multiple email IDs, separated by semicolon, and span over multiple lines
+                            var emails = value.split(";");
+                            for (var i = 0, l = emails.length; i < l; i++)
+                                html += '<li class="list-group-item"><a href="mailto:' + emails[i] + '">' + emails[i] +' </a></li>';
+                            break;
+
+                        default:
+                            html += '<li class="list-group-item">' + value + '</li>';
+                            break;
+                    }
+                }
             });
         }
 

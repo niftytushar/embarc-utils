@@ -13,14 +13,35 @@ class SERVER
 		return $this->mInterface->sm_getServers();
 	}
 	
-	public function addServer($data) {
+	public function getServer($id) {
+		return $this->mInterface->sm_getServerDetails($id);
+	}
+	
+	public function addServer($data, $id = false) {
 		$str = array();
+		
 		foreach($data as $key=>$value) {
 			array_push($str, $key."='".$this->mInterface->escapeString($value)."'");
 		}
 		
-		if($this->mInterface->sm_addServer(join(",", $str))) return "SUCCESS";
+		$queryPart = join(",", $str);
+		
+		if($id) {
+			$result = $this->mInterface->sm_updateServer($queryPart, $id);
+		} else {
+			$result = $this->mInterface->sm_addServer($queryPart);
+		}
+		
+		if($result) return "SUCCESS";
 		else return "ERROR";
+	}
+	
+	public function removeServer($id) {
+		if($this->mInterface->sm_removeServer($id)) {
+			return "SUCCESS";
+		} else {
+			return "ERROR";
+		}
 	}
 	
 	public function getStatus($ip) {

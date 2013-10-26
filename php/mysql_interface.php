@@ -183,8 +183,27 @@ class MYSQL_INTERFACE
 		return $this->db_object->query_db($query);
 	}
 	
+	public function sm_updateServer($queryPart, $id) {
+		$query = "UPDATE sm_servers set " . $queryPart . " where id=" . $id;
+		
+		return $this->db_object->query_db($query);
+	}
+	
 	public function sm_getServers() {
 		$query = "SELECT * from sm_servers";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function sm_removeServer($id) {
+		$query = "DELETE from sm_servers where id=" . $id;
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function sm_getServerDetails($id) {
+		$query = "SELECT * from sm_servers where id=" . $id;
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();

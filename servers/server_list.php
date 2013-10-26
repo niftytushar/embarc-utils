@@ -11,7 +11,6 @@ $session->check();
     <title>Servers - Status</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<!--	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
 	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
@@ -59,9 +58,10 @@ $session->check();
             </div>
     	</div>
     </nav>
+    <a id="top"></a>
     <div class="containt container">
-	<div class="panel-group" id="workingServersList">
-  <div class="panel panel-default ">
+<div class="panel-group" id="workingServersList">
+  <!--<div class="panel panel-default ">
     <div class="panel-heading">
 	<h4 class="panel-title">
 	<div class="row">
@@ -105,10 +105,15 @@ $session->check();
         <div class="col-lg-4 col-sm-4">
         	<div class="well well-sm">Third</div>
         </div>
+      	<div class="row">
+        	<div class="col-lg-4 col-md-offset-8">
+            	<button type="button" class="close" aria-hidden="true"><i class="fa fa-chevron-circle-down" style="font-size:15px;"></i></button>
+            </div>
+        </div>
       </div>
     </div>
-  </div>
-  </div>
+  </div>-->
+</div>
   <!--<div class="panel panel-default">
     <div class="panel-heading panel-heading-notworking">
       <h4 class="panel-title">
@@ -153,7 +158,7 @@ $session->check();
     </div>
   </div>-->
 </div>
-
+<a href="#top" class="hidden-xs"><div class="up_arrow"></div></a>
 <footer>
 	<div class="bs-footer">
     	<div class="container">

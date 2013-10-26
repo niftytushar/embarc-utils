@@ -168,7 +168,18 @@ function server($fx)
 	switch($fx)
 	{
 		case "add":
-			echo $servers->addServer($_POST);
+			if(isset($_GET['id'])) $id = $_GET['id'];
+			else $id = false;
+			
+			echo $servers->addServer($_POST, $id);
+			break;
+			
+		case "get":
+			echo json_encode($servers->getServer($_GET['id']));
+			break;
+			
+		case "delete":
+			echo $servers->removeServer($_GET['id']);
 			break;
 			
 		case "list":

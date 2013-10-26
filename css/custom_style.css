@@ -22,8 +22,21 @@
     margin: 0 auto;
     padding-top: 100px;
 }
-
-
+.lsmargin-bottom{
+	margin-bottom:10px;
+}
+.margin-left{
+	margin-left:10px;
+}
+.up_arrow{
+	position:fixed;
+	bottom:5px;
+	right: 5px;
+	background-image:url(../images/up_arrow.png);
+	width:45px;
+	height:45px;
+	cursor:pointer;
+}
 div [id*="errorMessage-"], div [id*="successMessage-"] {
     display: none;
 }
@@ -57,11 +70,14 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .panel-title > .row > .col-lg-2 > code{
 	cursor:pointer;
 }
+.panel-title > .row > .left_status > .col-lg-1{
+	cursor:default;
+}
 .panel-title > .row > .left_status > .col-lg-2 > .badge{
 	background-color:#ffffff;
 	color:#333;
 }
-.panel-title > .row > .col-lg-2 > a{
+.panel-title > .row > .col-lg-3 > a{
 	color:#fff;
 }
 .panel-title > .row{
@@ -71,9 +87,14 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
     padding-top: 40px;
     padding-bottom: 30px;
     margin-top: 20px;
+	text-align:center;
     color: rgb(119, 119, 119);
     border-top: 1px solid rgb(229, 229, 229);
 }
+.icon-size{
+	font-size:15px;
+}
+
 @media (max-width: 480px) {
     /*            .containt {
                 overflow: hidden;
@@ -84,12 +105,16 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
     .img-resize-small {
         width: 50%;
     }
-	
+	.icon-size{
+		font-size:35px;}
 }
 @media (max-width: 768px){
 	.margin-bottom {
     	margin-bottom: 15px;
 	}
+		.icon-size{
+		font-size:35px;}
+
 }
 @media (max-width: 992px) {
 	.margin-bottom {

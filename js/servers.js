@@ -125,7 +125,12 @@ var server_list = {
         var self = this;
 
         //get list of servers and display
-        this.get(this.printList);  
+        this.get(this.printList);
+
+        //check if desktop notifications are supported
+        if (!window.webkitNotifications) {
+            console.log("Desktop notifications are not supported!");
+        }        
     },
 
     //get list of servers
@@ -182,18 +187,30 @@ var server_list = {
         //clean left status column
         $left_status.html("");
         
-        if (totalProcesses == stoppedProcesses.count && stoppedProcesses.count > 0) {
+        if (totalProcesses == stoppedProcesses.count && stoppedProcesses.count > 0) { // all processes are stopped
             //default is red
 
             //show non working processes
             showNonWorkingProcesses(stoppedProcesses.html);
-        } else if (stoppedProcesses.count > 0 && totalProcesses != stoppedProcesses.count) {
+        } else if (stoppedProcesses.count > 0 && totalProcesses != stoppedProcesses.count) { // some processes are stopped
             //color it amber
             $row.find(".panel-heading").addClass("panel-heading-partworking");
 
             //show non working processes
             showNonWorkingProcesses(stoppedProcesses.html);
-        } else if (totalProcesses > 0 && stoppedProcesses.count == 0) {
+
+            //create a new desktop notification
+            chrome.notifications.create("1", {
+                type: "basic",
+                title: "Status",
+                message: "Server needs a doctor!",
+                iconUrl: "48.png"
+            }, null);
+
+            // show the notification.
+            //notification.show();
+
+        } else if (totalProcesses > 0 && stoppedProcesses.count == 0) { // disk or memory usage is high
             //calculate Disk and Memory usage
             var diskUsage = this.getPrimaryDiskUsage(statusObject.disk),
                 memoryUsage = this.getPrimaryMemoryUsage(statusObject.mem);
@@ -209,7 +226,7 @@ var server_list = {
             //show HDD and RAM status
             createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;' + diskUsage + '%</span>' });
             createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;' + memoryUsage + '%</span>' });
-        } else {
+        } else { // not able to connect to server
             //show error message
             createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "unable to connect" });
             return;

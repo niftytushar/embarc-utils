@@ -17,6 +17,16 @@ var server_hosting_locations = {
     "2": "Customer Location"
 };
 
+var server_log_string = { // all lower case
+    "frontend.log": "client is authenticated successfully",
+    "mailer.log": "connecting to the server",
+    "geofence.log": "geofence successfully connected",
+    "udp_server.log": "server is started",
+    "rfid.log": "server is running now"
+};
+
+var aesPassphrase = "My Awesome Server Status Utility!";
+
 var server_add = {
     initialize: function () {
         var self = this;
@@ -90,6 +100,11 @@ var server_add = {
     //fill server details
     fill: function (details) {
         $.each(details, function (key, value) {
+            if (key == "root_password") { // decrypt password here
+                x = CryptoJS.AES.decrypt(CryptoJS.enc.Base64.parse(value), aesPassphrase);
+                debugger;
+            }
+
             $("#" + key).val(value);
         });
     },
@@ -100,6 +115,7 @@ var server_add = {
         $("#errorMessage-1").hide();
 
         var jsdata = createObject(["serverAddForm"]);
+        jsdata["root_password"] = CryptoJS.AES.encrypt(jsdata["root_password"], aesPassphrase).toString();
 
         $.ajax({
             type: "POST",
@@ -130,7 +146,7 @@ var server_list = {
         //check if desktop notifications are supported
         if (!window.webkitNotifications) {
             console.log("Desktop notifications are not supported!");
-        }        
+        }
     },
 
     //get list of servers
@@ -175,11 +191,13 @@ var server_list = {
     updateRow: function ($row, statusObject) {
         var totalProcesses = getObjectLength(statusObject.process || ""),
             stoppedProcesses = this.checkProceses(statusObject.process || ""),
+            totalLogs = getObjectLength(statusObject.logs || ""),
+            errorsomeLogs = this.checkLogs(statusObject.logs || ""),
             $left_status = $row.find(".left_status"),
             showNonWorkingProcesses = function (html) {
                 createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': html });
             };
-
+        
         //remove working and part working options
         $row.find(".panel-heading").removeClass("panel-heading-working");
         $row.find(".panel-heading").removeClass("panel-heading-partworking");
@@ -187,35 +205,30 @@ var server_list = {
         //clean left status column
         $left_status.html("");
         
-        if (totalProcesses == stoppedProcesses.count && stoppedProcesses.count > 0) { // all processes are stopped
-            //default is red
+        if (stoppedProcesses.count > 0) { // all processes are stopped
+            if (stoppedProcesses.count < totalProcesses) {
+                //color it amber
+                $row.find(".panel-heading").addClass("panel-heading-partworking");
+            }
+            // else default is red
 
             //show non working processes
             showNonWorkingProcesses(stoppedProcesses.html);
-        } else if (stoppedProcesses.count > 0 && totalProcesses != stoppedProcesses.count) { // some processes are stopped
-            //color it amber
-            $row.find(".panel-heading").addClass("panel-heading-partworking");
-
+        } else if (errorsomeLogs.count > 0) { // error is found in log files
+            if (errorsomeLogs.count < totalLogs) {
+                //color it amber
+                $row.find(".panel-heading").addClass("panel-heading-partworking");
+            }
+            //else default is red
+            
             //show non working processes
-            showNonWorkingProcesses(stoppedProcesses.html);
-
-            //create a new desktop notification
-            chrome.notifications.create("1", {
-                type: "basic",
-                title: "Status",
-                message: "Server needs a doctor!",
-                iconUrl: "48.png"
-            }, null);
-
-            // show the notification.
-            //notification.show();
-
-        } else if (totalProcesses > 0 && stoppedProcesses.count == 0) { // disk or memory usage is high
+            showNonWorkingProcesses(errorsomeLogs.html);
+        } else if (stoppedProcesses.count == 0 && errorsomeLogs.count == 0) { // disk or memory usage is high or normal
             //calculate Disk and Memory usage
             var diskUsage = this.getPrimaryDiskUsage(statusObject.disk),
                 memoryUsage = this.getPrimaryMemoryUsage(statusObject.mem);
 
-            if (diskUsage > 80 || memoryUsage > 80) {
+            if (diskUsage > 80 || memoryUsage > 80) {// if disk usage or memory usage is above 80%
                 //color it amber
                 $row.find(".panel-heading").addClass("panel-heading-partworking");
             } else {
@@ -376,12 +389,25 @@ var server_list = {
     checkProceses: function (proc) {
         var result = { count: 0, html: "" };
 
-        if (!result) return result;
-
         $.each(proc, function (key, value) {
             if (value == -1) {
                 result.count++;
                 result.html += '<span class="badge" title="' + key + '">' + key.substr(0, 1) + '</span> ';
+            }
+        });
+
+        return result;
+    },
+
+    //check if all log files have correct data
+    checkLogs: function (logs) {
+        var result = { count: 0, html: "" };
+
+        $.each(logs, function (key, value) {
+            if (!value) value = "";
+            if (value.toLowerCase().search(server_log_string[key]) < 0) {
+                result.count++;
+                result.html += '<span class="badge" title="' + key + '">' + key.substr(0, 1) + key.substr(key.indexOf("."), 2) + '</span> ';
             }
         });
 

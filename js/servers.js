@@ -25,7 +25,7 @@ var server_log_string = { // all lower case
     "rfid.log": "server is running now"
 };
 
-var aesPassphrase = "My Awesome Server Status Utility!";
+var aesPassphrase = "The key is, having admin privileges. Bazinga!";
 
 var server_add = {
     initialize: function () {
@@ -101,8 +101,7 @@ var server_add = {
     fill: function (details) {
         $.each(details, function (key, value) {
             if (key == "root_password") { // decrypt password here
-                x = CryptoJS.AES.decrypt(CryptoJS.enc.Base64.parse(value), aesPassphrase);
-                debugger;
+                value = root_password_AES.decrypt(value);
             }
 
             $("#" + key).val(value);
@@ -115,7 +114,11 @@ var server_add = {
         $("#errorMessage-1").hide();
 
         var jsdata = createObject(["serverAddForm"]);
-        jsdata["root_password"] = CryptoJS.AES.encrypt(jsdata["root_password"], aesPassphrase).toString();
+        if (root_password_AES.key) {
+            jsdata["root_password"] = root_password_AES.encrypt(jsdata["root_password"]);
+        } else {
+            delete jsdata["root_password"];
+        }
 
         $.ajax({
             type: "POST",
@@ -133,6 +136,48 @@ var server_add = {
                 }
             }
         });
+    }
+};
+
+var root_password_AES = {
+    // AES passphrase
+    key: false,
+
+    // ask user for a SECRET key (Stop looking, you won't find it here!)
+    prompt: function () {
+        this.key = window.prompt("Enter you SECRET key");
+        this.verify_key();
+
+        return this.key;
+    },
+
+    verify_key: function () {
+        var self = this,
+            hash = CryptoJS.SHA256(this.key).toString();
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            data: {"hash": hash},
+            url: "/embarc-utils/php/main.php?util=servers&fx=checkSecret",
+            success: function (result) {
+                if (result != "SUCCESS") {
+                    self.key = false;
+                }
+            }
+        });
+    },
+
+    // encrypt given plaintext
+    encrypt: function (plaintext) {
+        if (!this.key && !this.prompt()) return;
+        return CryptoJS.AES.encrypt(plaintext, this.key).toString();
+    },
+
+    // decrypt given ciphertext
+    decrypt: function (ciphertext) {
+        if (!this.key && !this.prompt()) return;
+        return CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(CryptoJS.AES.decrypt(ciphertext, this.key).toString()));
     }
 };
 
@@ -288,7 +333,9 @@ var server_list = {
         var $root_pass = createElement("<code/>", null, { 'html': "copy password" }).appendTo(createElement("<div/>", row, { 'class': "col-lg-2 margin-bottom" }));
         $root_pass.on("click", function () {
             //since only IE allows copy to clipboard automatically, due to security concrens we force user to manually copy password (but quickly)
-            window.prompt("Press Ctrl+C followed by Enter", details.root_password);
+            var rootPassword = root_password_AES.decrypt(details.root_password);
+            if (rootPassword) window.prompt("Press Ctrl+C followed by Enter", rootPassword);
+            else alert("You are not authorized to access this area. Go away!");
 
             //for flash based copy method visit: https://github.com/zeroclipboard/zeroclipboard
         });

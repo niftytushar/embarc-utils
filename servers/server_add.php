@@ -22,6 +22,7 @@ $session->check();
 	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 	<script src="/embarc-utils/js/aes.js"></script>
+	<script src="/embarc-utils/js/sha256.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -106,7 +107,7 @@ $session->check();
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="root_password">Root Password</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="root_password" name="root_password" placeholder="Root Password" required>
+                    <input type="text" class="form-control" id="root_password" name="root_password" placeholder="Root Password">
                 </div>
             </div>
             <div class="form-group">

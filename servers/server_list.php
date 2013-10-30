@@ -22,6 +22,8 @@ $session->check();
 	<script src="/embarc-utils/js/servers.js"></script>
 	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
+	<script src="/embarc-utils/js/aes.js"></script>
+	<script src="/embarc-utils/js/sha256.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>

@@ -189,6 +189,10 @@ function server($fx)
 		case "status":
 			echo $servers->getStatus($_GET['ip']);
 			break;
+			
+		case "checkSecret":
+			echo $servers->verify_AES_passphrase($_POST["hash"]);
+			break;
 	}
 }
 ?>

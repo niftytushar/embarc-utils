@@ -62,5 +62,12 @@ class SERVER
 		
 		return $data;
 	}
+	
+	public function verify_AES_passphrase($hash) {
+		$passphrase = "The key is, having admin privileges. Bazinga!";
+
+		if($hash == hash('sha256', $passphrase)) return "SUCCESS";
+		else return "ERROR";
+	}
 }
 ?>

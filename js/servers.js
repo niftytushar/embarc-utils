@@ -25,8 +25,6 @@ var server_log_string = { // all lower case
     "rfid.log": "server is running now"
 };
 
-var aesPassphrase = "The key is, having admin privileges. Bazinga!";
-
 var server_add = {
     initialize: function () {
         var self = this;

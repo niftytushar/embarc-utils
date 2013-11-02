@@ -87,6 +87,13 @@ $session->check();
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email (separate multiple by semicolon)">
                 </div>
             </div>
+			
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="phone">Phone</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number (with country code)">
+                </div>
+            </div>
             
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="country">Country</label>

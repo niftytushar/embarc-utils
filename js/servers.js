@@ -13,14 +13,14 @@ function init() {
 }
 
 var server_hosting_locations = {
-    "1": "esecuredata",
-    "2": "Customer Location"
+    "1": {name: "esecuredata", url: "https://my.esecuredata.com/mylogin.php"},
+    "2": {name: "Customer Location", url: "#"}
 };
 
 var server_log_string = { // all lower case
     "frontend.log": "client is authenticated successfully",
     "mailer.log": "connecting to the server",
-    "geofence.log": "geofence successfully connected",
+    "geofence.log": "successful",
     "udp_server.log": "server is started",
     "rfid.log": "server is running now"
 };
@@ -36,7 +36,7 @@ var server_add = {
         fillDropDown2("#country", countriesMap, "name", null);
 
         //fill hosting locations
-        fillDropDown2("#hosted_at", server_hosting_locations, null, null);
+        fillDropDown2("#hosted_at", server_hosting_locations, "name", null);
 
         //validate and submit form when done
         $("#serverAddForm").validate({
@@ -68,6 +68,8 @@ var server_add = {
             this.id = getURLParameter("id");
 
             this.get(this.fill);
+        } else {
+            root_password_AES.prompt();
         }
 
     },
@@ -169,13 +171,28 @@ var root_password_AES = {
     // encrypt given plaintext
     encrypt: function (plaintext) {
         if (!this.key && !this.prompt()) return;
-        return CryptoJS.AES.encrypt(plaintext, this.key).toString();
+
+        var ciphertext = "";
+        try {
+            ciphertext = CryptoJS.AES.encrypt(plaintext, this.key).toString();
+        } catch (ex) {
+            console.log("Unable to encrypt using the key provided");
+        }
+        return ciphertext;
     },
 
     // decrypt given ciphertext
     decrypt: function (ciphertext) {
         if (!this.key && !this.prompt()) return;
-        return CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(CryptoJS.AES.decrypt(ciphertext, this.key).toString()));
+
+        var plaintext = "";
+        try {
+            plaintext = CryptoJS.enc.Utf8.stringify(CryptoJS.enc.Hex.parse(CryptoJS.AES.decrypt(ciphertext, this.key).toString()));
+        } catch (ex) {
+            console.log("Unable to decrypt using the key provided");
+        }
+
+        return plaintext;
     }
 };
 
@@ -213,8 +230,18 @@ var server_list = {
         });
     },
 
+    // sort list of servers by server name
+    sortListByName: function (a, b) {
+        a = a["company"].toLowerCase();
+        b = b["company"].toLowerCase();
+        return (a < b ? -1 : (a > b ? 1 : 0));
+    },
+
     //print list of servers
     printList: function (serversList) {
+        // sort list of servers
+        serversList.sort(this.sortListByName);
+
         for (var i = 0, l = serversList.length; i < l; i++) {
             this.addRow(serversList[i]);
         }
@@ -257,6 +284,11 @@ var server_list = {
 
             //show non working processes
             showNonWorkingProcesses(stoppedProcesses.html);
+        } else if (statusObject.updating && statusObject.updating.status == -1) { // trackers are not updating
+            // default is red - no need to color
+
+            // show error message
+            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "no AVL data received since " + parseInt(statusObject.updating.interval, 10) / 60 + " minutes" });
         } else if (errorsomeLogs.count > 0) { // error is found in log files
             if (errorsomeLogs.count < totalLogs) {
                 //color it amber
@@ -292,16 +324,28 @@ var server_list = {
         * fill addtitional details since they are available here
         */
         //fill HDD usage
-        var $hddDetailsContainer = $row.find(".hddDetailsContainer");
-        $hddDetailsContainer.html(this.getDisksUsageDetails(statusObject.disk));
+        if (statusObject.disk) {
+            var $hddDetailsContainer = $row.find(".hddDetailsContainer");
+            $hddDetailsContainer.html(this.getDisksUsageDetails(statusObject.disk));
+        }
 
         //fill RAM usage
-        var $ramDetailsContainer = $row.find(".ramDetailsContainer");
-        $ramDetailsContainer.html(this.getMemoryUsageDetails(statusObject.mem));
+        if (statusObject.mem) {
+            var $ramDetailsContainer = $row.find(".ramDetailsContainer");
+            $ramDetailsContainer.html(this.getMemoryUsageDetails(statusObject.mem));
+        }
+
+        // fill AVL data status
+        if (statusObject.updating) {
+            var $avlDetailsContainer = $row.find(".avlDetailsContainer");
+            $avlDetailsContainer.html(this.getAVLResult(statusObject.updating));
+        }
 
         //fill server logs
-        var $logFilesContainer = $row.find(".logFilesContainer");
-        $logFilesContainer.html(this.getServerLogs(statusObject.logs));
+        if (statusObject.logs) {
+            var $logFilesContainer = $row.find(".logFilesContainer");
+            $logFilesContainer.html(this.getServerLogs(statusObject.logs));
+        }
     },
 
     //create a server row
@@ -361,6 +405,8 @@ var server_list = {
                     <div class="hddDetailsContainer"></div>\
                   <li class="list-group-item active"><i class="fa fa-tasks" title="Memory Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;RAM</span></li>\
                     <div class="ramDetailsContainer"></div>\
+                  <li class="list-group-item active"><i class="fa fa-tasks" title="AVL Data" style="font-size:20px;"></i><span>&nbsp;&nbsp;Trackers</span></li>\
+                    <div class="avlDetailsContainer"></div>\
                 </ul>\
             </div>\
         </div>';
@@ -459,6 +505,11 @@ var server_list = {
         return result;
     },
 
+    // get formatted AVL data status
+    getAVLResult: function (avl) {
+        return '<li class="list-group-item"><span class="badge" title="Total Trackers">' + avl.count + '</span>AVL data was' + (avl.status == -1 ? " <b>NOT</b> " : " ") + 'received in last ' + parseInt(avl.interval, 10) / 60 + ' minutes</li>';
+    },
+
     //get formatted usage of memory
     getMemoryUsageDetails: function (mems) {
         if (Array.isArray(mems)) {
@@ -530,16 +581,12 @@ var server_list = {
         if (info) {
             $.each(info, function (key, value) {
                 //skip some fields here
-                if (key == "root_password" || key == "ip_address" || key == "url")
+                if (key == "root_password" || key == "ip_address" || key == "url" || key == "id")
                     return;
 
                 //label other fields or format accordingly
                 if (value) {
                     switch (key) {
-                        case "id":
-                            html += '<li class="list-group-item">Server Status ID ' + value + '</li>';
-                            break;
-
                         case "country":
                             html += '<li class="list-group-item">' + countriesMap[value]["name"] + '</li>';
                             break;
@@ -549,7 +596,7 @@ var server_list = {
                             break;
 
                         case "hosted_at":
-                            html += '<li class="list-group-item">Server is hosted @ ' + server_hosting_locations[value] + '</li>';
+                            html += '<li class="list-group-item">Server is hosted @ <a href="' + server_hosting_locations[value].url + '" target="_blank">' + server_hosting_locations[value].name + '</a></li>';
                             break;
 
                         case "server_name":
@@ -595,6 +642,11 @@ var server_list = {
             async: true,
             url: "/embarc-utils/php/main.php?util=servers&fx=status&ip=" + ip,
             success: function (result) {
+                // test util
+                /*if (ip == "71.19.243.225") {
+                    debugger;
+                }*/
+
                 try {
                     result = getJSONFromString(result);
                 } catch (ex) {

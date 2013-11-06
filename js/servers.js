@@ -274,6 +274,13 @@ var server_list = {
 
         //clean left status column
         $left_status.html("");
+
+        //if no data is received from server
+        if (!statusObject) {
+            //show error message
+            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "unable to connect" });
+            return;
+        }
         
         if (stoppedProcesses.count > 0) { // all processes are stopped
             if (stoppedProcesses.count < totalProcesses) {
@@ -314,10 +321,6 @@ var server_list = {
             //show HDD and RAM status
             createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-hdd" title="Disk Usage" style="font-size:20px;"></i><span>&nbsp;' + diskUsage + '%</span>' });
             createElement("<div/>", $left_status, { 'class': "col-lg-1 margin-bottom", 'html': '<i class="fa fa-tasks" title="Memory Usage" style="font-size:19px;"></i><span>&nbsp;' + memoryUsage + '%</span>' });
-        } else { // not able to connect to server
-            //show error message
-            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "unable to connect" });
-            return;
         }
 
         /*
@@ -344,7 +347,7 @@ var server_list = {
         //fill server logs
         if (statusObject.logs) {
             var $logFilesContainer = $row.find(".logFilesContainer");
-            $logFilesContainer.html(this.getServerLogs(statusObject.logs));
+            $logFilesContainer.html(this.getServerLogs(statusObject.logs, $row.IP));
         }
     },
 
@@ -405,7 +408,7 @@ var server_list = {
                     <div class="hddDetailsContainer"></div>\
                   <li class="list-group-item active"><i class="fa fa-tasks" title="Memory Usage" style="font-size:20px;"></i><span>&nbsp;&nbsp;RAM</span></li>\
                     <div class="ramDetailsContainer"></div>\
-                  <li class="list-group-item active"><i class="fa fa-tasks" title="AVL Data" style="font-size:20px;"></i><span>&nbsp;&nbsp;Trackers</span></li>\
+                  <li class="list-group-item active"><i class="fa fa-ambulance" title="AVL Data" style="font-size:20px;"></i><span>&nbsp;&nbsp;Trackers</span></li>\
                     <div class="avlDetailsContainer"></div>\
                 </ul>\
             </div>\
@@ -562,12 +565,12 @@ var server_list = {
     },
 
     //get formatted server logs
-    getServerLogs: function (logs) {
+    getServerLogs: function (logs, ip) {
         var html = "";
 
         if (logs) {
             $.each(logs, function (key, value) {
-                html += '<li class="list-group-item"><span class="badge" title="' + key + '">' + key.substr(0, 1) + '</span>' + value + '</li>';
+                html += '<li class="list-group-item"><a href="http://' + ip + '/status/status.php?fp=' + key + '" target="_blank">' + key + '</a>&nbsp;' + value + '</li>';
             });
         }
 
@@ -637,13 +640,15 @@ var server_list = {
     getServerStatus: function ($row, ip, callback) {
         var self = this;
 
+        $row.IP = ip;
+
         $.ajax({
             type: "GET",
             async: true,
             url: "/embarc-utils/php/main.php?util=servers&fx=status&ip=" + ip,
             success: function (result) {
-                // test util
-                /*if (ip == "71.19.243.225") {
+                // test code
+                /*if (ip == "71.19.240.175") {
                     debugger;
                 }*/
 

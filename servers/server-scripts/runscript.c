@@ -17,10 +17,14 @@
 
 int main(int argc, char *argv[])
 {
-   setuid( 0 );
-   char str[100];
-   sprintf(str, "tail -n%s %s", argv[1], argv[2]);
-   system( str );
+	setuid( 0 );
+	char str[100];
+	if(strcmp(argv[1], "c") == 0) { // (c) - complete file
+		sprintf(str, "cat %s", argv[3]);
+	} else { // (p) - part from file
+		sprintf(str, "tail -n%s %s", argv[2], argv[3]);
+	}
+	system( str );
 
-   return 0;
+	return 0;
 }

@@ -10,6 +10,16 @@
 
 // include required files
 require_once "trackersCheck.php";
+require_once "logs.php";
+
+$log_obj = new LOGS();
+if(isset($_GET["fp"])) {
+	$filename = $_GET["fp"];
+	header('Content-type: text/plain');
+	header("Content-Disposition: attachment; filename=" . $filename . ".txt");
+	echo $log_obj->getCompleteLog($filename);
+	return;
+}
 
 function createArray($data) {
 	//create array for each line
@@ -50,15 +60,10 @@ for($i=0; $i<count($processes); $i++) {
 /*
 * read log files
 */
-function getLog($path) {
-	//get tail 2 lines using runscript, which runs as root - yay!
-	return `./runscript 2 $path`;
-}
-$log_files_path = "/root/findnsecure/";
 $log_files = array("frontend.log", "mailer.log", "geofence.log", "udp_server.log", "rfid.log");
 $logs = array();
 for($i=0; $i<count($log_files); $i++) {
-	$logs[$log_files[$i]] = getLog($log_files_path . $log_files[$i]);
+	$logs[$log_files[$i]] = $log_obj->getPartLog($log_files[$i]);
 }
 
 /*

@@ -1,7 +1,7 @@
 <?php
 /*
-* 02 November, 2013
-* server status v2.0.3 Tushar Agarwal niftytushar@gmail.com
+* 06 November, 2013
+* server status v2.0.4 Tushar Agarwal niftytushar@gmail.com
 *
 * server script for server status utility
 * To modify processes change process names in $processes array()

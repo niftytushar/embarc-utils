@@ -146,6 +146,7 @@ var root_password_AES = {
     // ask user for a SECRET key (Stop looking, you won't find it here!)
     prompt: function () {
         this.key = window.prompt("Enter you SECRET key");
+        if (!this.key) return;
         this.verify_key();
 
         return this.key;
@@ -207,6 +208,10 @@ var server_list = {
         if (!window.webkitNotifications) {
             console.log("Desktop notifications are not supported!");
         }
+
+        $("#refresh_all").click(function () {
+            $(".refreshBtn").trigger("refresh");
+        });
     },
 
     //get list of servers
@@ -393,8 +398,8 @@ var server_list = {
         createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'data-toggle': "collapse", 'data-target': "#col" + details.id, 'html': '<i class="fa fa-chevron-circle-down icon-size"></i>' });
 
         //refresh button
-        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh icon-size"></i>&nbsp;' });
-        $refreshButton.on("click", function () {
+        var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close refreshBtn", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh icon-size"></i>&nbsp;' });
+        $refreshButton.on("click refresh", function () {
             self.resetRow(panel);
             self.getServerStatus(panel, details.ip_address, self.updateRow);
         });

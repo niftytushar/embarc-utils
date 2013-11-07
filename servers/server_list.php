@@ -62,7 +62,7 @@ $session->check();
     </nav>
     <a id="top"></a>
     <div class="containt container">
-
+<button id="refresh_all" type="button">Refresh All</button>
 <div class="panel-group" id="workingServersList">
   <!--<div class="panel panel-default ">
     <div class="panel-heading">

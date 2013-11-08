@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once('/var/www/embarc-utils/php/sessions.php');
 $session = new SESSIONS();
 $session->check();
@@ -49,10 +49,10 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">                        
-                        <li class="active"><a href="#">List</a></li>
-                        <li ><a href="/embarc-utils/servers/server_add.php">Add</a></li>
+                        <li><a href="/embarc-utils/servers/server_list.php">List</a></li>
+                        <li><a href="/embarc-utils/servers/server_add.php">Add</a></li>
                         <li><a href="/embarc-utils/servers/server_pref.php">Preferences</a></li>
-                        <li><a href="/embarc-utils/servers/server_datacenter.php">Datacenter</a></li>                        
+                        <li class="active"><a href="#">Datacenter</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -61,12 +61,43 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-<div class="panel-group" id="workingServersList"></div>
-</div>
+		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your preferences have been saved successfully. </div>
+		<form class="form-horizontal" role="form" id="preferencesForm">
+		  	<div class="row">
+                <h3>DataCenter Details</h3>
+                <hr>
+			</div>
+		 	 <div class="form-group">
+                <label class="col-lg-4 control-label" for="name">Name</label>
+                <div class="col-lg-4">
+                    <input type="text"class="form-control" id="name" name="name" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="address">Address</label>
+                <div class="col-lg-4">
+                    <textarea class="form-control" id="address" name="address"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="url">Support URL</label>
+                <div class="col-lg-4">
+                    <input type="text"class="form-control" id="url" name="url" placeholder="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="phone">Phone Number</label>
+                <div class="col-lg-4">
+                    <input type="text"class="form-control" id="phone" name="phone" placeholder="">
+                </div>
+            </div>                     
+	        <div class="col-lg-offset-4 col-lg-4 margin-bottom">
+                <button type="submit" class="btn btn-default">Save</button>
+            </div>
 
-<p id="back-top">
-	<a href="#top"><span></span>Back to Top</a>
-</p>
+        </form>
+</div>
 <footer>
 	<div class="bs-footer">
     	<div class="container">

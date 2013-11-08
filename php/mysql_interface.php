@@ -190,14 +190,14 @@ class MYSQL_INTERFACE
 	}
 	
 	public function sm_getServers() {
-		$query = "SELECT * from sm_servers";
+		$query = "SELECT * from sm_servers where removedBy is NULL";
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();
 	}
 	
-	public function sm_removeServer($id) {
-		$query = "DELETE from sm_servers where id=" . $id;
+	public function sm_removeServer($id, $username) {
+		$query = "UPDATE sm_servers set removedBy='" . $username . "' where id=" . $id;
 		
 		return $this->db_object->query_db($query);
 	}

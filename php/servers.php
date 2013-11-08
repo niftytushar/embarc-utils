@@ -37,7 +37,7 @@ class SERVER
 	}
 	
 	public function removeServer($id) {
-		if($this->mInterface->sm_removeServer($id)) {
+		if($this->mInterface->sm_removeServer($id, $_SESSION['user'])) {
 			return "SUCCESS";
 		} else {
 			return "ERROR";

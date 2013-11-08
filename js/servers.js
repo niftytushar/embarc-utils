@@ -3,11 +3,17 @@
 function init() {
     switch (location.pathname) {
         case "/embarc-utils/servers/server_add.php":
+            root_password_AES.getPreferences();
             server_add.initialize();
             break;
 
         case "/embarc-utils/servers/server_list.php":
+            root_password_AES.getPreferences();
             server_list.initialize();
+            break;
+
+        case "/embarc-utils/servers/server_pref.php":
+            server_pref.initialize();
             break;
     }
 }
@@ -140,26 +146,48 @@ var server_add = {
 };
 
 var root_password_AES = {
+    preferences: null,
+
+    getPreferences: function (callback) {
+        var self = this;
+
+        server_pref.get(function (preferences) {
+            self.preferences = preferences;
+
+            if (callback) callback.apply(self);
+        });
+    },
+
     // AES passphrase
     key: false,
 
     // ask user for a SECRET key (Stop looking, you won't find it here!)
-    prompt: function () {
-        this.key = window.prompt("Enter you SECRET key");
-        if (!this.key) return;
-        this.verify_key();
+    prompt: function (callback) {
+        if (!this.preferences) {
+            this.getPreferences();
+            return;
+        } else {
+            // go back if password prompt is disabled
+            if (this.preferences.noKey == "1") return;
 
-        return this.key;
+            this.key = window.prompt("Enter you SECRET key");
+            if (!this.key) return;
+
+            this.verify_key();
+
+            return this.key;
+        }
     },
 
+    // verify the key entered with the key stored on server - (yes the key in on the server, PLAINTEXT!)
     verify_key: function () {
         var self = this,
             hash = CryptoJS.SHA256(this.key).toString();
 
         $.ajax({
             type: "POST",
-            async: false,
-            data: {"hash": hash},
+            async: false, // ha ha ha
+            data: { "hash": hash },
             url: "/embarc-utils/php/main.php?util=servers&fx=checkSecret",
             success: function (result) {
                 if (result != "SUCCESS") {
@@ -201,18 +229,44 @@ var server_list = {
     initialize: function () {
         var self = this;
 
-        //get list of servers and display
-        this.get(this.printList);
+        // get preferences
+        server_pref.get(function (preferences) {
+            self.preferences = preferences;
 
-        //check if desktop notifications are supported
-        if (!window.webkitNotifications) {
-            console.log("Desktop notifications are not supported!");
-        }
+            //get list of servers and display
+            self.get(self.printList);
 
-        $("#refresh_all").click(function () {
-            $(".refreshBtn").trigger("refresh");
+            // set auto refresh if required
+            if (preferences.rInt && preferences.rInt != "0") { // zero disables auto refresh
+                window.setInterval(function () {
+                }, parseInt(preferences.rInt, 10) * 60 * 1000);
+            }
+        });
+
+        // hide #back-top initially
+        $("#back-top").hide();
+
+        // fade in #back-top
+        $(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('#back-top').fadeIn();
+                } else {
+                    $('#back-top').fadeOut();
+                }
+            });
+
+            // scroll body to 0px on click
+            $('#back-top a').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 500);
+                return false;
+            });
         });
     },
+
+    preferences: null,
 
     //get list of servers
     get: function (callback) {
@@ -244,8 +298,10 @@ var server_list = {
 
     //print list of servers
     printList: function (serversList) {
-        // sort list of servers
-        serversList.sort(this.sortListByName);
+        // sort list of servers - if required
+        if (+this.preferences.cSort) {
+            serversList.sort(this.sortListByName);
+        }
 
         for (var i = 0, l = serversList.length; i < l; i++) {
             this.addRow(serversList[i]);
@@ -331,13 +387,13 @@ var server_list = {
         /*
         * fill addtitional details since they are available here
         */
-        //fill HDD usage
+        // fill HDD usage
         if (statusObject.disk) {
             var $hddDetailsContainer = $row.find(".hddDetailsContainer");
             $hddDetailsContainer.html(this.getDisksUsageDetails(statusObject.disk));
         }
 
-        //fill RAM usage
+        // fill RAM usage
         if (statusObject.mem) {
             var $ramDetailsContainer = $row.find(".ramDetailsContainer");
             $ramDetailsContainer.html(this.getMemoryUsageDetails(statusObject.mem));
@@ -349,7 +405,7 @@ var server_list = {
             $avlDetailsContainer.html(this.getAVLResult(statusObject.updating));
         }
 
-        //fill server logs
+        // fill server logs
         if (statusObject.logs) {
             var $logFilesContainer = $row.find(".logFilesContainer");
             $logFilesContainer.html(this.getServerLogs(statusObject.logs, $row.IP));
@@ -447,11 +503,13 @@ var server_list = {
         //edit button
         createElement("<a/>", buttonsContainer, { 'class': "btn btn-default", 'html': "Edit", 'target': "_blank", 'href': "server_add.php?edit=1&id=" + details.id });
         
-        //delete button
-        var $deleteButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "btn btn-danger margin-left", 'html': "Delete" });
-        $deleteButton.on("click", function () {
-            self.deleteServer(details.id, details.ip_address, panel);
-        });
+        // delete button - if required
+        if (+this.preferences.showDel) {
+            var $deleteButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "btn btn-danger margin-left", 'html': "Delete" });
+            $deleteButton.on("click", function () {
+                self.deleteServer(details.id, details.ip_address, panel);
+            });
+        }
         
         return panel;
     },
@@ -481,7 +539,9 @@ var server_list = {
     addRow: function (details) {
         var $row = this.createRow(details);
         $("#workingServersList").append($row);
-        this.getServerStatus($row, details.ip_address, this.updateRow);
+        if (!(+this.preferences.noStatus)) {
+            this.getServerStatus($row, details.ip_address, this.updateRow);
+        }
     },
 
     //check if all processes are working or not
@@ -668,4 +728,79 @@ var server_list = {
             }
         });
     }
+};
+
+var server_pref = {
+    initialize: function () {
+        var self = this;
+
+        // attach form submit handler
+        $("#preferencesForm").on("submit", function () {
+            self.save();
+
+            return false;
+        });
+
+        // get preferences and fill 'em up
+        this.get(this.fill);
+    },
+
+    // fill preferences
+    fill: function (preferences) {
+        $.each(preferences, function (key, value) {
+            key = $("#" + key);
+            if (key.is("input[type='checkbox']")) {
+                key.prop("checked", +value);
+            } else {
+                key.val(value);
+            }
+        });
+    },
+
+    // save preferences
+    save: function () {
+        $("#errorMessage-1").hide();
+        $("#successMessage-1").hide();
+
+        var jsdata = createObject(["preferencesForm"]);
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=misc&fx=savePreferences&module=4",
+            data: jsdata,
+            success: function (result) {
+                if (strncmp(result, "success", 7)) {
+                    $("#successMessage-1").show();
+
+                    window.setTimeout(function () {
+                        $("#successMessage-1").hide();
+                    }, 5000);
+                } else {
+                    $("#errorMessage-1").show();
+                }
+            }
+        });
+    },
+
+    // fetch preferences back
+    get: function (callback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=misc&fx=getPreferences&module=4",
+            success: function (data) {
+                try {
+                    data = getJSONFromString(data);
+                } catch (ex) {
+                    console("Server Status: preferences not found");
+                    return;
+                }
+
+                if (callback) callback.apply(self, [data]);
+            }
+        });
+    },
 };

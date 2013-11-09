@@ -6,8 +6,8 @@ Utilities for Embarc Information Technology
 - [x] DHL Courier Service Management
 - [ ] Employee Attendance Management
 - [x] Inventory Management
-- [ ] Server Maintenance & Update Store
-- [ ] Password Manager
+- [x] Server Status Utility
+- [ ] Server Maintenance Log Manager
 - [ ] Settings
 
 ##Setting up the database

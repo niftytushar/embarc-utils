@@ -285,8 +285,35 @@ CREATE TABLE `preferences` (
 
 LOCK TABLES `preferences` WRITE;
 /*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"2\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"1\",\"noStatus\":\"0\",\"sw_version\":\"\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"\"}');
+INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"60\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"1\",\"noStatus\":\"1\",\"sw_version\":\"4.2.8\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}');
 /*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sm_datacentres`
+--
+
+DROP TABLE IF EXISTS `sm_datacentres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sm_datacentres` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `address` varchar(512) NOT NULL,
+  `phone` varchar(32) NOT NULL,
+  `url` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='list of data centres';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sm_datacentres`
+--
+
+LOCK TABLES `sm_datacentres` WRITE;
+/*!40000 ALTER TABLE `sm_datacentres` DISABLE KEYS */;
+INSERT INTO `sm_datacentres` VALUES (1,'esecuredata','eSecureData.com Inc.\r\n1478 Hartley Ave.\r\nCoquitlam, British Columbia, Canada\r\nV3K 7A1','+1 (800) 620-1985','my.esecuredata.com/mylogin.php'),(2,'Customer Location','N/A','N/A','#');
+/*!40000 ALTER TABLE `sm_datacentres` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -362,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-08  4:48:48
+-- Dump completed on 2013-11-08 23:09:41

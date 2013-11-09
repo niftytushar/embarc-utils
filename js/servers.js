@@ -347,6 +347,8 @@ var server_list = {
                 // set auto refresh if required
                 if (preferences.rInt && preferences.rInt != "0") { // zero disables auto refresh
                     window.setInterval(function () {
+                        // trigger refresh event on single server refresh buttons
+                        $(".refreshBtn").trigger("refresh");
                     }, parseInt(preferences.rInt, 10) * 60 * 1000);
                 }
             });

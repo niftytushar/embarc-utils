@@ -130,16 +130,16 @@ function showFinalPrice(price) {
     * Requestd by shailendra.bansal@findnsecure.com on August 1st, 2013
     *
     * To display charges in INR again, include the following line:
-    * '<div class="span4 breadcrumb">₹' + price.toFixed(2) + '</div>'
+    * '<div class="col-lg-4 breadcrumb">₹' + price.toFixed(2) + '</div>'
     *
     * Fix #2: Final price has been split into two, Handling Charges & Freight Charges
     *
     * Note: Final Total Price is not displayed, as indicated via email communication with shailendra.bansal@findnsecure.com on August 1st, 2013
     */
-    var handlingChargesRow = '<div class="row-fluid align_center">\
-                <div class="span4 breadcrumb">Handling Charges</div>\
-                <div class="span4 breadcrumb">$' + preferences.handlingCharges_USD + '</div>\
-                <div class="span4 breadcrumb">&euro;' + preferences.handlingCharges_EUR + '</div>\
+    var handlingChargesRow = '<div class="row align_center">\
+                <div class="col-sm-4"><div class="breadcrumb">Handling Charges</div></div>\
+                <div class="col-sm-4"><div class="breadcrumb">$' + preferences.handlingCharges_USD + '</div></div>\
+                <div class="col-sm-4"><div class="breadcrumb">&euro;' + preferences.handlingCharges_EUR + '</div></div>\
             </div>';
     var freightCharge_USD = Math.ceil(parseFloat(price / parseFloat(preferences.dollarValue)) - preferences.handlingCharges_USD),
         freightCharge_EUR = Math.ceil(parseFloat(price / parseFloat(preferences.euroValue)) - preferences.handlingCharges_EUR);
@@ -154,10 +154,10 @@ function showFinalPrice(price) {
         freightCharge_EUR = preferences.minBilling_EUR - preferences.handlingCharges_EUR;
     }
 
-    var freightChargesRow = '<div class="row-fluid align_center">\
-                <div class="span4 breadcrumb">Freight Charges</div>\
-                <div class="span4 breadcrumb">$' + freightCharge_USD + '</div>\
-                <div class="span4 breadcrumb">&euro;' + freightCharge_EUR + '</div>\
+    var freightChargesRow = '<div class="row align_center">\
+                <div class="col-sm-4"><div class="breadcrumb">Freight Charges</div></div>\
+                <div class="col-sm-4"><div class="breadcrumb">$' + freightCharge_USD + '</div></div>\
+                <div class="col-sm-4"><div class="breadcrumb">&euro;' + freightCharge_EUR + '</div></div>\
             </div>';
 
     return (handlingChargesRow + freightChargesRow);

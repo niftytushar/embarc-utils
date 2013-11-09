@@ -54,7 +54,7 @@ $session->check();
 
         <form class="form-horizontal" role="form" id="packageDetailsForm">
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="weight">Weight</label>
+                <label class="col-lg-4 control-label" for="weight">Weight</label>
                 <div class="col-lg-4">
                 	<div class="input-group">
                     	<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight" />	
@@ -63,19 +63,21 @@ $session->check();
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="country">Country</label>
+                <label class="col-lg-4 control-label" for="country">Country</label>
                 <div class="col-lg-4">
                     <select id="country" class="form-control" name="country"></select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label" for="type">Type</label>
+                <label class="col-lg-4 control-label" for="type">Type</label>
                 <div class="col-lg-4">
                     <select id="type" class="form-control" name="type"></select>
                 </div>
             </div>
-            <div class="col-lg-offset-2 col-lg-4 margin-bottom">
+            <div class="form-group">
+            <div class="col-lg-offset-4 col-lg-4 margin-bottom text-center">
                 <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
+            </div>
             </div>
         </form>
         <div id="result"></div>

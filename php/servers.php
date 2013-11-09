@@ -9,14 +9,17 @@ class SERVER
 		$this->mInterface = new MYSQL_INTERFACE();
 	}
 	
+	// get list of servers
 	public function getServersList() {
 		return $this->mInterface->sm_getServers();
 	}
 	
+	// get details of a server
 	public function getServer($id) {
 		return $this->mInterface->sm_getServerDetails($id);
 	}
 	
+	// add a server
 	public function addServer($data, $id = false) {
 		$str = array();
 		
@@ -36,6 +39,7 @@ class SERVER
 		else return "ERROR";
 	}
 	
+	// remove server - not exactly remove, sort of vanish
 	public function removeServer($id) {
 		if($this->mInterface->sm_removeServer($id, $_SESSION['user'])) {
 			return "SUCCESS";
@@ -44,6 +48,7 @@ class SERVER
 		}
 	}
 	
+	// get status of a server by IP
 	public function getStatus($ip) {
 		
 		//The cURL method
@@ -63,6 +68,7 @@ class SERVER
 		return $data;
 	}
 	
+	// verify AES passphrase
 	public function verify_AES_passphrase($hash) {
 		$passphrase = "The key is, having admin privileges. Bazinga!";
 
@@ -70,10 +76,12 @@ class SERVER
 		else return "ERROR";
 	}
 	
+	// get list of data centres
 	public function getDC() {
 		return $this->mInterface->sm_getDatacentres();
 	}
 	
+	// add a data centre
 	public function addDC($data) {
 		$str = array();
 		

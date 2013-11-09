@@ -193,6 +193,14 @@ function server($fx)
 		case "checkSecret":
 			echo $servers->verify_AES_passphrase($_POST["hash"]);
 			break;
+			
+		case "addDatacentre":
+			echo $servers->addDC($_POST);
+			break;
+			
+		case "getDatacentres":
+			echo json_encode($servers->getDC());
+			break;
 	}
 }
 ?>

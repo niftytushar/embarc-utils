@@ -8,7 +8,7 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title></title>
+    <title>Courier - DHL</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
@@ -57,7 +57,7 @@ $session->check();
                 <label class="col-lg-2 control-label" for="weight">Weight</label>
                 <div class="col-lg-4">
                 	<div class="input-group">
-                    	<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight">	
+                    	<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight" />	
                         <span class="input-group-addon">kgs</span>
                     </div>                 					
                 </div>

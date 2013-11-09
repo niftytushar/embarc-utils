@@ -8,22 +8,17 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title>Servers - Status</title>
+    <title>Servers - Datacenters</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
-	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/servers.js"></script>
-	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
-	<script src="/embarc-utils/js/aes.js"></script>
-	<script src="/embarc-utils/js/sha256.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -62,16 +57,17 @@ $session->check();
     </nav>
     <div class="containt container">
 		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+		<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> Fields marked in red are required. </div>
     	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your preferences have been saved successfully. </div>
-		<form class="form-horizontal" role="form" id="preferencesForm">
+		<form class="form-horizontal" role="form" id="datacentresForm">
 		  	<div class="row">
-                <h3>DataCenter Details</h3>
+                <h3>Datacenter Details</h3>
                 <hr>
 			</div>
 		 	 <div class="form-group">
                 <label class="col-lg-4 control-label" for="name">Name</label>
                 <div class="col-lg-4">
-                    <input type="text"class="form-control" id="name" name="name" placeholder="">
+                    <input type="text" class="form-control" id="name" name="name" required />
                 </div>
             </div>
             <div class="form-group">
@@ -83,13 +79,16 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="url">Support URL</label>
                 <div class="col-lg-4">
-                    <input type="text"class="form-control" id="url" name="url" placeholder="">
+				<div class="input-group">
+					<span class="input-group-addon">http://</span>
+                    <input type="text" class="form-control" id="url" name="url" required />
+                </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="phone">Phone Number</label>
                 <div class="col-lg-4">
-                    <input type="text"class="form-control" id="phone" name="phone" placeholder="">
+                    <input type="tel" class="form-control" id="phone" name="phone">
                 </div>
             </div>                     
 	        <div class="col-lg-offset-4 col-lg-4 margin-bottom">

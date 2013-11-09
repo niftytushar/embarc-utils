@@ -69,5 +69,24 @@ class SERVER
 		if($hash == hash('sha256', $passphrase)) return "SUCCESS";
 		else return "ERROR";
 	}
+	
+	public function getDC() {
+		return $this->mInterface->sm_getDatacentres();
+	}
+	
+	public function addDC($data) {
+		$str = array();
+		
+		foreach($data as $key=>$value) {
+			array_push($str, $key."='".$this->mInterface->escapeString($value)."'");
+		}
+		
+		$queryPart = join(",", $str);
+		
+		$result = $this->mInterface->sm_addDatacentre($queryPart);
+		
+		if($result) return "SUCCESS";
+		else return "ERROR";
+	}
 }
 ?>

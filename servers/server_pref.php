@@ -8,22 +8,17 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title>Servers - Status</title>
+    <title>Servers - Preferences</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
-	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/servers.js"></script>
-	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
-	<script src="/embarc-utils/js/aes.js"></script>
-	<script src="/embarc-utils/js/sha256.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -72,7 +67,7 @@ $session->check();
                 <label class="col-lg-4 control-label" for="rInt">Auto refresh interval</label>
                 <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text"class="form-control" id="rInt" name="rInt" placeholder="0"></input>
+                    <input type="tel" class="form-control" id="rInt" name="rInt" placeholder="0" />
                     <span class="input-group-addon">minutes</span>
                 </div>
                 </div>
@@ -124,13 +119,13 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="sw_version">Software Version</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="sw_version" name="sw_version" placeholder="4.1.2">
+                    <input type="text" class="form-control" id="sw_version" name="sw_version" placeholder="4.*.*">
                 </div>
             </div>			
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="port">Port</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control" id="port" name="port" placeholder="21000">
+                    <input type="tel" class="form-control" id="port" name="port" placeholder="21000">
                 </div>
             </div>
             <div class="form-group">

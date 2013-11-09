@@ -15,12 +15,98 @@ function init() {
         case "/embarc-utils/servers/server_pref.php":
             server_pref.initialize();
             break;
+
+        case "/embarc-utils/servers/server_datacenter.php":
+            server_hosting_locations.initialize();
+            break;
     }
 }
 
 var server_hosting_locations = {
-    "1": {name: "esecuredata", url: "https://my.esecuredata.com/mylogin.php"},
-    "2": {name: "Customer Location", url: "#"}
+
+    initialize: function () {
+        var self = this;
+
+        // focus on name to start quickly
+        $("#name").focus();
+
+        //remove independent 'required' messages
+        jQuery.validator.messages.required = "";
+
+        // validate and submit form when done
+        $("#datacentresForm").validate({
+            highlight: function (element, errorClass, validClass) {
+                $(element).parent().addClass("has-error");
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                // call method to submit this form
+                self.save();
+
+                // clear the form
+                form.reset();
+
+                // focus on name to start again quickly
+                $("#name").focus();
+
+                return false;
+            },
+            invalidHandler: function (ev, validator) {
+                if (validator.numberOfInvalids()) {
+                    $("#errorMessage-2").show();
+                } else {
+                    $("#errorMessage-2").hide();
+                }
+            }
+        });
+    },
+
+    // save a new hosting location
+    save: function () {
+        $("#errorMessage-1").hide();
+        $("#successMessage-1").hide();
+
+        var jsdata = createObject(["datacentresForm"]);
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            data: jsdata,
+            url: "/embarc-utils/php/main.php?util=servers&fx=addDatacentre",
+            success: function (result) {
+                if (result == "SUCCESS") {
+                    $("#successMessage-1").show();
+
+                    window.setTimeout(function () {
+                        $("#successMessage-1").hide();
+                    }, 5000);
+                } else {
+                    $("#errorMessage-1").show();
+                }
+            }
+        });
+    },
+
+    // get hosting locations
+    get: function (callback) {
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=servers&fx=getDatacentres",
+            success: function (data) {
+                try {
+                    data = getJSONFromString(data);
+                } catch(ex) {
+                    console.log("no hosting locations found");
+                    return;
+                }
+
+                if(callback) callback.apply(self, [data]);
+            }
+        });
+    }
 };
 
 var server_log_string = { // all lower case
@@ -42,7 +128,10 @@ var server_add = {
         fillDropDown2("#country", countriesMap, "name", null);
 
         //fill hosting locations
-        fillDropDown2("#hosted_at", server_hosting_locations, "name", null);
+        server_hosting_locations.get(function (h_locations) {
+            fillDropDown("#hosted_at", h_locations, "name", "id");
+        });
+        
 
         //validate and submit form when done
         $("#serverAddForm").validate({
@@ -76,11 +165,23 @@ var server_add = {
             this.get(this.fill);
         } else {
             root_password_AES.prompt();
+
+            // fill up preferences
+            server_pref.get(function (preferences) {
+                self.preferences = preferences;
+
+                // fill up the preferences
+                $.each(preferences, function (key, value) {
+                    $("#" + key).val(value);
+                });
+            });
         }
 
     },
 
     id: null,
+
+    preferences: null,
 
     //get details of a server of specified ID
     get: function (callback) {
@@ -229,18 +330,26 @@ var server_list = {
     initialize: function () {
         var self = this;
 
-        // get preferences
-        server_pref.get(function (preferences) {
-            self.preferences = preferences;
-
-            //get list of servers and display
-            self.get(self.printList);
-
-            // set auto refresh if required
-            if (preferences.rInt && preferences.rInt != "0") { // zero disables auto refresh
-                window.setInterval(function () {
-                }, parseInt(preferences.rInt, 10) * 60 * 1000);
+        server_hosting_locations.get(function (h_locations) {
+            if (h_locations) {
+                for (var i = 0, l = h_locations.length; i < l; i++) {
+                    self.hostingLocations[h_locations[i]["id"]] = h_locations[i];
+                }
             }
+
+            // get preferences
+            server_pref.get(function (preferences) {
+                self.preferences = preferences;
+
+                //get list of servers and display
+                self.get(self.printList);
+
+                // set auto refresh if required
+                if (preferences.rInt && preferences.rInt != "0") { // zero disables auto refresh
+                    window.setInterval(function () {
+                    }, parseInt(preferences.rInt, 10) * 60 * 1000);
+                }
+            });
         });
 
         // hide #back-top initially
@@ -265,6 +374,8 @@ var server_list = {
             });
         });
     },
+
+    hostingLocations: {},
 
     preferences: null,
 
@@ -644,7 +755,8 @@ var server_list = {
 
     //get formatted server details
     getServerDetails: function (info) {
-        var html = "";
+        var self = this,
+            html = "";
 
         if (info) {
             $.each(info, function (key, value) {
@@ -664,7 +776,9 @@ var server_list = {
                             break;
 
                         case "hosted_at":
-                            html += '<li class="list-group-item">Server is hosted @ <a href="' + server_hosting_locations[value].url + '" target="_blank">' + server_hosting_locations[value].name + '</a></li>';
+                            if (self.hostingLocations[value]) {
+                                html += '<li class="list-group-item">Server is hosted @ <a href="http://' + self.hostingLocations[value].url + '" target="_blank">' + self.hostingLocations[value].name + '</a></li>';
+                            }
                             break;
 
                         case "server_name":
@@ -741,8 +855,13 @@ var server_pref = {
             return false;
         });
 
-        // get preferences and fill 'em up
-        this.get(this.fill);
+        //fill hosting locations
+        server_hosting_locations.get(function (h_locations) {
+            fillDropDown("#hosted_at", h_locations, "name", "id");
+
+            // get preferences and fill 'em up
+            self.get(self.fill);
+        });
     },
 
     // fill preferences

@@ -209,6 +209,19 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
+	public function sm_getDatacentres() {
+		$query = "SELECT * from sm_datacentres";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function sm_addDatacentre($queryPart) {
+		$query = "INSERT INTO sm_datacentres set ".$queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
 	public function escapeString($str) {
 		return $this->db_object->escapeString($str);
 	}

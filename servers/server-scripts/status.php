@@ -69,7 +69,12 @@ for($i=0; $i<count($log_files); $i++) {
 /*
 * check if trackers are working/updating
 */
-$updates = new TR_UPDATES();
+
+// if custom check interval is provided (in seconds)
+$seconds = NULL;
+if(isset($_GET["tcInt"])) $seconds = $_GET["tcInt"];
+
+$updates = new TR_UPDATES($seconds);
 $areUpdating = $updates->checkTrackers();
 
 //create associative array of disks and RAM

@@ -49,11 +49,14 @@ class SERVER
 	}
 	
 	// get status of a server by IP
-	public function getStatus($ip) {
+	public function getStatus($ip, $tcInt) {
+		
+		$params = "";
+		if(isset($tcInt) && $tcInt != 0) $params = "?tcInt=" . $tcInt;
 		
 		//The cURL method
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://$ip/status/status.php");
+		curl_setopt($ch, CURLOPT_URL, "http://$ip/status/status.php" . $params);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		$data = curl_exec($ch);

@@ -826,7 +826,7 @@ var server_list = {
         $.ajax({
             type: "GET",
             async: true,
-            url: "/embarc-utils/php/main.php?util=servers&fx=status&ip=" + ip,
+            url: "/embarc-utils/php/main.php?util=servers&fx=status&ip=" + ip + "&tcInt=" + (parseInt(self.preferences.tcInt || 0, 10) * 60),
             success: function (result) {
                 // test code
                 /*if (ip == "71.19.240.175") {

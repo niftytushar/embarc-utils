@@ -187,7 +187,7 @@ function server($fx)
 			break;
 			
 		case "status":
-			echo $servers->getStatus($_GET['ip']);
+			echo $servers->getStatus($_GET['ip'], $_GET['tcInt']);
 			break;
 			
 		case "checkSecret":

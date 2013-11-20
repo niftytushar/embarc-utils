@@ -1,16 +1,18 @@
 <?php
 require_once "mysql_db.php";
 
-define("RECENT_SECONDS", 60*60); // 1 hour
-
 class TR_UPDATES
 {
 	public $db_object = false;
 	public $db_connection = false;
+	public $RECENT_SECONDS = 3600; // 1 hour
 
-	public function __construct() {
+	public function __construct($custom_seconds) {
 		$this->db_object = new MYSQL_DB();
 		$this->db_connection = $this->db_object->connect();
+		
+		// custom seconds override
+		if(isset($custom_seconds)) $this->RECENT_SECONDS = intval($custom_seconds);
 
 		// set default timezone to UTC
 		date_default_timezone_set('UTC');
@@ -34,7 +36,7 @@ class TR_UPDATES
 		$lastRecord = $this->getLastRecord($trackerid);
 
 		if(is_array($lastRecord)) {
-			if(time() - $lastRecord[0] < RECENT_SECONDS) {
+			if(time() - $lastRecord[0] < $this->RECENT_SECONDS) {
 				return true;
 			}
 			return false;
@@ -43,7 +45,7 @@ class TR_UPDATES
 
 	public function checkTrackers() {
 		$trackers = $this->getTrackersList();
-		$result = array("count"=>count($trackers), "interval"=>RECENT_SECONDS, "status"=>-1);
+		$result = array("count"=>count($trackers), "interval"=>$this->RECENT_SECONDS, "status"=>-1);
 
 		for($i = 0; $i < count($trackers); $i++) {
 			if($this->checkRecord($trackers[$i])) {

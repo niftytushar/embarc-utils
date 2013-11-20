@@ -72,6 +72,15 @@ $session->check();
                 </div>
                 </div>
             </div>
+			 <div class="form-group">
+                <label class="col-lg-4 control-label" for="tcInt">Trackers update interval</label>
+                <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="tel" class="form-control" id="tcInt" name="tcInt" placeholder="60" />
+                    <span class="input-group-addon">minutes</span>
+                </div>
+                </div>
+            </div>
             <div class="form-group">
             <div class="col-lg-offset-4 col-lg-4 margin-bottom">
 				<div class="checkbox">

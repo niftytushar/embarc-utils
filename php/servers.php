@@ -49,7 +49,7 @@ class SERVER
 	}
 	
 	// get status of a server by IP
-	public function getStatus($ip, $tcInt) {
+	public function getStatus($ip, $tcInt=NULL) {
 		
 		$params = "";
 		if(isset($tcInt) && $tcInt != 0) $params = "?tcInt=" . $tcInt;

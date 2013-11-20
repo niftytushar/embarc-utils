@@ -20,7 +20,7 @@ class SCHEDULES
 		
 		for($i = 0; $i < count($list_of_servers); $i++) {
 			$server_status = $this->servers->getStatus($list_of_servers[$i]["ip_address"]);
-			//echo $server_status;
+			print_r(json_decode($server_status));
 		}
 	}
 }

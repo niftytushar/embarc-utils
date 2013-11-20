@@ -113,7 +113,7 @@ var server_log_string = { // all lower case
     "frontend.log": "client is authenticated successfully",
     "mailer.log": "connecting to the server",
     "geofence.log": "successful",
-    "udp_server.log": "server is started",
+    "udp_server.log": "ops server has been started",
     "rfid.log": "server is running now"
 };
 

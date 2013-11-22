@@ -111,10 +111,10 @@ var server_hosting_locations = {
 
 var server_log_string = { // all lower case
     "frontend.log": "client is authenticated successfully",
-    "mailer.log": "connecting to the server",
-    "geofence.log": "successful",
-    "udp_server.log": "ops server has been started",
-    "rfid.log": "server is running now"
+    //"mailer.log": "connecting to the server",
+    //"geofence.log": "successful",
+    //"udp_server.log": "ops server has been started",
+    //"rfid.log": "server is running now"
 };
 
 var server_add = {
@@ -677,7 +677,7 @@ var server_list = {
 
         $.each(logs, function (key, value) {
             if (!value) value = "";
-            if (value.toLowerCase().search(server_log_string[key]) < 0) {
+            if (server_log_string[key] && (value.toLowerCase().search(server_log_string[key]) < 0)) {
                 result.count++;
                 result.html += '<span class="badge" title="' + key + '">' + key.substr(0, 1) + key.substr(key.indexOf("."), 2) + '</span> ';
             }

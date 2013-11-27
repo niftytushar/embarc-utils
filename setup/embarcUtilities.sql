@@ -261,7 +261,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.png','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.png','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.png',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.png','servers/server_list.php');
+INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.jpg','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.jpg','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.jpg',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.jpg','servers/server_list.php');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `preferences` (
 
 LOCK TABLES `preferences` WRITE;
 /*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"60\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"1\",\"noStatus\":\"1\",\"sw_version\":\"4.2.8\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}');
+INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"60\",\"tcInt\":\"10\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"1\",\"noStatus\":\"1\",\"sw_version\":\"4.2.8\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}');
 /*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,7 +303,7 @@ CREATE TABLE `sm_datacentres` (
   `phone` varchar(32) NOT NULL,
   `url` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='list of data centres';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='list of data centres';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -389,4 +389,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-08 23:09:41
+-- Dump completed on 2013-11-27 11:32:21

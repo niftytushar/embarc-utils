@@ -31,6 +31,7 @@ $session->check();
 
 </head>
 <body>
+<div id="wrap">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
         	<div class="navbar-header">
@@ -171,5 +172,16 @@ $session->check();
             </div>
         </form>      
     </div>
+    <div id="push"></div>
+   </div>
+   <footer>
+	<div id="footer">
+	<div class="bs-footer">
+    	<div class="container">
+        	<div class="row">By Dev. Team</div>
+        </div>
+    </div>
+   </div>
+</footer>
 </body>
 </html>

@@ -1,8 +1,8 @@
-﻿<?php
+﻿<?php /*?><?php
 require_once('/var/www/embarc-utils/php/sessions.php');
 $session = new SESSIONS();
 $session->check();
-?>
+?><?php */?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +39,7 @@ $session->check();
             	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
+                        <span class="icon-bar"></span>                      
                     </button>
                 <a class="navbar-brand" href="/embarc-utils/dashboard.php">
                         Embarc
@@ -51,9 +49,7 @@ $session->check();
             	
                     <ul class="nav navbar-nav">                        
                         <li class="active"><a href="#">List</a></li>
-                        <li ><a href="/embarc-utils/servers/server_add.php">Add</a></li>
-                        <li><a href="/embarc-utils/servers/server_pref.php">Preferences</a></li>
-                        <li><a href="/embarc-utils/servers/server_datacenter.php">Datacenter</a></li>                        
+                        <li ><a href="/embarc-utils/users/users_add.php">Add</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -77,7 +73,7 @@ $session->check();
         	<div class="row">By Dev. Team</div>
         </div>
     </div>
-   </div>
+    </div>
 </footer>
                 
     

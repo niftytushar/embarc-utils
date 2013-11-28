@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once('/var/www/embarc-utils/php/sessions.php');
 $session = new SESSIONS();
 $session->check();
@@ -8,22 +8,17 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title>Servers - Status</title>
+    <title>Mails - Schedule</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
-	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/servers.js"></script>
-	<script src="/embarc-utils/js/static_data.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
-	<script src="/embarc-utils/js/aes.js"></script>
-	<script src="/embarc-utils/js/sha256.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -32,7 +27,6 @@ $session->check();
 
 </head>
 <body>
-<div id="wrap">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
         	<div class="navbar-header">
@@ -50,10 +44,11 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">                        
-                        <li class="active"><a href="#">List</a></li>
-                        <li ><a href="/embarc-utils/servers/server_add.php">Add</a></li>
+                        <li><a href="/embarc-utils/servers/server_list.php">List</a></li>
+                        <li><a href="/embarc-utils/servers/server_add.php">Add</a></li>
                         <li><a href="/embarc-utils/servers/server_pref.php">Preferences</a></li>
-                        <li><a href="/embarc-utils/servers/server_datacenter.php">Datacenter</a></li>                        
+                        <li class="active"><a href="/embarc-utils/servers/server_datacenter.php">Datacenter</a></li>
+                        <li class="active"><a href="#">Email</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -62,22 +57,53 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-<div class="panel-group" id="workingServersList"></div>
-</div>
+		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+		<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> Fields marked in red are required. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your preferences have been saved successfully. </div>
+		<form class="form-horizontal" role="form" id="datacentresForm">
+		  	<div class="row">
+                <h3>Datacenter Details</h3>
+                <hr>
+			</div>
+		 	 <div class="form-group">
+                <label class="col-lg-4 control-label" for="name">Name</label>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" id="name" name="name" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="address">Address</label>
+                <div class="col-lg-4">
+                    <textarea class="form-control" id="address" name="address"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="url">Support URL</label>
+                <div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-addon">http://</span>
+                    <input type="text" class="form-control" id="url" name="url" required />
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-4 control-label" for="phone">Phone Number</label>
+                <div class="col-lg-4">
+                    <input type="tel" class="form-control" id="phone" name="phone">
+                </div>
+            </div>                     
+	        <div class="col-lg-offset-4 col-lg-4 margin-bottom">
+                <button type="submit" class="btn btn-default">Save</button>
+            </div>
 
-<p id="back-top">
-	<a href="#top"><span></span>Back to Top</a>
-</p>
-<div id="push"></div>
+        </form>
 </div>
 <footer>
-<div id="footer">
 	<div class="bs-footer">
     	<div class="container">
         	<div class="row">By Dev. Team</div>
         </div>
     </div>
-   </div>
 </footer>
                 
     

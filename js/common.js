@@ -164,7 +164,21 @@ function createObject(formsList) {	//Create JSON style object to send data from 
         selects = formsList[i].getElementsByTagName("select");
         for (var j = 0; j < selects.length; j++) {
             if (selects[j].disabled) continue;
-            json[selects[j].name] = selects[j].value;
+
+            if (selects[j].multiple) { // if multiple values can be selected
+                var selectedValues = [];
+
+                for (var x = 0; x < selects[j].options.length; x++) {
+                    if (selects[j].options[x].selected == true) {
+                        selectedValues.push(selects[j].options[x].value);
+                    }
+                }
+
+                json[selects[j].name] = selectedValues.join(",");
+            } else {
+                // for selectes without multiple select option
+                json[selects[j].name] = selects[j].value;
+            }
         }
 
         //Get Textareas

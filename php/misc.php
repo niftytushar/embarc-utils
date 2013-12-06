@@ -9,8 +9,12 @@ class MISC
 		$this->mInterface = new MYSQL_INTERFACE();
 	}
 	
+	public function listModules() {
+		return $this->mInterface->misc_getAllModules();
+	}
+	
 	public function getModules() {
-		$modules = $this->mInterface->misc_getAllModules();
+		$modules = $this->listModules();
 		$allModules = array();
 		foreach($modules as $k=>$v) {
 			$allModules[$v["id"]] = $v;

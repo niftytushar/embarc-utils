@@ -222,6 +222,12 @@ class MYSQL_INTERFACE
 		return $this->db_object->query_db($query);
 	}
 	
+	public function us_addUser($queryPart) {
+		$query = "INSERT INTO users set ".$queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
 	public function escapeString($str) {
 		return $this->db_object->escapeString($str);
 	}

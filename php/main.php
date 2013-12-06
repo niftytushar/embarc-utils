@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-require_once("mysql_interface.php");
-require_once('login.php');
+require_once "mysql_interface.php";
+require_once "login.php";
+require_once "users.php";
 
 switch ($_GET['util']) {
 	case "courier":
@@ -27,6 +28,10 @@ switch ($_GET['util']) {
 		
 	case "misc":
 		misc($_GET['fx']);
+		break;
+		
+	case "user":
+		user($_GET['fx']);
 		break;
 }
 
@@ -150,6 +155,12 @@ function misc($fx)
 			else echo json_encode($modules);
 			break;
 			
+		case "listModules":
+			$modules = $misc->listModules();
+			if(gettype($modules) == "string") echo $modules;
+			else echo json_encode($modules);
+			break;
+			
 		case "getPreferences":
 			echo json_encode($misc->getPreferences($_GET["module"]));
 			break;
@@ -200,6 +211,18 @@ function server($fx)
 			
 		case "getDatacentres":
 			echo json_encode($servers->getDC());
+			break;
+	}
+}
+
+function user($fx)
+{
+	$users = new USERS();
+	
+	switch ($fx)
+	{
+		case "add":
+			echo $users->saveUser($_POST);
 			break;
 	}
 }

@@ -104,7 +104,8 @@ $session->check();
 <div id="footer">
 	<div class="bs-footer">
     	<div class="container">
-        	<div class="row">By Dev. Team</div>
+        	<div class="row">This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC By-SA 3.0</a>, without all the cruft that would otherwise be
+            put at the bottom of the page.</div>
         </div>
     </div>
    </div>

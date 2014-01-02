@@ -44,7 +44,7 @@ var user_add = {
             submitHandler: function (form) {
                 //set current state of submit button to loading
                 $("#saveUserButton").button('loading');
-
+                debugger;
                 //call method to submit this form
                 self.save();
 
@@ -66,7 +66,7 @@ var user_add = {
 
         var jsdata = createObject(["userAddForm"]);
         jsn.dob = getFormattedDate(jsn.dob);
-        
+        debugger;
         $.ajax({
             type: "POST",
             async: true,

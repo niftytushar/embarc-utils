@@ -222,7 +222,8 @@ function user($fx)
 	switch ($fx)
 	{
 		case "add":
-			echo $users->saveUser($_POST);
+			echo "hi";
+			//echo $users->saveUser($_POST);
 			break;
 	}
 }

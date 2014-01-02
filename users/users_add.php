@@ -17,9 +17,9 @@ $session->check();
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
+   	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/users.js"></script>
-	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>

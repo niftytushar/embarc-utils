@@ -120,13 +120,13 @@ var user_list = {
         createElement("<td/>", $row, { 'html': userDetails.email });
         createElement("<td/>", $row, { 'html': userDetails.phone });        
         createElement("<td/>", $row, { 'html': userDetails.dob });
-        var $editButton = createElement("<i/>", null, { 'class': "fa fa-pencil-square-o", 'style': "cursor: pointer;" }).appendTo(createElement("<td/>", $row, null));
+        var $editButton = createElement("<i/>", null, { 'class': "fa fa-pencil-square-o", 'style': "cursor: pointer;", 'title': "Edit" }).appendTo(createElement("<td/>", $row, null));
         $editButton.on("click", function () {
             if (editCallback) editCallback.apply(self, [userDetails, $row]);
         });
 
-        var $closeButton = createElement("<i/>", null, { 'class': "fa fa-times", 'style': "color: red; cursor: pointer;" }).appendTo(createElement("<td/>", $row, null));
-        $closeButton.on("click", function () {
+        var $removeButton = createElement("<i/>", null, { 'class': "fa fa-times", 'style': "color: red; cursor: pointer;", 'title': "Remove" }).appendTo(createElement("<td/>", $row, null));
+        $removeButton.on("click", function () {
             if (!confirm("Are you sure you want to remove this user? Warning: a user once removed will be deleted permanently.")) return;
 
             // remove this row

@@ -41,7 +41,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">                        
-                        <li class="active"><a href="#">List</a></li>
+                        <li class="active"><a href="/embarc-utils/users/users_list.php">List</a></li>
                         <li ><a href="/embarc-utils/users/users_add.php">Add</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
@@ -51,13 +51,22 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-<div class="panel-group" id="usersList">
-<div class="row">
-	<div class="col-lg-4">Tushar Agarwal</div>
-    <div class="col-lg-6">Modules</div>
-    <div class="col-lg-1"><i class="fa fa-pencil-square-o"></i></div>
-    <div class="col-lg-1"><i class="fa fa-times"></i></div>
-</div>
+<div class="panel-group">
+<div class="table-responsive">
+  <table class="table">
+  	<thead>
+    	<th>Name</th>
+        <th>Username</th>
+        <th>Modules</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>DOB</th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody id="usersList"></tbody>
+  </table>
+ </div>
 </div>
 </div>
 

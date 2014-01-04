@@ -127,6 +127,12 @@ function getFormattedDate(date) {
     return (m[3] + "-" + m[2] + "-" + m[1]);
 }
 
+function getDisplayDate(date) {
+    if (date == null || date == "") return "";
+    var m = date.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    return (m[3] + "/" + m[2] + "/" + m[1]);
+}
+
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function dateStampToString(date) {
@@ -262,4 +268,14 @@ function monthDiff(d1, d2) {
 //get difference of days between 2 dates
 function dayDiff(d1, d2) {
     return (d2 - d1) / (1000 * 60 * 60 * 24);
+}
+
+//convert a data array to object mapper
+function createMapFromArray(dataArray, key) {
+    var mapper = {};
+    for (var i = 0, l = dataArray.length; i < l; i++) {
+        mapper[dataArray[i][key]] = dataArray[i];
+    }
+
+    return mapper;
 }

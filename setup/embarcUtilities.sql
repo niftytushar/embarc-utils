@@ -380,7 +380,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('abhishek','abhishek123','2','','0000-00-00','',''),('anshul','anshul123','4','','0000-00-00','',''),('embarc','embarc123#','1','','0000-00-00','',''),('manish','manish123','4','','0000-00-00','',''),('pritpal','pritpal123','2,4','','0000-00-00','',''),('tushar','123','1,2,4,5','','0000-00-00','','');
+INSERT INTO `users` VALUES ('abhishek','abhishek123','2','Abhishek Khosla','0000-00-00','abhiskek.khosla@findnsecure.com',''),('anshul','anshul123','2,4','Anshul Agarwal','0000-00-00','anshul.agarwal@findnsecure.com',''),('embarc','embarc123#','1','Shailendra Bansal','0000-00-00','shailendra.bansal@findnsecure.com','+91-9897041111'),('manish','manish123','2,4','Manish Sharma','1985-10-15','manish.sharma@findnsecure.com',''),('pradeep','pradeep123','2,4,5','Pradeep','1980-08-10','pradeep.brisk@gmail.com','+91-9901623265'),('pritpal','pritpal123','2,4','Pritpal Singh','2014-06-18','pritpal.singh@findnsecure.com',''),('tushar','123','1,2,4,5','Tushar Agarwal','1989-10-03','niftytushar@gmail.com','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -393,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-30 15:03:08
+-- Dump completed on 2014-01-04 17:04:51

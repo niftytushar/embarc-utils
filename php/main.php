@@ -222,8 +222,22 @@ function user($fx)
 	switch ($fx)
 	{
 		case "add":
-			echo "hi";
-			//echo $users->saveUser($_POST);
+		if(isset($_GET['username'])) $username = $_GET['username'];
+			else $username = false;
+			
+			echo $users->saveUser($_POST, $username);
+			break;
+			
+		case "list":
+			echo json_encode($users->getUsersList());
+			break;
+			
+		case "remove":
+			echo $users->remove($_GET['username']);
+			break;
+			
+		case "get":
+			echo json_encode($users->getUser($_GET['username']));
 			break;
 	}
 }

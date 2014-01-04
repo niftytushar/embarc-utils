@@ -51,8 +51,9 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> You have successfully added a new user. </div>
+		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+        <div class="alert alert-warning" id="errorMessage-2"><strong>Bummer!</strong> The username you are trying to register is already in use. Please choose a different username. </div>
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> user details have been saved successfully. </div>
 
           <form class="form-horizontal" role="form" id="userAddForm">
 		  <div class="row">

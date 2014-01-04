@@ -228,6 +228,32 @@ class MYSQL_INTERFACE
 		return $this->db_object->query_db($query);
 	}
 	
+	public function us_updateUser($queryPart, $username) {
+		$query = "UPDATE users set " . $queryPart . " where username='" . $this->escapeString($username) . "'";
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function us_getUsers() {
+		$query = "SELECT * from users";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function us_removeUser($username) {
+		$query = "DELETE from users where username='" . $this->escapeString($username) . "'";
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function us_getUserDetails($username) {
+		$query = "SELECT * from users where username='" . $this->escapeString($username) . "'";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
 	public function escapeString($str) {
 		return $this->db_object->escapeString($str);
 	}

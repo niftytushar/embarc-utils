@@ -468,8 +468,11 @@ var server_list = {
         } else if (statusObject.updating && statusObject.updating.status == -1) { // trackers are not updating
             // default is red - no need to color
 
+            // line deprecated - since updating interval is not always available
+            //createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "no AVL data received since " + parseInt(statusObject.updating.interval, 10) / 60 + " minutes" });
+
             // show error message
-            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "no AVL data received since " + parseInt(statusObject.updating.interval, 10) / 60 + " minutes" });
+            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': "no AVL data received since " + parseInt(this.preferences.rInt, 10) + " minutes" });
         } else if (errorsomeLogs.count > 0) { // error is found in log files
             if (errorsomeLogs.count < totalLogs) {
                 //color it amber

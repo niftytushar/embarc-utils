@@ -724,7 +724,7 @@ var server_list = {
         
         if (Array.isArray(disks)) {
             for (var i = 0, l = disks.length; i < l; i++) {
-                html += '<li class="list-group-item"><span class="badge" title="of ' + parseInt(disks[i][3], 10) + ' MB">' + parseInt(disks[i][4], 10) + '%</span>' + disks[i][5] + '</li>';
+                html += '<li class="list-group-item"><span class="badge" title="of ' + parseInt(disks[i][1], 10) + ' MB">' + parseInt(disks[i][4], 10) + '%</span>' + disks[i][5] + '</li>';
             }
         }
 

@@ -18,44 +18,28 @@ class SCHEDULES
 	
 	public function checkAllServers() {
 		$list_of_servers = $this->servers->getServersList();
+		$mailBody = "";
+		$mailAltBody = "";
 		
 		for($i = 0; $i < count($list_of_servers); $i++) {
 			$server_status = $this->servers->getStatus($list_of_servers[$i]["ip_address"]);
 			$server_status = json_decode($server_status);
 			if($server_status->updating->status == -1) {
 				$status = array("updating"=>$server_status->updating, "info"=>$list_of_servers[$i]);
-				$this->mail_serverDown($status);
+				$mailBody .= $this->getMailBody($status);
+				$mailAltBody .= $this->getMailAltBody($status);
 			}
 		}
+		
+		// finally send a mail
+		$this->mail_serverDown($mailBody, $mailAltBody);
 	}
 	
-	public function mail_serverDown($status) {
-		$mail = new PHPMailer;
-
-		$mail->isSMTP();										// Set mailer to use SMTP
-		$mail->SMTPDebug = 0;									// Production mode
-		$mail->Host = 'smtp.gmail.com';							// Specify main and backup server
-		$mail->Port = 587;										// SMTP port for Gmail
-		$mail->SMTPAuth = true;									// Enable SMTP authentication
-		$mail->SMTPKeepAlive = true;							// SMTP connection will not close after each email sent, reduces SMTP overhead
-		$mail->SMTPSecure = 'tls';
-		$mail->Username = 'tushar.agarwal@softcruise.com';		// SMTP username
-		$mail->Password = 'tushar123';							// SMTP password
-		
-		$mail->From = 'support@findnsecure.com';				// Sender Email ID
-		$mail->FromName = 'Server Status';						// Sender Name
-		$mail->addAddress('pradeep.brisk@gmail.com', 'Pradeep Jain');	// Recipient name - 1
-		$mail->addAddress('tushar.agarwal@softcruise.com', 'Tushar Agarwal');  // Recipient name - 2
-		$mail->addReplyTo('support@findnsecure.com', 'Servers');
-		
-		$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
-		$mail->isHTML(true);                                  // Set email format to HTML
-
-		$mail->Subject = $status["info"]["company"] . ": Server Down";
-		$mail->Body    = '<html>
+	public function getMailBody($status) {
+		return '<html>
 		<head></head>
 		<body>
-		AVL data was <b>NOT</b> received on the server ' . $status["info"]["company"] . ' in last ' . intval($status["updating"]->interval) / 60 . ' minutes. <br />
+		AVL data was <b>NOT</b> received on the server <b>' . $status["info"]["company"] . '</b> in last ' . intval($status["updating"]->interval) / 60 . ' minutes. <br />
 		<table>
 		<tr><td>Contact Name</td><td>'.$status["info"]["contact"].'</td></tr>
 		<tr><td>Email ID</td><td>'.$status["info"]["email"].'</td></tr>
@@ -64,8 +48,38 @@ class SCHEDULES
 		<tr><td>Software Version</td><td>'.$status["info"]["sw_version"].'</td></tr>
 		</table>
 		</body>
-		</html>';
-		$mail->AltBody = 'AVL data was <b>NOT</b> received on the server ' . $status["info"]["company"] . ' in last ' . intval($status["updating"]->interval) / 60 . ' minutes';
+		</html><br />';
+	}
+	
+	public function getMailAltBody($status) {
+		return 'AVL data was <b>NOT</b> received on the server ' . $status["info"]["company"] . ' in last ' . intval($status["updating"]->interval) / 60 . ' minutes';
+	}
+	
+	public function mail_serverDown($mailBody, $mailAltBody) {
+		$mail = new PHPMailer;
+
+		$mail->isSMTP();										// Set mailer to use SMTP
+		$mail->SMTPDebug = 0;									// Production mode
+		$mail->Host = 'smtp.mandrillapp.com';							// Specify main and backup server
+		$mail->Port = 587;										// SMTP port for Gmail
+		$mail->SMTPAuth = true;									// Enable SMTP authentication
+		$mail->SMTPKeepAlive = true;							// SMTP connection will not close after each email sent, reduces SMTP overhead
+		$mail->SMTPSecure = 'tls';
+		$mail->Username = 'pradeep.brisk@gmail.com';		// SMTP username
+		$mail->Password = '6JKHeUjlpPsrCjxaNbfUsA';							// SMTP password
+		
+		$mail->From = 'support@findnsecure.com';				// Sender Email ID
+		$mail->FromName = 'Server Status';						// Sender Name
+		$mail->addAddress('anshul.agarwal@findnsecure.com', 'Anshul Agarwal');	// Recipient name - 1
+		//$mail->addAddress('tushar.agarwal@softcruise.com', 'Tushar Agarwal');  // Recipient name - 2
+		$mail->addReplyTo('support@findnsecure.com', 'Servers');
+		
+		$mail->WordWrap = 50;                                 // Set word wrap to 50 characters
+		$mail->isHTML(true);                                  // Set email format to HTML
+
+		$mail->Subject = "Server Down";
+		$mail->Body    = $mailBody;
+		$mail->AltBody = $mailAltBody;
 
 		if(!$mail->send()) {
 		   echo 'Message could not be sent.';
@@ -73,7 +87,7 @@ class SCHEDULES
 		   exit;
 		}
 
-		echo "Mail sent for server " . $status["info"]["company"] . "\n";
+		echo "Mail sent\n";
 	}
 	/*
 	public function mail_serverDown($status) {

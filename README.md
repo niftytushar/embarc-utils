@@ -8,6 +8,8 @@ Utilities for Embarc Information Technology
 - [x] Inventory Management
 - [x] Server Status Utility
 - [ ] Server Maintenance Log Manager
+- [ ] Users
+- [ ] Device Simulator
 - [ ] Settings
 
 ##Setting up the database

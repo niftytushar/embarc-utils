@@ -8,7 +8,8 @@ Utilities for Embarc Information Technology
 - [x] Inventory Management
 - [x] Server Status Utility
 - [ ] Server Maintenance Log Manager
-- [ ] Users
+- [x] Users
+- [ ] Mails
 - [ ] Device Simulator
 - [ ] Settings
 

@@ -44,11 +44,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">                        
-                        <li><a href="/embarc-utils/servers/server_list.php">List</a></li>
-                        <li><a href="/embarc-utils/servers/server_add.php">Add</a></li>
-                        <li><a href="/embarc-utils/servers/server_pref.php">Preferences</a></li>
-                        <li class="active"><a href="/embarc-utils/servers/server_datacenter.php">Datacenter</a></li>
-                        <li class="active"><a href="#">Email</a></li>
+                        <li class="active"><a href="#">Schedules</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -58,7 +54,6 @@ $session->check();
     </nav>
     <div class="containt container">
 		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
-		<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> Fields marked in red are required. </div>
     	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your preferences have been saved successfully. </div>
 		<form class="form-horizontal" role="form" id="datacentresForm">
 		  	<div class="row">
@@ -99,11 +94,16 @@ $session->check();
         </form>
 </div>
 <footer>
-	<div class="bs-footer">
-    	<div class="container">
-        	<div class="row">By Dev. Team</div>
-        </div>
-    </div>
+	<div id="footer">
+		<div class="bs-footer">
+			<div class="container">
+				<div class="row">
+				This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC By-SA 3.0</a>, without all the cruft that would otherwise be
+				put at the bottom of the page.
+				</div>
+			</div>
+		</div>
+   </div>
 </footer>
                 
     

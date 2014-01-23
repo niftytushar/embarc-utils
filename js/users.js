@@ -155,7 +155,7 @@ var user_add = {
         this.getModules(function (modules) {
             fillDropDown2("#modules", modules, "name", "id");
 
-            /******************MODULES FETCHED******************/
+            /******************MODULES FETCHED - proceed******************/
 
             //check for edit mode
             if (getURLParameter("edit") == "1") {
@@ -283,5 +283,5 @@ var user_add = {
                 }
             }
         });
-    },
+    }
 };

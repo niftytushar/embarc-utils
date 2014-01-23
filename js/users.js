@@ -164,6 +164,10 @@ var user_add = {
                 this.get(getURLParameter("username"), this.fill);
             }
         });
+
+        $("#modules").select2({
+            'placeholder': "select a module"
+        });
         
         //validate and submit form when done
         $("#userAddForm").validate({
@@ -221,12 +225,8 @@ var user_add = {
                     $("#" + key).val(value);
                     break;
 
-                case "modules":
-                    var modules = value.split(",");
-
-                    for (var i = 0; i < modules.length; i++) {
-                        $("#modules option[value=" + modules[i] + "]").prop("selected", true);
-                    }
+                case "modules":                    
+                    $("#modules").select2("val", value.split(","));
                     break;
 
                 default:

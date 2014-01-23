@@ -9,10 +9,12 @@ class MISC
 		$this->mInterface = new MYSQL_INTERFACE();
 	}
 	
+	// returns list of all modules
 	public function listModules() {
 		return $this->mInterface->misc_getAllModules();
 	}
 	
+	// returns list of modules for current user
 	public function getModules() {
 		$modules = $this->listModules();
 		$allModules = array();
@@ -40,11 +42,13 @@ class MISC
 		return $allowedModules;
 	}
 	
+	// returns preferences for current user for specified module
 	public function getPreferences($module) {
 		$result = $this->mInterface->misc_getPreferences($_SESSION["user"], $module);
 		return json_decode($result[0]);
 	}
 	
+	// save preferences for current user for specified module
 	public function savePreferences($module, $postData) {
 		if($this->mInterface->misc_savePreferences($_SESSION["user"], $module, json_encode($postData))) {
 			return "success";

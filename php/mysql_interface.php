@@ -254,6 +254,20 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
+	public function ar_getAlerts() {
+		$query = "SELECT * from _ar_alerts";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function ar_getReminders() {
+		$query = "SELECT * from _ar_reminders";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
 	public function escapeString($str) {
 		return $this->db_object->escapeString($str);
 	}

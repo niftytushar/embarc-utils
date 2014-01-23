@@ -33,6 +33,10 @@ switch ($_GET['util']) {
 	case "user":
 		user($_GET['fx']);
 		break;
+		
+	case "anr":
+		anr($_GET['fx']);
+		break;
 }
 
 function login($fx)
@@ -222,7 +226,7 @@ function user($fx)
 	switch ($fx)
 	{
 		case "add":
-		if(isset($_GET['username'])) $username = $_GET['username'];
+			if(isset($_GET['username'])) $username = $_GET['username'];
 			else $username = false;
 			
 			echo $users->saveUser($_POST, $username);
@@ -238,6 +242,20 @@ function user($fx)
 			
 		case "get":
 			echo json_encode($users->getUser($_GET['username']));
+			break;
+	}
+}
+
+function anr($fx)
+{
+	$al_rem = new AL_REM();
+	
+	switch($fx)
+	{
+		case "getAR":
+			$list = $al_rem->getAlertsAndReminders();
+			if(gettype($list) == "string") echo $list;
+			else echo json_encode($list);
 			break;
 	}
 }

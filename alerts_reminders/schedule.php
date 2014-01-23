@@ -12,11 +12,13 @@ $session->check();
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<link href="/embarc-utils/css/select2.css" rel="stylesheet">
     <link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
+	<script src="/embarc-utils/js/select2.js"></script>
 	<script>window.eu = { 'id': "aNr_schedule" }</script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/alerts_reminders.js"></script>
@@ -103,7 +105,7 @@ $session->check();
 				</div>
 			</div>
 	        <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-block btn-primary">Save</button>
             </div>
 
         </form>

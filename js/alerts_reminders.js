@@ -36,3 +36,24 @@ var schedule = {
         });
     }
 };
+
+/**
+* Contributions
+*
+*
+* jQuery
+* URL: http://jquery.com/
+* GitHub: https://github.com/jquery/jquery
+*
+* Bootstrap
+* URL: http://getbootstrap.com/
+* GitHub: https://github.com/twbs/bootstrap/
+*
+* select2.js
+* URL: http://ivaynberg.github.io/select2/
+* GitHub: https://github.com/ivaynberg/select2
+*
+* jQuery.validate
+* URL: http://jqueryvalidation.org/
+* GitHub: https://github.com/jzaefferer/jquery-validation
+*/

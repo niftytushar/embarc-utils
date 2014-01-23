@@ -10,14 +10,16 @@ $session->check();
     <meta charset="utf-8" />
     <title>Users - Add</title>
     <link rel="stylesheet" href="/embarc-utils/css/normalize.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
 	<link href="/embarc-utils/css/datepicker.css" rel="stylesheet">
+	<link href="/embarc-utils/css/select2.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
    	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
+	<script src="/embarc-utils/js/select2.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/users.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -70,7 +72,7 @@ $session->check();
 			<div class="form-group">
                 <label class="col-lg-4 control-label" for="dob">Date of birth</label>
                 <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dob" name="dob" placeholder="03/10/1989" required>
+                    <input type="text" class="form-control datepicker" style="padding: 6px 12px;" id="dob" name="dob" placeholder="dd/mm/yyyy" required>
                 </div>
             </div>
                         
@@ -105,11 +107,11 @@ $session->check();
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="modules">Modules</label>
                 <div class="col-lg-4">
-					<select class="form-control" id="modules" name="modules" multiple="multiple" ></select>
+					<select style="width: 100%;" id="modules" name="modules" multiple="multiple" required></select>
                 </div>
             </div>
             <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-default" id="saveUserButton" data-loading-text="Saving...">Submit</button>
+                <button type="submit" class="btn btn-block btn-primary" id="saveUserButton" data-loading-text="Saving...">Submit</button>
             </div>
         </form>      
     </div>

@@ -4,6 +4,7 @@ session_start();
 require_once "mysql_interface.php";
 require_once "login.php";
 require_once "users.php";
+require_once "smtp.php";
 
 switch ($_GET['util']) {
 	case "courier":
@@ -36,6 +37,10 @@ switch ($_GET['util']) {
 		
 	case "anr":
 		anr($_GET['fx']);
+		break;
+		
+	case "smtp":
+		smtp($_GET['fx']);
 		break;
 }
 
@@ -256,6 +261,18 @@ function anr($fx)
 			$list = $al_rem->getAlertsAndReminders();
 			if(gettype($list) == "string") echo $list;
 			else echo json_encode($list);
+			break;
+	}
+}
+
+function smtp($fx)
+{
+	$smtp = new SMTPs();
+	
+	switch($fx)
+	{
+		case "sendMail":
+			echo $smtp->sendMail($_POST);
 			break;
 	}
 }

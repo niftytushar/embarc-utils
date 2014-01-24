@@ -26,6 +26,7 @@ $session->check();
 
 </head>
 <body>
+<div id="wrap">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
         	<div class="navbar-header">
@@ -63,6 +64,7 @@ $session->check();
             </div>
     	</div>
     </nav>
+    <div>
     <div class="containt container">
 	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
     	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Preferences successfully saved. </div>
@@ -127,5 +129,21 @@ $session->check();
             </div>
         </form>      
     </div>
+    </div>
+<div id="push"></div>
+</div>
+<footer>
+	<div id="footer">
+		<div class="bs-footer">
+			<div class="container">
+				<div class="row">
+                This work is licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC By-SA 3.0</a>, without all the cruft that would otherwise be
+            put at the bottom of the page.
+                </div>
+			</div>
+		</div>
+	</div>
+</footer>                
+
 </body>
 </html>

@@ -20,7 +20,6 @@ body {
 .containt {
     overflow: hidden;
     margin: 0 auto;
-    padding-top: 100px;
     width: 1000px;
 }
 

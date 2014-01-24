@@ -50,6 +50,7 @@ $session->check();
             </div>
     	</div>
     </nav>
+    <div>
     <div class="containt container">
 <div class="panel-group">
 <div class="table-responsive">
@@ -69,7 +70,7 @@ $session->check();
  </div>
 </div>
 </div>
-
+	</div>
 <div id="push"></div>
 </div>
 <footer>

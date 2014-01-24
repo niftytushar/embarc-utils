@@ -4,6 +4,9 @@
     text-shadow: none;
 }
 html,body{height:100%;}
+body {
+    padding-top: 60px;
+}
 .header_wrap {
     height: auto;
     background-color: #1e1e1e;
@@ -20,7 +23,6 @@ html,body{height:100%;}
 .containt {
     overflow: hidden;
     margin: 0 auto;
-    padding-top: 100px;
 }
 .lsmargin-bottom{
 	margin-bottom:10px;
@@ -134,7 +136,6 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .icon-size{
 	font-size:15px;
 }
-footer{margin-top:10px;}
 /* Sticky footer styles
       -------------------------------------------------- */
 

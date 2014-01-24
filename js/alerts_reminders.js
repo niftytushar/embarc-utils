@@ -34,7 +34,9 @@ var schedule = {
                 callback.apply(self, [data]);
             }
         });
-    }
+    },
+
+
 };
 
 /**

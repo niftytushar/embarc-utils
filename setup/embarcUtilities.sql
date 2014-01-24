@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.34, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: embarcUtilities
 -- ------------------------------------------------------
--- Server version	5.5.34-0ubuntu0.13.10.1
+-- Server version	5.5.35-0ubuntu0.13.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,52 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `_ar_alerts`
+--
+
+DROP TABLE IF EXISTS `_ar_alerts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `_ar_alerts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique ID of alert',
+  `name` varchar(32) NOT NULL COMMENT 'name of alert',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='List of alerts that can be scheduled';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `_ar_alerts`
+--
+
+LOCK TABLES `_ar_alerts` WRITE;
+/*!40000 ALTER TABLE `_ar_alerts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `_ar_alerts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `_ar_reminders`
+--
+
+DROP TABLE IF EXISTS `_ar_reminders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `_ar_reminders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of reminders that can be scheduled';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `_ar_reminders`
+--
+
+LOCK TABLES `_ar_reminders` WRITE;
+/*!40000 ALTER TABLE `_ar_reminders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `_ar_reminders` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cs_accounts`
@@ -28,7 +74,7 @@ CREATE TABLE `cs_accounts` (
   `serviceName` varchar(128) NOT NULL,
   `registeredTo` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='list of courier service accounts';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='list of courier service accounts';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -252,7 +298,7 @@ CREATE TABLE `modules` (
   `image` varchar(64) NOT NULL COMMENT 'image icon of module',
   `href` varchar(128) NOT NULL COMMENT 'linked page of module',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='list of modules';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='list of modules';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +307,7 @@ CREATE TABLE `modules` (
 
 LOCK TABLES `modules` WRITE;
 /*!40000 ALTER TABLE `modules` DISABLE KEYS */;
-INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.jpg','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.jpg','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.jpg',''),(4,'Server Maintenance','Check status of servers and schedule maintenance','servers.jpg','servers/server_list.php'),(5,'Users','Add/Remove users','users.jpg','users/users_list.php');
+INSERT INTO `modules` VALUES (1,'Courier Cost Calculator','Quickly calculate cost of courier packages','courier.jpg','courier/courier_dhl.php'),(2,'Inventory Manager','Track Stock-In and Stock-Out','inventory.jpg','inventory/stock_in.php'),(3,'Settings','Manage embarc-utils','settings.jpg',''),(4,'Server Maintenance','Add, remove, and modify details of each Server. View details of each server and keep a check on their health.','servers.jpg','servers/server_list.php'),(5,'Users','Manage user accounts by adding/removing users, assigning new modules, revoking assess to modules, changing personal info, etc.','users.jpg','users/users_list.php'),(6,'Alerts & Reminders','Set up alerts and reminders for your most important tasks.','alerts_reminders.jpg','alerts_reminders/schedule.php'),(7,'SMTP','Check your SMTP server','smtp.jpg','smtp/check.php');
 /*!40000 ALTER TABLE `modules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,7 +426,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('abhishek','abhishek123','2','Abhishek Khosla','1991-06-03','abhiskek.khosla@findnsecure.com','+91-9555024897'),('anshul','anshul123','2,4','Anshul Agarwal','1991-08-03','anshul.agarwal@findnsecure.com','+91-9027687148'),('embarc','embarc123#','1','Shailendra Bansal','1968-11-01','shailendra.bansal@findnsecure.com','+91-9897041111'),('manish','manish123','2,4','Manish Sharma','1985-10-15','manish.sharma@findnsecure.com','+91-9879106106'),('pradeep','pradeep123','2,4,5','Pradeep','1980-08-10','pradeep.brisk@gmail.com','+91-9901623265'),('pritpal','pritpal123','2,4','Pritpal Singh','1991-09-19','pritpal.singh@findnsecure.com','+91-9718613959'),('tushar','123','1,2,4,5','Tushar Agarwal','1989-10-03','niftytushar@gmail.com','');
+INSERT INTO `users` VALUES ('abhishek','abhishek123','2','Abhishek Khosla','1991-06-03','abhiskek.khosla@findnsecure.com','+91-9555024897'),('anshul','anshul321','2,4','Anshul Agarwal','1991-08-03','anshul.agarwal@findnsecure.com','+91-9027687148'),('embarc','embarc123#','1,2,5','Shailendra Bansal','1968-11-01','shailendra.bansal@findnsecure.com','+91-9897041111'),('manish','manish123','2,4','Manish Sharma','1985-10-15','manish.sharma@findnsecure.com','+91-9879106106'),('pradeep','pradeep123','2,4,5,7','Pradeep','1980-08-10','pradeep.brisk@gmail.com','+91-9901623265'),('pritpal','pritpal123','2,4','Pritpal Singh','1991-09-19','pritpal.singh@findnsecure.com','+91-9718613959'),('tushar','12345','1,2,4,5,6,7','Tushar Agarwal','1989-10-03','niftytushar@gmail.com','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -393,4 +439,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-22 18:38:56
+-- Dump completed on 2014-01-24 19:56:07

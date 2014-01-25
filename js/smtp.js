@@ -69,7 +69,7 @@ var smtp_check = {
                 if (receiveCallback) receiveCallback.apply(self, [data]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log("unable to do something " + errorThrown);
+                console.log("unable to do receive mail " + errorThrown);
             }
         });
     },

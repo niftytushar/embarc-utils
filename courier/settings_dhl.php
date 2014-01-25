@@ -62,6 +62,10 @@ $session->check();
 		<div class="row">
 			<div id="messages"></div>
 			<form class="form-horizontal" id="settingsForm">
+				
+				<div class="alert alert-success" id="successMessage-1"><strong>Great!</strong> You have successfully saved all settings.</div>
+				<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> There was an while saving settings.</div>
+				
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="d_value">Dollar Value</label>
 					<div class="col-lg-4">
@@ -84,8 +88,8 @@ $session->check();
 					<label class="col-lg-4 control-label" for="f_surcharge">Fuel Surcharge</label>
 					<div class="col-lg-4">
 						<div class="input-group">
-							<span class="input-group-addon">%</span>
 							<input type="text" class="form-control" id="fuelSurcharge" name="fuelSurcharge" placeholder="Fuel Surcharge">
+							<span class="input-group-addon">%</span>
 						</div>
 					</div>
 				</div>
@@ -93,8 +97,8 @@ $session->check();
 					<label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
 					<div class="col-lg-4">
 						<div class="input-group">
-							<span class="input-group-addon">%</span>
 							<input type="text" class="form-control" id="misc" name="misc" placeholder="Miscellaneous">
+							<span class="input-group-addon">%</span>
 						</div>
 					</div>
 				</div>

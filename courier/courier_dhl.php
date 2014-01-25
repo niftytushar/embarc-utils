@@ -15,6 +15,7 @@ $session->check();
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 	<script>window.eu = { 'id': "courier_dhl" }</script>
     <script src="/embarc-utils/js/common.js"></script>
     <script src="/embarc-utils/js/courier.js"></script>
@@ -61,6 +62,9 @@ $session->check();
 
 		<div class="row">
 			<form class="form-horizontal" role="form" id="packageDetailsForm">
+			
+				<div class="alert alert-danger" id="errorMessage-1"></div>
+				
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="weight">Weight</label>
 					<div class="col-lg-4">
@@ -84,7 +88,7 @@ $session->check();
 				</div>
 				<div class="form-group">
 				<div class="col-lg-offset-4 col-lg-4 margin-bottom text-center">
-					<button type="button" class="btn btn-primary btn-block" id="calculateButton">Calculate</button>
+					<button type="submit" class="btn btn-primary btn-block">Calculate</button>
 				</div>
 				</div>
 			</form>

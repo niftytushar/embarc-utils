@@ -37,12 +37,55 @@ var dhl = {
         // Get Preferences
         preferences.fetch.apply(self, [function (prefs) {
             self.preferences = prefs;
-        }])
+        }]);
 
-        $("#calculateButton").on("click", function () {
-            self.calculate();
-        });
-        
+        jQuery.validator.messages.required = "";
+        jQuery.validator.messages.number = "";
+
+        $("#packageDetailsForm").validate({
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parent().removeClass("has-error");
+            },
+            submitHandler: function (form) {
+                self.calculate();
+
+                return false;
+            },
+            rules: {
+                weight: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                weight: {
+                    required: "Please enter <strong>weight</strong> of package",
+                    number: "Weight of package should be <strong>numeric</strong>"
+                }
+            },
+            showErrors: function (errorMap, errorList) {
+                $("#errorMessage-1").hide();
+                var errorMessage = "There are error in your submission.<ul>";
+                
+                // create a list of errors
+                $.each(errorList, function (key, value) {
+                    if (value.message) errorMessage += "<li>" + value.message + "</li>";
+
+                    // mark errorsome fields in red
+                    $(value.element).parent().addClass("has-error");
+                });
+
+                $("#errorMessage-1").html(errorMessage);
+
+                if (errorList.length > 0) {
+                    $("#errorMessage-1").show();
+                }
+            },
+            focusCleanup: true,
+            focusInvalid: false,
+            onkeyup: false,
+            onfocusout: false
+        });        
     },
 
     // fetch list of countries
@@ -118,7 +161,7 @@ var dhl = {
                 <tr>\
                     <th>Charge</th>\
                     <th>Rate</th>\
-                    <th>Price @ " + price + "</th>\
+                    <th>Price @ ₹" + price + "</th>\
                 </tr>\
             </thead>\
     <tbody>";
@@ -126,17 +169,17 @@ var dhl = {
         str += '<tr>\
                 <td style="min-width: 25%;">Fuel Surcharge</td>\
                 <td>' + this.preferences.fuelSurcharge + '%</td>\
-                <td>' + this.getFuelSurcharge(price) + '</td>\
+                <td>₹' + this.getFuelSurcharge(price) + '</td>\
             </tr>';
         str += '<tr>\
                 <td style="min-width: 25%;">Miscellaneous</td>\
                 <td>' + this.preferences.misc + '%</td>\
-                <td>' + this.getMiscCharges(price) + '</td>\
+                <td>₹' + this.getMiscCharges(price) + '</td>\
             </tr>';
         str += '<tr>\
                 <td style="min-width: 25%;">Clearance Cost</td>\
                 <td>₹' + this.preferences.clearanceCost + '</td>\
-                <td>' + this.getClearanceCost(price) + '</td>\
+                <td>₹' + this.getClearanceCost(price) + '</td>\
             </tr>';
         str += '</tbody>\
         </table>';
@@ -163,28 +206,34 @@ var dhl = {
         *
         * Note: Final Total Price is not displayed, as indicated via email communication with shailendra.bansal@findnsecure.com on August 1st, 2013
         */
-        var handlingChargesRow = '<div class="row align_center">\
-                <div class="col-sm-4"><div class="breadcrumb">Handling Charges</div></div>\
-                <div class="col-sm-4"><div class="breadcrumb">$' + this.preferences.handlingCharges_USD + '</div></div>\
-                <div class="col-sm-4"><div class="breadcrumb">&euro;' + this.preferences.handlingCharges_EUR + '</div></div>\
+
+        var handlingCharges_INR = +this.preferences.handlingCharges_USD * +this.preferences.dollarValue,
+            handlingChargesRow = '<div class="row align_center">\
+                <div class="col-sm-3"><div class="breadcrumb"><strong>Handling Charges</strong></div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">₹' + handlingCharges_INR.toFixed(2) + '</div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">$' + this.preferences.handlingCharges_USD + '</div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">&euro;' + this.preferences.handlingCharges_EUR + '</div></div>\
             </div>';
-        var freightCharge_USD = Math.ceil(parseFloat(price / parseFloat(this.preferences.dollarValue)) - this.preferences.handlingCharges_USD),
+        var freightCharge_INR = Math.ceil(+price - handlingCharges_INR),
+            freightCharge_USD = Math.ceil(parseFloat(price / parseFloat(this.preferences.dollarValue)) - this.preferences.handlingCharges_USD),
             freightCharge_EUR = Math.ceil(parseFloat(price / parseFloat(this.preferences.euroValue)) - this.preferences.handlingCharges_EUR);
 
-        //check for total minimum charges - USD
+        // check for total minimum charges - USD
         if ((freightCharge_USD + this.preferences.handlingCharges_USD) < this.preferences.minBilling_USD) {
+            freightCharge_INR = +this.preferences.minBilling_USD * +this.preferences.dollarValue - handlingCharges_INR;
             freightCharge_USD = this.preferences.minBilling_USD - this.preferences.handlingCharges_USD;
         }
 
-        //check for total minimum charges - EUR
+        // check for total minimum charges - EUR
         if ((freightCharge_EUR + this.preferences.handlingCharges_EUR) < this.preferences.minBilling_EUR) {
             freightCharge_EUR = this.preferences.minBilling_EUR - this.preferences.handlingCharges_EUR;
         }
 
         var freightChargesRow = '<div class="row align_center">\
-                <div class="col-sm-4"><div class="breadcrumb">Freight Charges</div></div>\
-                <div class="col-sm-4"><div class="breadcrumb">$' + freightCharge_USD + '</div></div>\
-                <div class="col-sm-4"><div class="breadcrumb">&euro;' + freightCharge_EUR + '</div></div>\
+                <div class="col-sm-3"><div class="breadcrumb"><strong>Freight Charges</strong></div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">₹' + freightCharge_INR + '</div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">$' + freightCharge_USD + '</div></div>\
+                <div class="col-sm-3"><div class="breadcrumb">&euro;' + freightCharge_EUR + '</div></div>\
             </div>';
 
         return (handlingChargesRow + freightChargesRow);
@@ -203,8 +252,8 @@ var dhl = {
     },
 
     types: [
-    { 'name': 'Document', 'value': 'DOC' },
-    { 'name': 'Non-Document', 'value': 'NDOC' }
+        { 'name': 'Document', 'value': 'DOC' },
+        { 'name': 'Non-Document', 'value': 'NDOC' }
     ],
 
     typesMapper: {
@@ -270,22 +319,21 @@ var preferences = {
             url: "/embarc-utils/php/main.php?util=courier&fx=setSettings",
             success: function (data) {
                 if (data == "SUCCESS") {
-                    $("#messages").append(
-                        '<div class="alert alert-success fade in">\
-			    <button type="button" class="close" data-dismiss="alert">&times;</button>\
-			    <strong>Great!</strong> You have successfully saved all settings.\
-		        </div>');
+                    $("#successMessage-1").slideDown();
+                    window.setTimeout(function () {
+                        $("#successMessage-1").slideUp();
+                    }, 10000);
                 } else {
-                    $("#messages").append(
-                        '<div class="alert alert-error fade in">\
-			    <button type="button" class="close" data-dismiss="alert">&times;</button>\
-			    <strong>Oh snap!</strong> There was an while saving settings.\
-		        </div>');
+                    $("#errorMessage-1").slideDown();
+                    window.setTimeout(function () {
+                        $("#errorMessage-1").slideUp();
+                    }, 10000);
                 }
-                window.setTimeout(function () {
-                    $(".alert").alert('close');
-                }, 10000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("unable to save preferences " + errorThrown);
             }
+
         });
     }
 };

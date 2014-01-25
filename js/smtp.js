@@ -12,6 +12,19 @@ var smtp_check = {
     initialize: function () {
         var self = this;
 
+        $("#hideConsole").on("click", function () {
+            $("#console").slideUp();
+        });
+
+        $("#clearConsole").on("click", function () {
+            $("#log").html("");
+
+            // update number of attempts
+            self.attempts = 0;
+            $("#attempts").text(self.attempts);
+        });
+
+        // set validation
         $("#smtpForm").validate({
             highlight: function (element, errorClass, validClass) {
                 $(element).parent().addClass("has-error");
@@ -20,7 +33,22 @@ var smtp_check = {
                 $(element).parent().removeClass("has-error");
             },
             submitHandler: function (form) {
-                self.receive();
+                // button in loading state
+                $("#receiveMailButton").button('loading');
+
+                self.receive(function (log) {
+                    // show the console
+                    $("#console").slideDown();
+
+                    // reset button
+                    $("#receiveMailButton").button('reset');
+
+                    // print log in console
+                    $("#log").append("<p>" + log + "</p>");
+
+                    // update number of attempts
+                    $("#attempts").text(++self.attempts);
+                });
 
                 return false;
             }
@@ -28,8 +56,9 @@ var smtp_check = {
     },
 
     // receive an email
-    receive: function () {
-        var jsdata = createObject(["smtpForm"]);
+    receive: function (receiveCallback) {
+        var self = this,
+            jsdata = createObject(["smtpForm"]);
 
         $.ajax({
             type: "POST",
@@ -37,13 +66,15 @@ var smtp_check = {
             url: "/embarc-utils/php/main.php?util=smtp&fx=sendMail",
             data: jsdata,
             success: function (data, textStatus, jqXHR) {
-                // Request successful
+                if (receiveCallback) receiveCallback.apply(self, [data]);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log("unable to do something " + errorThrown);
             }
         });
-    }
+    },
+
+    attempts: 0
 };
 
 /**

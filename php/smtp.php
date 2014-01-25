@@ -18,7 +18,8 @@ class SMTPs
 		$username = $_SESSION['user'];
 		
 		// details of user, to send email to
-		$userDetails = $this->users->getUser($username)[0];
+		$userDetails = $this->users->getUser($username);
+		$userDetails = $userDetails[0];
 		
 		// data received from client
 		$host = $postData['host'];
@@ -31,7 +32,8 @@ class SMTPs
 		// start PHP mailer setup
 		$mail = new PHPMailer;
 		$mail->isSMTP();															// Set mailer to use SMTP
-		$mail->SMTPDebug = 2;														// Production mode
+		$mail->SMTPDebug = 2;														// Debug mode - Commands + Data
+		$mail->Debugoutput = "html";												// HTML style debug output
 		$mail->Host = $host;														// SMTP server
 		$mail->Port = $port;														// SMTP port [Gmail - (ssl: 465/25, tls: 587)]
 		$mail->SMTPAuth = $enAuth;													// Enable SMTP authentication
@@ -56,7 +58,7 @@ class SMTPs
 		   return $mail->ErrorInfo;
 		}
 		
-		return "SUCCESS";
+		return "Mail sent successfully.";
 	}
 }
 ?>

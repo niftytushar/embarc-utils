@@ -55,66 +55,82 @@ $session->check();
     	</div>
     </nav>
     <div class="containt container">
-		<form class="form-horizontal" role="form" id="smtpForm">
-		  	<div class="row">
-                <h3>Check your SMTP server</h3>
-                <hr>
-			</div>
-		 	 <div class="form-group">
-                <label class="col-lg-4 control-label" for="host">Host</label>
-                <div class="col-lg-4">
-					<input type="text" class="form-control" id="host" name="host" placeholder="Specify mail server" />
-                </div>
-            </div>
-            
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="alerts">Port</label>
-                <div class="col-lg-4">
-					<input type="text" class="form-control" id="port" name="port" placeholder="465" />
-                </div>
-            </div>
-			
-			<div class="form-group">
-				<label class="col-lg-4 control-label" for="username">Username</label>
-				<div class="col-lg-4">
-					<input type="text" class="form-control" id="username" name="username" />
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-4 control-label" for="password">Password</label>
-				<div class="col-lg-4">
-					<input type="password" class="form-control" id="password" name="password" />
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-lg-offset-4 col-lg-4">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="enAuth" name="enAuth" checked />
-							Enable SMTP authentication
-						</label>
+		<div class="row">
+			<h3>Check your SMTP server</h3>
+			<hr>
+		</div>
+		<div class="row">
+			<form class="form-horizontal" role="form" id="smtpForm">
+				 <div class="form-group">
+					<label class="col-lg-4 control-label" for="host">Host</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="host" name="host" placeholder="Specify mail server" required />
 					</div>
 				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-lg-offset-4 col-lg-4">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox" id="enSSL" name="enSSL" />
-							Enable encryption (SSL)
-						</label>
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="alerts">Port</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="port" name="port" placeholder="465" required />
 					</div>
 				</div>
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="username">Username</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="username" name="username" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="password">Password</label>
+					<div class="col-lg-4">
+						<input type="password" class="form-control" id="password" name="password" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-lg-offset-4 col-lg-4">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" id="enAuth" name="enAuth" checked />
+								Enable SMTP authentication
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-lg-offset-4 col-lg-4">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" id="enSSL" name="enSSL" />
+								Enable encryption (SSL)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-4 col-lg-4">
+						<button type="submit" class="btn btn-block btn-primary" data-loading-text="Sending email..." id="receiveMailButton">Receive an email</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="row" style="display: none;" id="console">
+			<div class="well well-lg">
+				<div class="pull-left">
+					<span><strong>Console </strong><span class="badge" id="attempts" title="Attempts">42</span></span>
+				</div>
+				<div class="pull-right">
+					<i class="fa fa-trash-o pointer" title="Clear" id="clearConsole"></i>
+					<i class="fa fa-minus-square-o pointer margin-left" title="Hide" id="hideConsole"></i>
+				</div>
+				<div class="clearfix"></div>
+				<hr style="border-style: groove;" />
+				<div id="log"></div>
 			</div>
-			
-	        <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-block btn-primary" data-loading-text="Sending email...">Receive a mail</button>
-            </div>
-
-        </form>
+		</div>
 </div>
 <div id="push"></div>
 </div>

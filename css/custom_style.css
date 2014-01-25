@@ -110,6 +110,9 @@ div [id*="errorMessage-"], div [id*="successMessage-"] {
 .panel-title > .row > a{
 	color:#FFF;
 }
+.pointer {
+    cursor: pointer;
+}
 .panel-title > .row > .col-lg-2 > code{
 	cursor:pointer;
 }

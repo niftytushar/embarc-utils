@@ -10,14 +10,14 @@ $session->check();
     <meta charset="utf-8" />
     <title>Inventory - Clients</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
     <script src="/embarc-utils/js/common.js"></script>
     <script src="/embarc-utils/js/inventory.js"></script>
-	<script src="/embarc-utils/js/jquery.validate.min.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -66,6 +66,10 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
+		<div class="row">
+			<h3>Clients of Embarc Information Technology</h2>
+			<hr />
+		</div>
 
         <form class="form-horizontal" role="form" id="addClientForm">
             <div class="form-group">
@@ -88,7 +92,7 @@ $session->check();
             </div>
             <div class="row">
             <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-default margin-bottom" id="saveClientButton" data-loading-text="Saving...">Submit</button>
+                <button type="submit" class="btn btn-primary btn-block" id="saveClientButton" data-loading-text="Saving...">Add client</button>
             </div>           
             </div>                           
         </form>  

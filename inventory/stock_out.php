@@ -68,65 +68,71 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
-		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
-		<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI is not is stock. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked out successfully. </div>
-		
-        <form class="form-horizontal" role="form" id="stockOutForm">        
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="out_invoice">Invoice #</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="out_invoice" name="out_invoice" placeholder="Invoice Number" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="clientName">Client</label>
-                <div class="col-lg-4">
-					<select id="clientID" name="clientID" class="form-control" required></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="dateOfSale">Date of Sale</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dateOfSale" name="dateOfSale" placeholder="Date of Sale">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="out_warranty">Warranty Provided</label>
-                <div class="col-lg-4">
-                   <div class="input-group">
-                    	<input type="text" class="form-control" id="out_warranty" name="out_warranty" placeholder="Warranty">
-						<span class="input-group-addon">Months</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="imei">IMEI</label>
-                <div class="col-lg-4">
-					<input type="hidden" id="id" name="id" />
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
-                   <div class="col-lg-4">
-        <input type="text" class="form-control" id="serial" name="serial" disabled placeholder="Tracker Serial" required>
-        
-    </div>
-    </div>
-            
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="model">Model</label>
-                <div class="col-lg-4">
-                	<input type="text" id="model" class="form-control" disabled name="model" placeholder="Model" required>
-                   
-                </div>
-            </div>            
+		<div class="row">
+			<h3>Move tracker out of stock</h3>
+			<hr />
+		</div>
+		<div class="row">
+			<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+			<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI is not is stock. </div>
+			<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked out successfully. </div>
+			
+			<form class="form-horizontal" role="form" id="stockOutForm">        
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="out_invoice">Invoice #</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="out_invoice" name="out_invoice" placeholder="Invoice Number" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="clientName">Client</label>
+					<div class="col-lg-4">
+						<select id="clientID" name="clientID" class="form-control" required></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="dateOfSale">Date of Sale</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control datepicker" id="dateOfSale" name="dateOfSale" placeholder="Date of Sale">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="out_warranty">Warranty Provided</label>
+					<div class="col-lg-4">
+					   <div class="input-group">
+							<input type="text" class="form-control" id="out_warranty" name="out_warranty" placeholder="Warranty">
+							<span class="input-group-addon">Months</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="imei">IMEI</label>
+					<div class="col-lg-4">
+						<input type="hidden" id="id" name="id" />
+						<input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
+					   <div class="col-lg-4">
+			<input type="text" class="form-control" id="serial" name="serial" disabled placeholder="Tracker Serial" required>
+			
+		</div>
+		</div>
+				
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="model">Model</label>
+					<div class="col-lg-4">
+						<input type="text" id="model" class="form-control" disabled name="model" placeholder="Model" required>
+					   
+					</div>
+				</div>            
 
-            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-default" id="saveStockButton" data-loading-text="Saving...">Submit</button>
-            </div>
-        </form>        
+				<div class="col-lg-offset-4 col-lg-4 margin-bottom">
+					<button type="submit" class="btn btn-primary btn-block" id="saveStockButton" data-loading-text="Saving...">Check out</button>
+				</div>
+			</form>
+		</div>
     </div>
     </div>
 <div id="push"></div>

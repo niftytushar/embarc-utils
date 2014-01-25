@@ -67,82 +67,88 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
+		<div class="row">
+			<h3>Find a tracker</h3>
+			<hr />
+		</div>
 
-        <form class="form-horizontal" role="form" id="stockSearchForm">
-            <div class="form-group">              
-              <div class="text-center">
-			  
-				<label class="radio-inline">
-                  <input type="radio" name="criteria" value="imei" checked>
-                  IMEI
-                </label>
-				
-                <label class="radio-inline">
-                  <input type="radio" name="criteria" value="model">
-                  Model
-                </label>
-             
-                <label class="radio-inline">
-                  <input type="radio" name="criteria" value="serial" >
-                  Serial
-                </label>
-             
-                <label class="radio-inline">
-                  <input type="radio" name="criteria" value="clientID" >
-                  Client
-                </label>
-				
-				<label class="radio-inline">
-                  <input type="radio" name="criteria" value="dateOfSale" >
-                  Sales Date
-                </label>
-              </div>
-            </div>
-            <div class="row">
-            <div class="col-lg-offset-4 col-lg-5">
-            	<div class="panel panel-default">
-                  <div class="panel-body">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="inStock_ex">
-                        Exclude items in stock
-                      </label>
-                    </div>
-					<div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="outStock_ex">
-                        Exclude items out of stock
-                      </label>
-                    </div>
-                  <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="count">
-                        Count only
-                      </label>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="wholeWord">
-                        Match whole word
-                      </label>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>  
-            <div class="row">
-            	<div class="col-lg-offset-4 col-lg-5">
-                	<div class="input-group">
-                    	<select class="form-control" style="display: none;" id="searchDropdown" name="query1"></select>
-						<input type="text" class="form-control" id="searchTextbox" name="query2" />
-                      <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" id="searchStockButton">Search</button>
-                      </span>
-                    </div>
-                </div>
-            </div>                         
-        </form>  
-        <div class="container" style="margin-top:20px; display:none;" id="noResults">
+		<div class="row">
+			<form class="form-horizontal" role="form" id="stockSearchForm">
+				<div class="form-group">              
+				  <div class="text-center">
+				  
+					<label class="radio-inline">
+					  <input type="radio" name="criteria" value="imei" checked>
+					  IMEI
+					</label>
+					
+					<label class="radio-inline">
+					  <input type="radio" name="criteria" value="model">
+					  Model
+					</label>
+				 
+					<label class="radio-inline">
+					  <input type="radio" name="criteria" value="serial" >
+					  Serial
+					</label>
+				 
+					<label class="radio-inline">
+					  <input type="radio" name="criteria" value="clientID" >
+					  Client
+					</label>
+					
+					<label class="radio-inline">
+					  <input type="radio" name="criteria" value="dateOfSale" >
+					  Sales Date
+					</label>
+				  </div>
+				</div>
+				<div class="row">
+				<div class="col-lg-offset-4 col-lg-5">
+					<div class="panel panel-default">
+					  <div class="panel-body">
+						<div class="checkbox">
+						  <label>
+							<input type="checkbox" name="inStock_ex">
+							Exclude items in stock
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+							<input type="checkbox" name="outStock_ex">
+							Exclude items out of stock
+						  </label>
+						</div>
+					  <div class="checkbox">
+						  <label>
+							<input type="checkbox" name="count">
+							Count only
+						  </label>
+						</div>
+						<div class="checkbox">
+						  <label>
+							<input type="checkbox" name="wholeWord">
+							Match whole word
+						  </label>
+						</div>
+						</div>
+					</div>
+					</div>
+				</div>  
+				<div class="row">
+					<div class="col-lg-offset-4 col-lg-5">
+						<div class="input-group">
+							<select class="form-control" style="display: none;" id="searchDropdown" name="query1"></select>
+							<input type="text" class="form-control" id="searchTextbox" name="query2" />
+						  <span class="input-group-btn">
+							<button class="btn btn-success" type="button" id="searchStockButton">Search</button>
+						  </span>
+						</div>
+					</div>
+				</div>                         
+			</form>
+		</div>
+        <div style="margin-top:20px; display:none;" id="noResults">
         <div class="row">
         	<div class="col-lg-12">
             	<div class="div-parameter">
@@ -153,7 +159,7 @@ $session->check();
             </div>
         </div>
         </div>
-        <div class="container" style="margin-top:20px; display:none;" id="countResultContainer">
+        <div style="margin-top:20px; display:none;" id="countResultContainer">
         <div class="row">
         	<div class="col-lg-12">
             	<div class="well well-lg">
@@ -162,7 +168,7 @@ $session->check();
             </div>
         </div>
         </div>        
-        <div class="container" style="margin-top:20px; display:none;" id="tableResultContainer">
+        <div style="margin-top:20px; display:none;" id="tableResultContainer">
         <div class="row">
         	<div class="col-lg-12">
             	<div class="table-responsive">                

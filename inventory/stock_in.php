@@ -68,62 +68,68 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
-	<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
-    <div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI number already exists. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked in successfully. </div>
+		<div class="row">
+			<h3>Add tracker to stock</h3>
+			<hr />
+		</div>
+		
+		<div class="row">
+			<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> Change a few things up and try submitting again. </div>
+			<div class="alert alert-danger" id="errorMessage-2"><strong>Bummer!</strong> This IMEI number already exists. </div>
+			<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Stock item checked in successfully. </div>
 
-          <form class="form-horizontal" role="form" id="stockInForm">
-		  
-		  <div class="form-group">
-                <label class="col-lg-4 control-label" for="invoice_no">Invoice #</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="in_invoice" name="in_invoice" placeholder="Invoice Number">
-                </div>
-            </div>
+			<form class="form-horizontal" role="form" id="stockInForm">
+			  <div class="form-group">
+					<label class="col-lg-4 control-label" for="invoice_no">Invoice #</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="in_invoice" name="in_invoice" placeholder="Invoice Number">
+					</div>
+				</div>
 
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="model">Model</label>
-                <div class="col-lg-4">
-                    <select id="model" class="form-control" name="model"></select>
-                </div>
-            </div>            
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="warranty">Warranty Received</label>
-                <div class="col-lg-4">
-                   <div class="input-group">
-                    	<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
-						<span class="input-group-addon">Months</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="vendor">Vendor</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
-                </div>
-            </div>
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
-                <div class="col-lg-4">                	
-                    	<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial" required>	                                          
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="imei">IMEI</label>
-                <div class="col-lg-4">
-                    <input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
-                </div>
-            </div>
-            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-default" id="saveStockButton" data-loading-text="Saving...">Submit</button>
-            </div>
-        </form>      
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="model">Model</label>
+					<div class="col-lg-4">
+						<select id="model" class="form-control" name="model"></select>
+					</div>
+				</div>            
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="dateOfPurchase">Date of Purchase</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control datepicker" id="dateOfPurchase" name="dateOfPurchase" placeholder="Date of Purchase" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="warranty">Warranty Received</label>
+					<div class="col-lg-4">
+					   <div class="input-group">
+							<input type="text" class="form-control" id="warranty" name="warranty" placeholder="Warranty">
+							<span class="input-group-addon">Months</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="vendor">Vendor</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="vendor" name="vendor" placeholder="Vendor">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="serial">Tracker Serial</label>
+					<div class="col-lg-4">                	
+							<input type="text" class="form-control" id="serial" name="serial" placeholder="Tracker Serial" required>	                                          
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="imei">IMEI</label>
+					<div class="col-lg-4">
+						<input type="text" class="form-control" id="imei" name="imei" placeholder="IMEI" required>
+					</div>
+				</div>
+				<div class="col-lg-offset-4 col-lg-4 margin-bottom">
+					<button type="submit" class="btn btn-primary btn-block" id="saveStockButton" data-loading-text="Saving...">Check in</button>
+				</div>
+			</form>
+		</div>
     </div>
     </div>
 <div id="push"></div>

@@ -66,7 +66,11 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
-
+		<div class="row">
+			<h3>Range of trackers</h3>
+			<hr />
+		</div>
+		
         <form class="form-horizontal" role="form" id="addTrackerForm">
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="model">Model</label>

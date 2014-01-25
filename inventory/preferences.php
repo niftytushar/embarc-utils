@@ -116,7 +116,7 @@ $session->check();
                 </div>
             </div>
 			
-			<div class="col-lg-offset-4 col-lg-4 margin-bottom">
+			<div class="col-lg-offset-4 col-lg-4 lsmargin-bottom">
 				<div class="checkbox">
 					<label>
 						<input type="checkbox" name="autoSaveOUT" id="autoSaveOUT"> Auto-save on IMEI scan
@@ -124,8 +124,8 @@ $session->check();
 				</div>         
 			</div>
 			
-            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="submit" class="btn btn-default" id="savePreferencesButton">Save</button>
+            <div class="col-lg-offset-4 col-lg-4">
+                <button type="submit" class="btn btn-primary btn-block" id="savePreferencesButton">Save</button>
             </div>
         </form>      
     </div>

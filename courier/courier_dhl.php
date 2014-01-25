@@ -10,13 +10,14 @@ $session->check();
     <meta charset="utf-8" />
     <title>Courier - DHL</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script>window.eu = { 'id': "courier_dhl" }</script>
     <script src="/embarc-utils/js/common.js"></script>
-    <script src="/embarc-utils/js/dhl_main.js"></script>
+    <script src="/embarc-utils/js/courier.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -24,7 +25,7 @@ $session->check();
     <![endif]-->
 
 </head>
-<body onload="init();">
+<body>
 <div id="wrap">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
@@ -42,8 +43,8 @@ $session->check();
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">            	
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">DHL</a></li>
-                        <li><a href="/embarc-utils/courier/settings_dhl.php">Settings</a></li>
+                        <li class="active"><a href="/embarc-utils/courier/courier_dhl.php">DHL</a></li>
+                        <li><a href="/embarc-utils/courier/settings_dhl.php">Preferences</a></li>
                     </ul>
 					<ul class="nav navbar-nav navbar-right">
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -53,35 +54,41 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
+		<div class="row">
+			<h3>Calculate cost of courier using DHL</h3>
+			<hr>
+		</div>
 
-        <form class="form-horizontal" role="form" id="packageDetailsForm">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="weight">Weight</label>
-                <div class="col-lg-4">
-                	<div class="input-group">
-                    	<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight" />	
-                        <span class="input-group-addon">kgs</span>
-                    </div>                 					
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="country">Country</label>
-                <div class="col-lg-4">
-                    <select id="country" class="form-control" name="country"></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="type">Type</label>
-                <div class="col-lg-4">
-                    <select id="type" class="form-control" name="type"></select>
-                </div>
-            </div>
-            <div class="form-group">
-            <div class="col-lg-offset-4 col-lg-4 margin-bottom text-center">
-                <button type="button" class="btn btn-default" onclick="calculate();">Submit</button>
-            </div>
-            </div>
-        </form>
+		<div class="row">
+			<form class="form-horizontal" role="form" id="packageDetailsForm">
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="weight">Weight</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<input type="tel" class="form-control" id="weight" name="weight" placeholder="Weight" />	
+							<span class="input-group-addon">kgs</span>
+						</div>                 					
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="country">Country</label>
+					<div class="col-lg-4">
+						<select id="country" class="form-control" name="country"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="type">Type</label>
+					<div class="col-lg-4">
+						<select id="type" class="form-control" name="type"></select>
+					</div>
+				</div>
+				<div class="form-group">
+				<div class="col-lg-offset-4 col-lg-4 margin-bottom text-center">
+					<button type="button" class="btn btn-primary btn-block" id="calculateButton">Calculate</button>
+				</div>
+				</div>
+			</form>
+		</div>
         <div id="result"></div>
     </div>
     </div>

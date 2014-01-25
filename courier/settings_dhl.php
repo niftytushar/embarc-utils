@@ -8,15 +8,15 @@ $session->check();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
-    <title>Courier - Settings</title>
+    <title>Courier - Preferences</title>
     <link href="/embarc-utils/css/normalize.css" rel="stylesheet">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link href="/embarc-utils/css/custom_style.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script>window.eu = { 'id': "courier_preferences" }</script>
     <script src="/embarc-utils/js/common.js"></script>
-	<script src="/embarc-utils/js/dhl_settings.js"></script>
+	<script src="/embarc-utils/js/courier.js"></script>
 
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -25,7 +25,7 @@ $session->check();
     <![endif]-->
 
 </head>
-<body onload="init();">
+<body>
 <div id="wrap">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     	<div class="container">
@@ -44,7 +44,7 @@ $session->check();
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">            	
                     <ul class="nav navbar-nav">
                         <li><a href="/embarc-utils/courier/courier_dhl.php">DHL</a></li>
-                        <li class="active"><a href="#">Settings</a></li>
+                        <li class="active"><a href="/embarc-utils/courier/settings_dhl.php">Preferences</a></li>
                     </ul>
 					<ul class="nav navbar-nav navbar-right">
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -54,94 +54,101 @@ $session->check();
     </nav>
     <div>
     <div class="containt container">
-		<div id="messages"></div>
-        <form class="form-horizontal" id="settingsForm">
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="d_value">Dollar Value</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">₹</span>
-                        <input type="text" class="form-control" id="dollarValue" name="dollarValue" placeholder="Dollar Value">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="e_value">Euro Value</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">₹</span>
-                        <input type="text" class="form-control" id="euroValue" name="euroValue" placeholder="Euro Value">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="f_surcharge">Fuel Surcharge</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">%</span>
-                        <input type="text" class="form-control" id="fuelSurcharge" name="fuelSurcharge" placeholder="Fuel Surcharge">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">%</span>
-                        <input type="text" class="form-control" id="misc" name="misc" placeholder="Miscellaneous">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-4 control-label" for="c_cost">Clearance Cost</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">₹</span>
-                        <input type="text" class="form-control" id="clearanceCost" name="clearanceCost" placeholder="Clearance Cost">
-                    </div>
-                </div>
-            </div>
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="c_cost">USD Handling Charges</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" id="handlingCharges_USD" name="handlingCharges_USD" placeholder="USD Handling Charges">
-                    </div>
-                </div>
-            </div>
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="c_cost">USD Minimum Billing</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" id="minBilling_USD" name="minBilling_USD" placeholder="USD Minimum Billing">
-                    </div>
-                </div>
-            </div>
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="c_cost">EUR Handling Charges</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">&euro;</span>
-                        <input type="text" class="form-control" id="handlingCharges_EUR" name="handlingCharges_EUR" placeholder="EUR Handling Charges">
-                    </div>
-                </div>     
-            </div>
-			<div class="form-group">
-                <label class="col-lg-4 control-label" for="c_cost">EUR Minimum Billing</label>
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">&euro;</span>
-                        <input type="text" class="form-control" id="minBilling_EUR" name="minBilling_EUR" placeholder="EUR Minimum Billing">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-offset-4 col-lg-4 margin-bottom">
-                <button type="button" class="btn btn-success" onclick="saveSettings();">Save</button>
-                <button type="button" class="btn btn-default" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
-            </div>
-        </form>
+		<div class="row">
+			<h3>Customize calculation parameters</h3>
+			<hr>
+		</div>
+		
+		<div class="row">
+			<div id="messages"></div>
+			<form class="form-horizontal" id="settingsForm">
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="d_value">Dollar Value</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">₹</span>
+							<input type="text" class="form-control" id="dollarValue" name="dollarValue" placeholder="Dollar Value">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="e_value">Euro Value</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">₹</span>
+							<input type="text" class="form-control" id="euroValue" name="euroValue" placeholder="Euro Value">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="f_surcharge">Fuel Surcharge</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">%</span>
+							<input type="text" class="form-control" id="fuelSurcharge" name="fuelSurcharge" placeholder="Fuel Surcharge">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">%</span>
+							<input type="text" class="form-control" id="misc" name="misc" placeholder="Miscellaneous">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="c_cost">Clearance Cost</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">₹</span>
+							<input type="text" class="form-control" id="clearanceCost" name="clearanceCost" placeholder="Clearance Cost">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="c_cost">USD Handling Charges</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="text" class="form-control" id="handlingCharges_USD" name="handlingCharges_USD" placeholder="USD Handling Charges">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="c_cost">USD Minimum Billing</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="text" class="form-control" id="minBilling_USD" name="minBilling_USD" placeholder="USD Minimum Billing">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="c_cost">EUR Handling Charges</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">&euro;</span>
+							<input type="text" class="form-control" id="handlingCharges_EUR" name="handlingCharges_EUR" placeholder="EUR Handling Charges">
+						</div>
+					</div>     
+				</div>
+				<div class="form-group">
+					<label class="col-lg-4 control-label" for="c_cost">EUR Minimum Billing</label>
+					<div class="col-lg-4">
+						<div class="input-group">
+							<span class="input-group-addon">&euro;</span>
+							<input type="text" class="form-control" id="minBilling_EUR" name="minBilling_EUR" placeholder="EUR Minimum Billing">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-offset-4 col-lg-4 margin-bottom text-center">
+					<button type="button" class="btn btn-success" id="saveButton">Save</button>
+					<button type="button" class="btn btn-default" onclick="gotoPage('/embarc-utils/courier/courier_dhl.php');">Cancel</button>
+				</div>
+			</form>
+		</div>
     </div>
     </div>
    <div id="push"></div>

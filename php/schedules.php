@@ -43,7 +43,7 @@ class SCHEDULES
 					</html>';
 		
 		// finally send a mail
-		$result = $this->smtp_obj->sendMail(null, [array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com")], "Server Down", $mailBody, 0);
+		$result = $this->smtp_obj->sendMail(null, array(array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com")), "Server Down", $mailBody, 0);
 		
 		if($result == "SUCCESS") echo "Mail sent\n";
 	}

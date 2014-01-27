@@ -10,33 +10,52 @@ function init() {
 
 var schedule = {
     initialize: function () {
-        this.getModules(function (modulesList) {
+        var self = this;
+
+        this.getMAR(function (modulesList) {
+            self.mar = modulesList;
+
+            // fill up modules
             fillDropDown2("#module", modulesList, "name", "id");
+
+            $("#module").trigger("change");
+        });
+
+        $("#module").on("change", function () {
+            self._onModuleChange($(this).val());
         });
     },
 
-    // get list of modules
-    getModules: function (callback) {
+    mar: {},
+
+    // when a module is changed
+    _onModuleChange: function (module) {
+        if (!module) return;
+
+        fillDropDown("#alerts", this.mar[module].alerts, "name", "id");
+        fillDropDown("#reminders", this.mar[module].reminders, "name", "id");
+    },
+
+    // get a list of modules with their respective alerts and reminders
+    getMAR: function (callback) {
         var self = this;
 
         $.ajax({
             type: "GET",
             async: true,
-            url: "/embarc-utils/php/main.php?util=misc&fx=getModules",
+            url: "/embarc-utils/php/main.php?util=anr&fx=getMAR",
             success: function (data) {
                 try {
                     data = getJSONFromString(data);
                 } catch (ex) {
-                    console.log("Invalid list of modules received from server");
+                    console.log("Invalid list of alerts & reminders received from server");
                     return;
                 }
 
-                callback.apply(self, [data]);
+                if (callback) callback.apply(self, [data]);
             }
         });
-    },
-
-
+    }
 };
 
 /**

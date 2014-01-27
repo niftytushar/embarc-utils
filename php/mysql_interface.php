@@ -254,15 +254,15 @@ class MYSQL_INTERFACE
 		return $this->db_object->getResultSet();
 	}
 	
-	public function ar_getAlerts() {
-		$query = "SELECT * from _ar_alerts";
+	public function ar_getAlerts_byModule($module) {
+		$query = "SELECT * from _ar_alerts where module=".$module;
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();
 	}
 	
-	public function ar_getReminders() {
-		$query = "SELECT * from _ar_reminders";
+	public function ar_getReminders_byModule($module) {
+		$query = "SELECT * from _ar_reminders where module=".$module;
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();

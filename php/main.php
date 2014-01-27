@@ -4,6 +4,7 @@ session_start();
 require_once "mysql_interface.php";
 require_once "login.php";
 require_once "users.php";
+require_once "alerts_reminders.php";
 require_once "smtp.php";
 
 switch ($_GET['util']) {
@@ -257,8 +258,8 @@ function anr($fx)
 	
 	switch($fx)
 	{
-		case "getAR":
-			$list = $al_rem->getAlertsAndReminders();
+		case "getMAR":
+			$list = $al_rem->get_modules_alerts_reminders();
 			if(gettype($list) == "string") echo $list;
 			else echo json_encode($list);
 			break;

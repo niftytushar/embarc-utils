@@ -20,7 +20,9 @@ class SCHEDULES
 	
 	public function checkAllServers() {
 		$list_of_servers = $this->servers->getServersList();
-		$mailBody = "";
+		$mailBody = '<html>
+					<head></head>
+					<body>';
 		
 		for($i = 0; $i < count($list_of_servers); $i++) {
 			$server_status = $this->servers->getStatus($list_of_servers[$i]["ip_address"]);
@@ -37,6 +39,9 @@ class SCHEDULES
 			}
 		}
 		
+		$mailBody .= '</body>
+					</html>';
+		
 		// finally send a mail
 		$result = $this->smtp_obj->sendMail(null, [array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com")], "Server Down", $mailBody, 0);
 		
@@ -44,36 +49,28 @@ class SCHEDULES
 	}
 	
 	public function getBody_UC($status) {
-		return '<html>
-		<head></head>
-		<body>
-		Unable to connect to server <b>' . $status["info"]["company"] . '</b> <br />
+		return '<p>
+		Unable to connect to server <b>' . $status["info"]["company"] . '</b> </p>
 		<table>
 		<tr><td>Contact Name</td><td>'.$status["info"]["contact"].'</td></tr>
 		<tr><td>Email ID</td><td>'.$status["info"]["email"].'</td></tr>
 		<tr><td>IP</td><td>'.$status["info"]["ip_address"].'</td></tr>
 		<tr><td>URL</td><td><a href="http://' . $status["info"]["url"] . '">'.$status["info"]["url"].'</a></td></tr>
 		<tr><td>Software Version</td><td>'.$status["info"]["sw_version"].'</td></tr>
-		</table>
-		</body>
-		</html><br />';
+		</table><br /><br />';
 	}
 	
 	// get mail body for servers with errors
 	public function getBody_AVL($status) {
-		return '<html>
-		<head></head>
-		<body>
-		AVL data was <b>NOT</b> received on the server <b>' . $status["info"]["company"] . '</b> in last ' . intval($status["updating"]->interval) / 60 . ' minutes. <br />
+		return '<p>
+		AVL data was <b>NOT</b> received on the server <b>' . $status["info"]["company"] . '</b> in last ' . intval($status["updating"]->interval) / 60 . ' minutes. </p>
 		<table>
 		<tr><td>Contact Name</td><td>'.$status["info"]["contact"].'</td></tr>
 		<tr><td>Email ID</td><td>'.$status["info"]["email"].'</td></tr>
 		<tr><td>IP</td><td>'.$status["info"]["ip_address"].'</td></tr>
 		<tr><td>URL</td><td><a href="http://' . $status["info"]["url"] . '">'.$status["info"]["url"].'</a></td></tr>
 		<tr><td>Software Version</td><td>'.$status["info"]["sw_version"].'</td></tr>
-		</table>
-		</body>
-		</html><br />';
+		</table><br /><br />';
 	}
 }
 ?>

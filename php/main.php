@@ -272,7 +272,7 @@ function smtp($fx)
 	switch($fx)
 	{
 		case "sendMail":
-			echo $smtp->sendMail($_POST);
+			echo $smtp->testSMTPDetails($_POST);
 			break;
 	}
 }

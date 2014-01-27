@@ -29,6 +29,8 @@ class SMTPs
 	}
 	
 	public function sendMail($settings, $recipients, $subject="embarc-utils", $body, $debugMode=0) {
+		global $SM_FROM, $SM_REPLYTO;
+		
 		if(!$settings) $settings = $this->_defaultSMTPSettings();
 		
 		// start PHP mailer setup
@@ -43,15 +45,15 @@ class SMTPs
 		$mail->SMTPKeepAlive = false;												// SMTP connection will close after sending the email
 		$mail->Username = $settings['username'];									// SMTP username
 		$mail->Password = $settings['password'];									// SMTP password
-		$mail->From = 'check@embarc.com';											// Email ID of sender
-		$mail->FromName = 'embarc-utils';											// Name of sender
+		$mail->From = $SM_FROM['email'];											// Email ID of sender
+		$mail->FromName = $SM_FROM['name'];											// Name of sender
 		
 		// Adding recipients		
 		for($i=0; $i<count($recipients); $i++) {
 			$mail->addAddress($recipients[$i]['email'], $recipients[$i]['name']);	// Details of receipent
 		}
 		
-		$mail->addReplyTo('noreply@embarc.com', 'No-reply');						// Add reply-to address
+		$mail->addReplyTo($SM_REPLYTO['email'], $SM_REPLYTO['name']);				// Add reply-to address
 		$mail->WordWrap = 50;														// Set word wrap to 50 characters
 		$mail->isHTML(true);														// Set email format to HTML
 		
@@ -68,7 +70,9 @@ class SMTPs
 	}
 	
 	public function _defaultSMTPSettings() {
-		return array("host"=>"smtp.mandrillapp.com", "port"=>"587", "username"=>"pradeep.brisk@gmail.com", "password"=>"6JKHeUjlpPsrCjxaNbfUsA", "enAuth"=>true, "enSSL"=>false);
+		global $SM_HOST, $SM_PORT, $SM_USERNAME, $SM_PASSWORD, $SM_AUTH, $SM_SSL;
+		
+		return array("host"=>$SM_HOST, "port"=>$SM_PORT, "username"=>$SM_USERNAME, "password"=>$SM_PASSWORD, "enAuth"=>$SM_AUTH, "enSSL"=>$SM_SSL);
 	}
 }
 ?>

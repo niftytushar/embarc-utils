@@ -3,15 +3,16 @@
 Utilities for Embarc Information Technology
 
 ##Modules
-- [x] DHL Courier Service Management
+- [ ] Alerts & Reminders
+- [ ] Device Simulator
+- [x] Courier Charge Calculator
 - [ ] Employee Attendance Management
 - [x] Inventory Management
+- [ ] Server Log Maintenance
 - [x] Server Status Utility
-- [ ] Server Maintenance Log Manager
-- [x] Users
-- [ ] Mails
-- [ ] Device Simulator
 - [ ] Settings
+- [x] SMTP Checking Utility
+- [x] Users
 
 ##Backup the database
 1. Change your working directory to setup, using `cd setup`

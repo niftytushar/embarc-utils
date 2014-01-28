@@ -7,7 +7,7 @@ port = 21000
 
 count = 1
 
-# parse GPX file using Nokogiri - handsaw
+# parse GPX file using Nokogiri - meaning handsaw
 gpx_file = Nokogiri::XML(File.open('data_1.gpx'))
 trkpts = gpx_file.css('xmlns|trkpt')
 

@@ -16,6 +16,7 @@ Utilities for Embarc Information Technology
 
 ##Settings up Ruby on Ubuntu
 This process has been tested on Ubuntu 12.04 LTS, but should work without any changes with future releases. However, it is recommended to visit the official [RVM](http://rvm.io/) website to check for any changes before starting the process.
+
 1. Update sources using `sudo apt-get update`
 2. Install curl for downloading RVM `sudo apt-get install curl`
 3. Download and install the latest stable verison of RVM `\curl -L https://get.rvm.io | bash -s stable`

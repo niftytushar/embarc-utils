@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `_ar_alerts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `_ar_alerts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'unique ID of alert',
+  `id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'unique ID of alert',
   `module` int(11) NOT NULL,
   `name` varchar(32) NOT NULL COMMENT 'name of alert',
   PRIMARY KEY (`id`)
@@ -48,7 +48,8 @@ DROP TABLE IF EXISTS `_ar_reminders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `_ar_reminders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `module` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of reminders that can be scheduled';
@@ -61,6 +62,33 @@ CREATE TABLE `_ar_reminders` (
 LOCK TABLES `_ar_reminders` WRITE;
 /*!40000 ALTER TABLE `_ar_reminders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `_ar_reminders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ar_schedules`
+--
+
+DROP TABLE IF EXISTS `ar_schedules`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ar_schedules` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) NOT NULL,
+  `alert` smallint(6) NOT NULL,
+  `reminder` smallint(6) NOT NULL,
+  `sendEmail` tinyint(4) NOT NULL,
+  `sendSMS` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of schedules alerts and reminders';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ar_schedules`
+--
+
+LOCK TABLES `ar_schedules` WRITE;
+/*!40000 ALTER TABLE `ar_schedules` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ar_schedules` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -333,7 +361,7 @@ CREATE TABLE `preferences` (
 
 LOCK TABLES `preferences` WRITE;
 /*!40000 ALTER TABLE `preferences` DISABLE KEYS */;
-INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"30\",\"tcInt\":\"10\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"4.2.8\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('anshul',4,'{\"rInt\":\"30\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"4.2.8\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('pritpal',4,'{\"rInt\":\"15\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"trackv4.findnsecure.com\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('manish',4,'{\"rInt\":\"\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('abhishek',4,'{\"rInt\":\"30\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}');
+INSERT INTO `preferences` VALUES ('tushar',2,'{\"waitTimeIN\":\"3\",\"autoSaveIN\":\"1\",\"out_warranty\":\"12\",\"waitTimeOUT\":\"3\",\"autoSaveOUT\":\"1\",\"model\":\"VT-62\"}'),('tushar',4,'{\"rInt\":\"30\",\"tcInt\":\"10\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"4.2.8\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('anshul',4,'{\"rInt\":\"30\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"4.2.8\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('pritpal',4,'{\"rInt\":\"15\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"trackv4.findnsecure.com\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('manish',4,'{\"rInt\":\"\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('abhishek',4,'{\"rInt\":\"30\",\"tcInt\":\"\",\"showDel\":\"0\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"\",\"port\":\"\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}'),('pradeep',4,'{\"rInt\":\"30\",\"tcInt\":\"60\",\"showDel\":\"1\",\"cSort\":\"1\",\"noKey\":\"0\",\"noStatus\":\"0\",\"sw_version\":\"4.3.15\",\"port\":\"21000\",\"user2_username\":\"\",\"user2_password\":\"\",\"hosted_at\":\"1\"}');
 /*!40000 ALTER TABLE `preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,4 +469,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-27 17:32:47
+-- Dump completed on 2014-01-28 18:27:32

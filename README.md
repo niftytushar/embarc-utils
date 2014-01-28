@@ -26,9 +26,7 @@ Utilities for Embarc Information Technology
 9. To use .gpx files with Device Simulator install [Nokogiri](http://nokogiri.org/) `gem install nokogiri`
 
 ##Starting Alerts & Reminders
-To start alerts and reminders, so that mails are sent automatically to the scheduled recipients, you need to run a ruby script, which will automatically convert itself to a permanently running process. The method to run the script is given as:
-```ruby
-ruby ruby/schedule.rb
+To start alerts and reminders, so that mails are sent automatically to the scheduled recipients, you need to run a ruby script `ruby ruby/schedule.rb`, which will automatically convert itself to a permanently running process.
 
 ##Backup the database
 1. Change your working directory to setup, using `cd setup`

@@ -14,7 +14,8 @@ Utilities for Embarc Information Technology
 - [x] SMTP Checking Utility
 - [x] Users
 
-##Settings up Ruby on Ubuntu 12.04 LTS
+##Settings up Ruby on Ubuntu
+This process has been tested on Ubuntu 12.04 LTS, but should work without any changes with future releases. However, it is recommended to visit the official [RVM](http://rvm.io/) website to check for any changes before starting the process.
 1. Update sources using `sudo apt-get update`
 2. Install curl for downloading RVM `sudo apt-get install curl`
 3. Download and install the latest stable verison of RVM `\curl -L https://get.rvm.io | bash -s stable`
@@ -26,7 +27,7 @@ Utilities for Embarc Information Technology
 9. To use .gpx files with Device Simulator install [Nokogiri](http://nokogiri.org/) `gem install nokogiri`
 
 ##Starting Alerts & Reminders
-To start alerts and reminders, so that mails are sent automatically to the scheduled recipients, you need to run a ruby script `ruby ruby/schedule.rb`, which will automatically convert itself to a permanently running process.
+To start alerts and reminders, so that mails are sent automatically to the scheduled recipients, you need to run a ruby script `ruby ruby/schedule.rb`, which will automatically convert itself to process running in background.
 
 ##Backup the database
 1. Change your working directory to setup, using `cd setup`

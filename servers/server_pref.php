@@ -2,6 +2,7 @@
 require_once('/var/www/embarc-utils/php/sessions.php');
 $session = new SESSIONS();
 $session->check();
+$session->isModuleAuthorized("4");
 ?>
 <!DOCTYPE html>
 <html>

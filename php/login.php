@@ -19,6 +19,8 @@ class LOGIN
 				setcookie("username", "", time()+60*60*24*30, "/embarc-utils/");
 			}
 			$_SESSION['user'] = $username;
+			$modules = $this->mInterface->misc_getUserModules($username);
+			$_SESSION['modules'] = $modules[0];
 			return "success";
 		} else {
 			/*

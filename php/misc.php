@@ -9,12 +9,12 @@ class MISC
 		$this->mInterface = new MYSQL_INTERFACE();
 	}
 	
-	// returns list of all modules
+	// returns detailed list of all modules
 	public function listModules() {
 		return $this->mInterface->misc_getAllModules();
 	}
 	
-	// returns list of modules for current user
+	// returns detailed list of modules for current user
 	public function getModules() {
 		$modules = $this->listModules();
 		$allModules = array();

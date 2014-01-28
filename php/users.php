@@ -25,6 +25,9 @@ class USERS
 			$result = $this->mInterface->us_addUser($queryPart);
 		}
 		
+		// update user's modules in SESSION
+		$_SESSION['modules'] = $postData["modules"];
+		
 		if($result == "1") return "SUCCESS";
 		else if($result == "") return "EXISTS";
 		else return "ERROR";

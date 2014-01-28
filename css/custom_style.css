@@ -23,6 +23,7 @@ body {
 .containt {
     overflow: hidden;
     margin: 0 auto;
+    margin-bottom:10px;
 }
 .lsmargin-bottom{
 	margin-bottom:10px;

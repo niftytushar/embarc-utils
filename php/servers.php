@@ -58,7 +58,7 @@ class SERVER
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "http://$ip/status/status.php" . $params);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		//curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 		//curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 		$data = curl_exec($ch);
 		curl_close($ch);

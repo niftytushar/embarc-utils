@@ -168,6 +168,12 @@ $session->isModuleAuthorized("4");
                     <input type="text" class="form-control" id="user2_password" name="user2_password" placeholder="Secondary User Password">
                 </div>
             </div>
+			<div class="form-group">
+                <label class="col-lg-4 control-label" for="misc">Miscellaneous</label>
+                <div class="col-lg-4">
+                    <textarea class="form-control" id="misc" name="misc"></textarea>
+                </div>
+            </div>
             <div class="col-lg-offset-4 col-lg-4 margin-bottom">
                 <button type="submit" class="btn btn-default" id="saveServerButton" data-loading-text="Saving...">Submit</button>
             </div>

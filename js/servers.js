@@ -81,7 +81,7 @@ var server_hosting_locations = {
 
                     window.setTimeout(function () {
                         $("#successMessage-1").hide();
-                    }, 5000);
+                    }, 10000);
                 } else {
                     $("#errorMessage-1").show();
                 }
@@ -237,7 +237,7 @@ var server_add = {
                     $("#successMessage-1").show();
                     window.setTimeout(function () {
                         $("#successMessage-1").hide();
-                    }, 5000);
+                    }, 10000);
                 } else {
                     $("#errorMessage-1").show();
                 }
@@ -345,10 +345,10 @@ var server_list = {
                 self.get(self.printList);
 
                 // set auto refresh if required
-                if (preferences.rInt && preferences.rInt != "0") { // zero disables auto refresh
+                if (preferences.rInt && parseInt(preferences.rInt, 10)) { // zero disables auto refresh
                     window.setInterval(function () {
                         // trigger refresh event on single server refresh buttons
-                        $(".refreshBtn").trigger("refresh");
+                        $(".refreshBtn").trigger("srefresh");
                     }, parseInt(preferences.rInt, 10) * 60 * 1000);
                 }
             });
@@ -571,7 +571,7 @@ var server_list = {
 
         //refresh button
         var $refreshButton = createElement("<button/>", buttonsContainer, { 'type': "button", 'class': "close refreshBtn", 'aria-hidden': "true", 'html': '<i class="fa fa-refresh icon-size"></i>&nbsp;' });
-        $refreshButton.on("click refresh", function () {
+        $refreshButton.on("click srefresh", function () {
             self.resetRow(panel);
             self.getServerStatus(panel, details.ip_address, self.updateRow);
         });
@@ -899,7 +899,7 @@ var server_pref = {
 
                     window.setTimeout(function () {
                         $("#successMessage-1").hide();
-                    }, 5000);
+                    }, 10000);
                 } else {
                     $("#errorMessage-1").show();
                 }

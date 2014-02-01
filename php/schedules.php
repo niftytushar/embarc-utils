@@ -50,7 +50,8 @@ class SCHEDULES
 					</html>';
 		
 		// finally send a mail
-		$recipients = array(array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com"));
+		$recipients = array(array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com"),
+						array("name"=>"Manish Sharma", "email"=>"manish.sharma@findnsecure.com"));
 		$result = $this->smtp_obj->sendMail(null, $recipients, "$errorCount - Server Down", $mailBody, 0);
 		
 		if($result == "SUCCESS") $this->do_log("scheduled server check report sent.");

@@ -7,10 +7,14 @@ class SMTPs
 {
 	public $mInterface;
 	public $users;
+	public $LOG_FILE = "/var/www/embarc-utils/logs/mails.log";
 	
 	public function __construct() {
 		$this->mInterface = new MYSQL_INTERFACE();
 		$this->users = new USERS();
+		
+		// clear the .log file initially
+		file_put_contents($this->LOG_FILE, "", FILE_APPEND | LOCK_EX);
 	}
 	
 	// test a specified SMTP server
@@ -23,7 +27,7 @@ class SMTPs
 		// data received from client
 		$settings = array("host"=>$postData['host'], "port"=>$postData['port'], "username"=>$postData['username'], "password"=>$postData['password'], "enAuth"=>($postData['enAuth'] == 1?true:false), "enSSL"=>($postData['enSSL'] == 1?true:false));
 		
-		$result = $this->doMail($settings, $userDetails, "Congrats! SMTP server works", "This is a test mail from ".$settings['host'].". If you've received this mail, the SMTP server settings are correct.", 2);
+		$result = $this->sendMail($settings, $userDetails, "Congrats! SMTP server works", "This is a test mail from ".$settings['host'].". If you've received this mail, the SMTP server settings are correct.", 2);
 		
 		if($result == "SUCCESS") return "Mail sent successfully.";
 	}
@@ -63,9 +67,11 @@ class SMTPs
 		
 		// sending email
 		if(!$mail->send()) {
-		   return $mail->ErrorInfo;
+			$this->do_log($mail->ErrorInfo);
+			return $mail->ErrorInfo;
 		}
 		
+		$this->do_log("Email dispatched to " . implode(" ", $recipients));
 		return "SUCCESS";
 	}
 	
@@ -73,6 +79,10 @@ class SMTPs
 		global $SM_HOST, $SM_PORT, $SM_USERNAME, $SM_PASSWORD, $SM_AUTH, $SM_SSL;
 		
 		return array("host"=>$SM_HOST, "port"=>$SM_PORT, "username"=>$SM_USERNAME, "password"=>$SM_PASSWORD, "enAuth"=>$SM_AUTH, "enSSL"=>$SM_SSL);
+	}
+	
+	public function do_log($data) {
+		file_put_contents($this->LOG_FILE, date("r")." - ".$data."\r\n", FILE_APPEND | LOCK_EX);
 	}
 }
 ?>

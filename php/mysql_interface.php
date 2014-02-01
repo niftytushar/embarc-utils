@@ -280,15 +280,22 @@ class MYSQL_INTERFACE
 		return $this->db_object->query_db($query);
 	}
 	
-	public function ar_getAlertSchedules($alertID) {
+	public function ar_getScheduleByAlert($alertID) {
 		$query = "SELECT * from ar_schedules where alerts & (1 << $alertID)";
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();
 	}
 	
-	public function ar_getReminderSchedules($reminderID) {
+	public function ar_getScheduleByReminder($reminderID) {
 		$query = "SELECT * from ar_schedules where reminders & (1 << $reminderID)";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function ar_getScheduleByUser($username) {
+		$query = "SELECT * from ar_schedules where username='$username'";
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();

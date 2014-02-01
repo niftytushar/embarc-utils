@@ -14,20 +14,16 @@ var schedule = {
 
         // fetch details of modules, alerts and reminders
         this.getMAR(function (modulesList) {
-            self.mar = modulesList;
+            // fill up alerts and reminders
+            self._fillAlertsAndReminders(modulesList);            
 
-            // fill up modules
-            fillDropDown2("#module", modulesList, "name", "id");
-
-            $("#module").trigger("change");
+            // fetch existing schedule information
+            self.fetch(function (data) {
+                self._onScheduleFetch(data);
+            });
         });
 
         $("#alerts,#reminders").select2();
-
-        // handler on module change
-        $("#module").on("change", function () {
-            self._onModuleChange($(this).val());
-        });
 
         // form validation and submit handler
         $("#scheduleForm").validate({
@@ -53,15 +49,57 @@ var schedule = {
         });
     },
 
-    mar: {},
+    // fill up list of alerts and reminders
+    _fillAlertsAndReminders: function (mar) {
+        var $alerts = $("#alerts"),
+            $reminders = $("#reminders"),
+            $alertOptgroup,
+            $reminderOptgroup;
 
-    // when a module is changed
-    _onModuleChange: function (module) {
-        if (!module) return;
+        $.each(mar, function (key, value) {
+            if (value.alerts.length > 0) {
+                $alertOptgroup = createElement("<optgroup/>", $alerts, { 'label': value.name });
+                fillDropDown($alertOptgroup, value.alerts, "name", "id");
+            }
 
-        fillDropDown("#alerts", this.mar[module].alerts, "name", "id");
-        fillDropDown("#reminders", this.mar[module].reminders, "name", "id");
+            if (value.reminders.length > 0) {
+                $reminderOptgroup = createElement("<optgroup/>", $reminders, { 'label': value.name });
+                fillDropDown($reminderOptgroup, value.reminders, "name", "id");
+            }
+        });
     },
+
+    // method to execute when a schedule is fetched
+    _onScheduleFetch: function (scheduleDetails) {
+        this.id = scheduleDetails['id'];
+
+        scheduleDetails.alerts = this.getCSV_fromBinDec(scheduleDetails.alerts);
+        scheduleDetails.reminders = this.getCSV_fromBinDec(scheduleDetails.reminders);
+
+        $.each(scheduleDetails, function (key, value) {
+            switch(key) {
+                case "alerts":
+                    $("#alerts").select2("val", value.split(","));
+                    break;
+
+                case "reminders":
+                    $("#reminders").select2("val", value.split(","));
+                    break;
+
+                default:
+                    key = $("#" + key);
+
+                    if (key.is("input[type='checkbox']")) {
+                        key.prop("checked", +value);
+                    } else {
+                        key.val(value);
+                    }
+                    break;
+            }
+        });
+    },
+
+    id: null,
 
     // get a list of modules with their respective alerts and reminders
     getMAR: function (callback) {
@@ -87,6 +125,31 @@ var schedule = {
         });
     },
 
+    // fetch existing schedule for current user
+    fetch: function (fetchCallback) {
+        var self = this;
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/embarc-utils/php/main.php?util=anr&fx=get",
+            success: function (data, textStatus, jqXHR) {
+                try {
+                    data = getJSONFromString(data);
+                } catch (ex) {
+                    console.log("Invalid schedule received from server");
+                    return;
+                }
+
+                if (fetchCallback) fetchCallback.apply(self, [data]);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("unable to fetch schedule from server " + errorThrown);
+            }
+        });
+
+    },
+
     // save a schedule
     save: function () {
         // hide error & success messages
@@ -94,7 +157,6 @@ var schedule = {
         $("#errorMessage-1").hide();
 
         var jsdata = createObject(["scheduleForm"]);
-        delete jsdata.module;
         
         jsdata.alerts = this.getBinDec_fromCSV(jsdata.alerts);
         jsdata.reminders = this.getBinDec_fromCSV(jsdata.reminders);
@@ -103,7 +165,7 @@ var schedule = {
             type: "POST",
             async: true,
             data: jsdata,
-            url: "/embarc-utils/php/main.php?util=anr&fx=save",
+            url: "/embarc-utils/php/main.php?util=anr&fx=save" + (this.id?("&id=" + this.id): ""),
             success: function (data, textStatus, jqXHR) {
                 if (data == "SUCCESS") {
                     $("#successMessage-1").show();
@@ -118,6 +180,7 @@ var schedule = {
 
     },
 
+    // convert a list of comma seperated values to binary number
     getBinDec_fromCSV: function (csvstr) {
         var temp = 0,
             i = 0;
@@ -130,7 +193,20 @@ var schedule = {
         return temp;
     },
 
-    getCSV_fromBinDec: function () {
+    // convert a binary number to a list of comma separated values
+    getCSV_fromBinDec: function (number) {
+        number = parseInt(number, 10);
+
+        var temp = [],
+            c = 1;
+
+        while (number) {
+            if (number & 1) temp.push(c);
+            number = number >> 1;
+            c++;
+        }
+
+        return temp.join(",");
     },
 };
 

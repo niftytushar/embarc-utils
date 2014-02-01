@@ -49,8 +49,7 @@ $session->isModuleAuthorized("6");
             <div class="collapse navbar-collapse navbar-ex1-collapse nav-collapse-scrollable">
             	
                     <ul class="nav navbar-nav">
-						<li><a href="#">List</a></li>
-                        <li class="active"><a href="#">Schedule</a></li>
+                        <li class="active"><a href="/embarc-utils/alerts_reminders/schedule.php">Schedule</a></li>
 					</ul>
                     <ul class="nav navbar-nav navbar-right">                      
                         <li><a href="/embarc-utils/php/main.php?util=login&fx=logout">Sign Out</a></li>
@@ -59,21 +58,17 @@ $session->isModuleAuthorized("6");
     	</div>
     </nav>
     <div class="containt container">
-		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your schedule has been saved successfully. </div>
 		<form class="form-horizontal" role="form" id="scheduleForm">
 		  	<div class="row">
                 <h3>Schedule alerts for your modules</h3>
 				<p>All scheduled mails will be sent to your registered email ID</p>
                 <hr>
 			</div>
-		 	 <div class="form-group">
-                <label class="col-lg-4 control-label" for="module">Module</label>
-                <div class="col-lg-4">
-					<select class="form-control" id="module" name="module" required></select>
-                </div>
-            </div>
-            <div class="form-group">
+			
+			<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
+			<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your schedule has been saved successfully. </div>
+            
+			<div class="form-group">
                 <label class="col-lg-4 control-label" for="alerts">Alerts</label>
                 <div class="col-lg-4">
 					<select style="width: 100%;" id="alerts" name="alerts" multiple="multiple"></select>

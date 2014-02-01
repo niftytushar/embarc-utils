@@ -19,7 +19,7 @@ class SERVER
 		return $this->mInterface->sm_getServerDetails($id);
 	}
 	
-	// add a server
+	// add/update a server
 	public function addServer($data, $id = false) {
 		$str = array();
 		

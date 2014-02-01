@@ -52,8 +52,10 @@ class SMTPs
 		$mail->From = $SM_FROM['email'];											// Email ID of sender
 		$mail->FromName = $SM_FROM['name'];											// Name of sender
 		
-		// Adding recipients		
+		// Adding recipients
+		$emails = array();
 		for($i=0; $i<count($recipients); $i++) {
+			array_push($emails, $recipients[$i]['email']);
 			$mail->addAddress($recipients[$i]['email'], $recipients[$i]['name']);	// Details of receipent
 		}
 		
@@ -71,7 +73,7 @@ class SMTPs
 			return $mail->ErrorInfo;
 		}
 		
-		$this->do_log("Email dispatched to " . implode(" ", $recipients));
+		$this->do_log("Email dispatched to " . implode(" ", $emails));
 		return "SUCCESS";
 	}
 	

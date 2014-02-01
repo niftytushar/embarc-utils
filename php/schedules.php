@@ -13,6 +13,7 @@ class SCHEDULES
 	public $servers;
 	public $smtp_obj;
 	public $al_rem;
+	public $options;
 	public $LOG_FILE = "/var/www/embarc-utils/logs/schedule.log";
 
 	public function __construct() {
@@ -20,6 +21,12 @@ class SCHEDULES
 		$this->servers = new SERVER();
 		$this->smtp_obj = new SMTPs();
 		$this->al_rem = new AL_REM();
+		
+		$shortopts = "a:";			// Alert ID - 1
+		//$shortopts .= "r:";			// Reminder ID - 1
+		
+		// reading options from CLI
+		$this->options = getopt($shortopts);
 		
 		// clear the .log file initially
 		file_put_contents($this->LOG_FILE, "", FILE_APPEND | LOCK_EX);
@@ -52,8 +59,11 @@ class SCHEDULES
 		$mailBody .= '</body>
 					</html>';
 		
+		
+		// alert id 0, for hourly alerts is stored in options
+		$recipients = $this->al_rem->getUsersDetailsByAlertID($this->options["a"]);
+		
 		// finally send a mail
-		$recipients = $this->al_rem->getUsersDetailsByAlertID(0);
 		$result = $this->smtp_obj->sendMail(null, $recipients, "$errorCount - Server Down", $mailBody, 0);
 		
 		if($result == "SUCCESS") $this->do_log("scheduled server check report sent.");

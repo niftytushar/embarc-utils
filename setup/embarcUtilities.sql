@@ -16,38 +16,38 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `_ar_alerts`
+-- Table structure for table `_ar_alertsTypes`
 --
 
-DROP TABLE IF EXISTS `_ar_alerts`;
+DROP TABLE IF EXISTS `_ar_alertsTypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `_ar_alerts` (
+CREATE TABLE `_ar_alertsTypes` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT 'unique ID of alert',
   `module` int(11) NOT NULL,
   `name` varchar(32) NOT NULL COMMENT 'name of alert',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='List of alerts that can be scheduled';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='List of alerts that can be scheduled';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `_ar_alerts`
+-- Dumping data for table `_ar_alertsTypes`
 --
 
-LOCK TABLES `_ar_alerts` WRITE;
-/*!40000 ALTER TABLE `_ar_alerts` DISABLE KEYS */;
-INSERT INTO `_ar_alerts` VALUES (1,4,'Hourly Server Status');
-/*!40000 ALTER TABLE `_ar_alerts` ENABLE KEYS */;
+LOCK TABLES `_ar_alertsTypes` WRITE;
+/*!40000 ALTER TABLE `_ar_alertsTypes` DISABLE KEYS */;
+INSERT INTO `_ar_alertsTypes` VALUES (1,4,'Hourly Server Status'),(2,2,'Daily Stock Movement');
+/*!40000 ALTER TABLE `_ar_alertsTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `_ar_reminders`
+-- Table structure for table `_ar_remindersTypes`
 --
 
-DROP TABLE IF EXISTS `_ar_reminders`;
+DROP TABLE IF EXISTS `_ar_remindersTypes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `_ar_reminders` (
+CREATE TABLE `_ar_remindersTypes` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `module` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
@@ -56,12 +56,12 @@ CREATE TABLE `_ar_reminders` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `_ar_reminders`
+-- Dumping data for table `_ar_remindersTypes`
 --
 
-LOCK TABLES `_ar_reminders` WRITE;
-/*!40000 ALTER TABLE `_ar_reminders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `_ar_reminders` ENABLE KEYS */;
+LOCK TABLES `_ar_remindersTypes` WRITE;
+/*!40000 ALTER TABLE `_ar_remindersTypes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `_ar_remindersTypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -74,12 +74,12 @@ DROP TABLE IF EXISTS `ar_schedules`;
 CREATE TABLE `ar_schedules` (
   `id` smallint(6) NOT NULL AUTO_INCREMENT,
   `username` varchar(128) NOT NULL,
-  `alert` smallint(6) NOT NULL,
-  `reminder` smallint(6) NOT NULL,
+  `alerts` bigint(20) NOT NULL,
+  `reminders` bigint(20) NOT NULL,
   `sendEmail` tinyint(4) NOT NULL,
   `sendSMS` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='list of schedules alerts and reminders';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='list of schedules alerts and reminders';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,6 +88,7 @@ CREATE TABLE `ar_schedules` (
 
 LOCK TABLES `ar_schedules` WRITE;
 /*!40000 ALTER TABLE `ar_schedules` DISABLE KEYS */;
+INSERT INTO `ar_schedules` VALUES (1,'tushar',1,0,1,0);
 /*!40000 ALTER TABLE `ar_schedules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,7 +457,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('abhishek','abhishek123','2','Abhishek Khosla','1991-06-03','abhiskek.khosla@findnsecure.com','+91-9555024897'),('ashish','ashish1981','1,2,4,5,7','Ashish Agarwal','1981-01-06','thinkofashish@gmail.com','+919997770067'),('embarc','embarc123#','1,2,5','Shailendra Bansal','1968-11-01','shailendra.bansal@findnsecure.com','+91-9897041111'),('manish','manish123','2,4,7','Manish Sharma','1985-10-15','manish.sharma@findnsecure.com','+91-9879106106'),('pradeep','pradeep123','2,4,5,7','Pradeep','1980-08-10','pradeep.brisk@gmail.com','+91-9901623265'),('pritpal','pritpal123','2,4','Pritpal Singh','1991-09-19','pritpal.singh@findnsecure.com','+91-9718613959'),('tushar','12345','1,2,4,5,6,7','Tushar Agarwal','1989-10-03','niftytushar@gmail.com','');
+INSERT INTO `users` VALUES ('abhishek','abhishek123','2','Abhishek Khosla','1991-06-03','abhiskek.khosla@findnsecure.com','+91-9555024897'),('ashish','ashish1981','1,2,4,5,6,7','Ashish Agarwal','1981-01-06','thinkofashish@gmail.com','+919997770067'),('embarc','embarc123#','1,2,5','Shailendra Bansal','1968-11-01','shailendra.bansal@findnsecure.com','+91-9897041111'),('manish','manish123','2,4,6,7','Manish Sharma','1985-10-15','manish.sharma@findnsecure.com','+91-9879106106'),('pradeep','pradeep123','2,4,5,6,7','Pradeep','1980-08-10','pradeep.brisk@gmail.com','+91-9901623265'),('pritpal','pritpal123','2,4,6','Pritpal Singh','1991-09-19','pritpal.singh@findnsecure.com','+91-9718613959'),('tushar','12345','1,2,4,5,6,7','Tushar Agarwal','1989-10-03','niftytushar@gmail.com','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -469,4 +470,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-01-28 18:27:32
+-- Dump completed on 2014-02-01 17:40:03

@@ -60,8 +60,8 @@ $session->isModuleAuthorized("6");
     </nav>
     <div class="containt container">
 		<div class="alert alert-danger" id="errorMessage-1"><strong>Oh snap!</strong> An error occurred, please try again. </div>
-    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your preferences have been saved successfully. </div>
-		<form class="form-horizontal" role="form" id="datacentresForm">
+    	<div class="alert alert-success" id="successMessage-1"><strong>Well done!</strong> Your schedule has been saved successfully. </div>
+		<form class="form-horizontal" role="form" id="scheduleForm">
 		  	<div class="row">
                 <h3>Schedule alerts for your modules</h3>
 				<p>All scheduled mails will be sent to your registered email ID</p>
@@ -70,26 +70,26 @@ $session->isModuleAuthorized("6");
 		 	 <div class="form-group">
                 <label class="col-lg-4 control-label" for="module">Module</label>
                 <div class="col-lg-4">
-					<select class="form-control" id="module" name="module"></select>
+					<select class="form-control" id="module" name="module" required></select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-4 control-label" for="alerts">Alerts</label>
                 <div class="col-lg-4">
-                    <select class="form-control" id="alerts" name="alerts" multiple></select>
+					<select style="width: 100%;" id="alerts" name="alerts" multiple="multiple"></select>
                 </div>
             </div>
 			<div class="form-group">
 				<label class="col-lg-4 control-label" for="reminders">Reminders</label>
 				<div class="col-lg-4">
-					<select class="form-control" id="reminders" name="reminders" multiple></select>
+					<select style="width: 100%;" id="reminders" name="reminders" multiple="multiple"></select>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-lg-offset-4 col-lg-4">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="mail" name="mail" />
+							<input type="checkbox" id="sendEmail" name="sendEmail" checked />
 							Receive an e-mail
 						</label>
 					</div>
@@ -99,7 +99,7 @@ $session->isModuleAuthorized("6");
 				<div class="col-lg-offset-4 col-lg-4">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" id="text" name="text" disabled />
+							<input type="checkbox" id="sendSMS" name="sendSMS" disabled />
 							Receive a text message
 						</label>
 					</div>

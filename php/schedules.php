@@ -2,6 +2,7 @@
 require_once "mysql_interface.php";
 require_once "servers.php";
 require_once "smtp.php";
+require_once "alerts_reminders.php";
 
 $schedules = new SCHEDULES();
 $schedules->checkAllServers();
@@ -11,12 +12,14 @@ class SCHEDULES
 	public $mInterface;
 	public $servers;
 	public $smtp_obj;
+	public $al_rem;
 	public $LOG_FILE = "/var/www/embarc-utils/logs/schedule.log";
 
 	public function __construct() {
 		$this->mInterface = new MYSQL_INTERFACE();
 		$this->servers = new SERVER();
 		$this->smtp_obj = new SMTPs();
+		$this->al_rem = new AL_REM();
 		
 		// clear the .log file initially
 		file_put_contents($this->LOG_FILE, "", FILE_APPEND | LOCK_EX);
@@ -50,8 +53,7 @@ class SCHEDULES
 					</html>';
 		
 		// finally send a mail
-		$recipients = array(array("name"=>"Pradeep Jain", "email"=>"pradeep.brisk@gmail.com"),
-						array("name"=>"Manish Sharma", "email"=>"manish.sharma@findnsecure.com"));
+		$recipients = $this->al_rem->getUsersDetailsByAlertID(0);
 		$result = $this->smtp_obj->sendMail(null, $recipients, "$errorCount - Server Down", $mailBody, 0);
 		
 		if($result == "SUCCESS") $this->do_log("scheduled server check report sent.");

@@ -29,6 +29,9 @@ class MYSQL_DB
 	
 	function query_db($query) {
 		$this->result = $this->connection->query($query);
+		
+		if(!$this->result) $this->result = $this->connection->error;
+		
 		return $this->result;
 	}
 	

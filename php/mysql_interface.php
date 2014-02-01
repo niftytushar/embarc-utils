@@ -255,14 +255,40 @@ class MYSQL_INTERFACE
 	}
 	
 	public function ar_getAlerts_byModule($module) {
-		$query = "SELECT * from _ar_alerts where module=".$module;
+		$query = "SELECT * from _ar_alertsTypes where module=".$module;
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();
 	}
 	
 	public function ar_getReminders_byModule($module) {
-		$query = "SELECT * from _ar_reminders where module=".$module;
+		$query = "SELECT * from _ar_remindersTypes where module=".$module;
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function ar_saveSchedule($queryPart) {
+		$query = "INSERT INTO ar_schedules set " . $queryPart;
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function ar_updateSchedule($queryPart, $id) {
+		$query = "UPDATE ar_schedules set " . $queryPart . " where id=" . $id;
+		
+		return $this->db_object->query_db($query);
+	}
+	
+	public function ar_getAlertSchedules($alertID) {
+		$query = "SELECT * from ar_schedules where alerts & (1 << $alertID)";
+		$this->db_object->query_db($query);
+		
+		return $this->db_object->getResultSet();
+	}
+	
+	public function ar_getReminderSchedules($reminderID) {
+		$query = "SELECT * from ar_schedules where reminders & (1 << $reminderID)";
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultSet();

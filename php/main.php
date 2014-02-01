@@ -263,6 +263,13 @@ function anr($fx)
 			if(gettype($list) == "string") echo $list;
 			else echo json_encode($list);
 			break;
+			
+		case "save":
+			if(isset($_GET['id'])) $id = $_GET['id'];
+			else $id = false;
+		
+			echo $al_rem->save_schedule($_POST, $id);
+			break;
 	}
 }
 

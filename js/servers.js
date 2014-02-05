@@ -482,7 +482,7 @@ var server_list = {
             
             //show non working processes
             showNonWorkingProcesses(errorsomeLogs.html);
-        } else if (statusObject.gStats && +statusObject.gStats.rC > 200) { // reservoir count is high
+        } else if (statusObject.gStats && +statusObject.gStats.rC > 250) { // reservoir count is high
             //color it amber
             $row.find(".panel-heading").addClass("panel-heading-partworking");
 
@@ -793,7 +793,13 @@ var server_list = {
                     break;
 
                 case "rC":
-                    html += '<li class="list-group-item"><span class="badge">' + value + '</span>' + "Reservoir Count";
+                    var color = "#5CB85C"; // success
+                    if (value > 250 && value < 500) { // warning
+                        color = "#F0AD4E";
+                    } else if(value > 500) { // danger
+                        color = "#D9534F";
+                    }
+                    html += '<li class="list-group-item"><span class="badge" style="background-color: ' + color + ';">' + value + '</span>' + "Reservoir Count";
                     break;
 
                 case "sT":

@@ -37,7 +37,9 @@ body {
     right: 20px;
     bottom: 10px;
 }
-
+.list-group-item {
+    word-wrap: break-word;
+}
 #back-top a {
 	width: 108px;
 	display: block;

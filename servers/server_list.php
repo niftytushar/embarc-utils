@@ -18,7 +18,8 @@ $session->isModuleAuthorized("4");
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>   
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="/embarc-utils/js/bootstrap-datepicker.js"></script>
+	<script src="/embarc-utils/js/moment.min.js"></script>
+	
     <script src="/embarc-utils/js/common.js"></script>
 	<script src="/embarc-utils/js/servers.js"></script>
 	<script src="/embarc-utils/js/static_data.js"></script>

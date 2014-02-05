@@ -482,6 +482,12 @@ var server_list = {
             
             //show non working processes
             showNonWorkingProcesses(errorsomeLogs.html);
+        } else if (statusObject.gStats && +statusObject.gStats.rC > 200) { // reservoir count is high
+            //color it amber
+            $row.find(".panel-heading").addClass("panel-heading-partworking");
+
+            // display the error
+            createElement("<div/>", $left_status, { 'class': "col-lg-2 margin-bottom", 'html': '<span class="badge" title="High reservoir count">rC:' + statusObject.gStats.rC + '</span>' });
         } else if (stoppedProcesses.count == 0 && errorsomeLogs.count == 0) { // disk or memory usage is high or normal
             //calculate Disk and Memory usage
             var diskUsage = this.getPrimaryDiskUsage(statusObject.disk),
@@ -525,6 +531,12 @@ var server_list = {
         if (statusObject.logs) {
             var $logFilesContainer = $row.find(".logFilesContainer");
             $logFilesContainer.html(this.getServerLogs(statusObject.logs, $row.IP));
+        }
+
+        // fill gStatistics
+        if (statusObject.gStats) {
+            var $gStatsContainer = $row.find(".gStatsContainer");
+            $gStatsContainer.html(this.getgStats(statusObject.gStats));
         }
     },
 
@@ -587,6 +599,8 @@ var server_list = {
                     <div class="ramDetailsContainer"></div>\
                   <li class="list-group-item active"><i class="fa fa-ambulance" title="AVL Data" style="font-size:20px;"></i><span>&nbsp;&nbsp;Trackers</span></li>\
                     <div class="avlDetailsContainer"></div>\
+                  <li class="list-group-item active"><i class="fa fa-bar-chart-o" title="gStatistics" style="font-size:20px;"></i><span>&nbsp;&nbsp;udp Statistics</span></li>\
+                    <div class="gStatsContainer"></div>\
                 </ul>\
             </div>\
         </div>';
@@ -754,6 +768,45 @@ var server_list = {
                 html += '<li class="list-group-item"><a href="http://' + ip + '/status/status.php?fp=' + key + '" target="_blank">' + key + '</a>&nbsp;' + value + '</li>';
             });
         }
+
+        return html;
+    },
+
+    // get formatted statistics of UDP server - gStatistics
+    getgStats: function (gStats) {
+        var html = "";
+
+        $.each(gStats, function (key, value) {
+            if (key == "cT") return;
+
+            switch (key) {
+                case "tpR":
+                    html += '<li class="list-group-item"><span class="badge">' + value + '</span>' + "TCP Packets";
+                    break;
+
+                case "upR":
+                    html += '<li class="list-group-item"><span class="badge">' + value + '</span>' + "UDP Packets";
+                    break;
+
+                case "pI":
+                    html += '<li class="list-group-item"><span class="badge">' + value + '</span>' + "Packets Inserted";
+                    break;
+
+                case "rC":
+                    html += '<li class="list-group-item"><span class="badge">' + value + '</span>' + "Reservoir Count";
+                    break;
+
+                case "sT":
+                    html += '<li class="list-group-item"><span class="badge">' + moment.unix(value).add({"hours": 5, "minutes": "30"}).format("lll") + '</span>' + "UDP started at";
+                    break;
+
+                case "eT":
+                    html += '<li class="list-group-item"><span class="badge">' + parseInt(value / 93600, 10) + "d " + parseInt((value%93600)/3600) + "h " + parseInt((value%93600%3600)/60, 10) + 'm</span>' + "Duration since now";
+                    break;
+            }
+
+            html += '</li>';
+        });
 
         return html;
     },

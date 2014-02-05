@@ -105,7 +105,7 @@ function getStats($timeout =1)
 		if ($d == FALSE) break;
 		$data .= $d;
 	}
-	return $data;
+	return json_decode($data);
 }
 
 //create associative array of disks and RAM

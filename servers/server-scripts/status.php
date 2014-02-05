@@ -77,8 +77,39 @@ if(isset($_GET["tcInt"])) $seconds = $_GET["tcInt"];
 $updates = new TR_UPDATES($seconds);
 $areUpdating = $updates->checkTrackers();
 
+/*
+* Get statisticts of udp server - gStatistics
+*/
+function getStats($timeout =1)
+{
+	$query = "gStatistics\r\n";
+	$sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+	if (!is_resource($sock)) {
+		return socket_strerror(socket_last_error()).PHP_EOL;
+	}
+
+	$timeout = array('sec' => $timeout, 'usec'=>0);
+	if (!socket_set_option($sock, SOL_SOCKET, SO_RCVTIMEO, $timeout)){
+		return socket_strerror(socket_last_error()).PHP_EOL;
+	}
+
+	if (!socket_connect($sock, "localhost", 42006)) {
+		return socket_strerror(socket_last_error()).PHP_EOL;
+	}
+
+	$data = '';
+
+	socket_write($sock, $query,strlen($query));
+	while(1) {
+		$d = socket_read($sock, 255, PHP_BINARY_READ);
+		if ($d == FALSE) break;
+		$data .= $d;
+	}
+	return $data;
+}
+
 //create associative array of disks and RAM
-$data = array("disk"=>$disks, "mem"=>$mem, "process"=>$proc, "logs"=>$logs, "updating"=>$areUpdating);
+$data = array("disk"=>$disks, "mem"=>$mem, "process"=>$proc, "logs"=>$logs, "updating"=>$areUpdating, "gStats"=>getStats());
 
 echo json_encode($data);
 ?>

@@ -24,9 +24,10 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getZone($countryCode) {
-		$query = "SELECT zone from cs_dhlZones where code='".$countryCode."'";
+		$query = "SELECT * from cs_dhlZones where code='".$countryCode."'";
 		$this->db_object->query_db($query);
-		return $this->db_object->getResultRow();
+		
+		return $this->db_object->getResultSet();
 	}
 	
 	public function getUser($username) {
@@ -41,7 +42,7 @@ class MYSQL_INTERFACE
 	}
 	
 	public function getDHLPrice($account, $zone, $type, $weight) {
-		$query = "SELECT $zone from cs_dhl$account where type='".$type."' and weight >= $weight";
+		$query = "SELECT `$zone` from cs_dhl$account where type='".$type."' and weight >= $weight";		
 		$this->db_object->query_db($query);
 		$result = $this->db_object->getResultRow();
 		

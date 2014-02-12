@@ -9,6 +9,3 @@ MAX_DOC_530760685 20
 
 //Max. weight for Non-Document type packages - account 530760685
 MAX_NDOC_530760685 20
-
-//Custom zone for account 530760685
-CUSTOM_ZONE_530760685 US

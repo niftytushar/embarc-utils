@@ -3,7 +3,7 @@
 Utilities for Embarc Information Technology
 
 ##Modules
-- [ ] Alerts & Reminders
+- [x] Alerts & Reminders
 - [ ] Device Simulator
 - [x] Courier Charge Calculator
 - [ ] Employee Attendance Management
@@ -40,3 +40,6 @@ To start alerts and reminders, so that mails are sent automatically to the sched
 2. Make sure the backup file is present in this folder, named as embarcUtilities.sql
 3. Run the setup file `./setup -r`
 4. Data from the backup file will be transferred to the appropriate database
+
+##TODO
+1. Update courier settings to use preferences table.

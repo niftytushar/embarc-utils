@@ -109,8 +109,8 @@ var server_hosting_locations = {
     }
 };
 
-var server_log_string = { // all lower case
-    "frontend.log": "initialization complete",
+var server_log_regexp = {
+    "frontend.log": /Initialization Complete|Client is Authenticated Successfully/,
     //"mailer.log": "connecting to the server",
     //"geofence.log": "successful",
     //"udp_server.log": "ops server has been started",
@@ -694,7 +694,7 @@ var server_list = {
 
         $.each(logs, function (key, value) {
             if (!value) value = "";
-            if (server_log_string[key] && (value.toLowerCase().search(server_log_string[key]) < 0)) {
+            if (server_log_regexp[key] && (value.toLowerCase().match(server_log_regexp[key]) < 0)) {
                 result.count++;
                 result.html += '<span class="badge" title="' + key + '">' + key.substr(0, 1) + key.substr(key.indexOf("."), 2) + '</span> ';
             }

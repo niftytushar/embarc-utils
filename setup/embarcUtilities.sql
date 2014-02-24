@@ -238,11 +238,11 @@ DROP TABLE IF EXISTS `in_clients`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `in_clients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(128) NOT NULL,
   `person` varchar(64) NOT NULL,
   `email` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -327,10 +327,10 @@ CREATE TABLE `modules` (
   `id` int(8) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` varchar(128) NOT NULL,
-  `image` varchar(64) NOT NULL COMMENT 'image icon of module',
-  `href` varchar(128) NOT NULL COMMENT 'linked page of module',
+  `image` varchar(64) CHARACTER SET latin1 NOT NULL COMMENT 'image icon of module',
+  `href` varchar(128) CHARACTER SET latin1 NOT NULL COMMENT 'linked page of module',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='list of modules';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='list of modules';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,10 +351,10 @@ DROP TABLE IF EXISTS `preferences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `preferences` (
-  `username` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `username` varchar(128) NOT NULL,
   `module` tinyint(4) NOT NULL,
   `preference` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -472,4 +472,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-02-13 11:23:06
+-- Dump completed on 2014-02-24 12:35:56

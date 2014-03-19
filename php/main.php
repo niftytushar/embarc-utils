@@ -1,11 +1,15 @@
 <?php
 session_start();
 
+// required files
 require_once "mysql_interface.php";
 require_once "login.php";
 require_once "users.php";
 require_once "alerts_reminders.php";
 require_once "smtp.php";
+
+// default configuration
+date_default_timezone_set ( 'UTC' );
 
 switch ($_GET['util']) {
 	case "courier":

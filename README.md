@@ -42,4 +42,6 @@ To start alerts and reminders, so that mails are sent automatically to the sched
 4. Data from the backup file will be transferred to the appropriate database
 
 ##TODO
-1. Update courier settings to use preferences table.
+1. Update courier settings to use preferences table
+2. Build GUI for Device Simulator
+3. Add domain and port options in Device Simulator

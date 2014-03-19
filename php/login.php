@@ -5,9 +5,13 @@ require_once("mysql_interface.php");
 class LOGIN
 {
 	public $mInterface;
+	public $LOG_FILE = "/var/www/embarc-utils/logs/users.log";
 	
 	public function __construct() {
 		$this->mInterface = new MYSQL_INTERFACE();
+		
+		// clear the .log file initially
+		file_put_contents($this->LOG_FILE, "", FILE_APPEND | LOCK_EX);
 	}
 	
 	public function authenticate($username, $hash, $remember=0) {
@@ -21,6 +25,10 @@ class LOGIN
 			$_SESSION['user'] = $username;
 			$modules = $this->mInterface->misc_getUserModules($username);
 			$_SESSION['modules'] = $modules[0];
+			
+			// log user login
+			$this->do_log("$username logged in.");
+			
 			return "success";
 		} else {
 			/*
@@ -33,9 +41,16 @@ class LOGIN
 	
 	public function logout() {
 		//session_destroy();
-		if(isset($_SESSION['username'])) {
-			session_unset($_SESSION['username']);
+		if(isset($_SESSION['user'])) {
+			// log users' sign out
+			$this->do_log($_SESSION['user'] . " logged out.");
+			
+			unset($_SESSION['user']);
 		}
+	}
+	
+	public function do_log($data) {
+		file_put_contents($this->LOG_FILE, date("r")." - ".$data."\r\n", FILE_APPEND | LOCK_EX);
 	}
 }
 ?>

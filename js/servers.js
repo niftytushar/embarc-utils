@@ -972,7 +972,7 @@ var server_pref = {
 
         $.ajax({
             type: "GET",
-            async: true,
+            async: false,
             url: "/embarc-utils/php/main.php?util=misc&fx=getPreferences&module=4",
             success: function (data) {
                 try {

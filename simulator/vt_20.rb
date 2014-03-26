@@ -23,14 +23,7 @@ while true do
 		# data packet
 		some_data = "2000000011,#{time},#{longitude},#{latitude},#{speed},25,0,8,0,7,2,0.50,0.60,0,0"
 		
-		# open a socket connection to the server
-		sock = TCPSocket.open(hostname, port)
-		
-		# send some data
-		sock.print(some_data)
-		
-		# close the connection
-		sock.close
+		send_data(some_data)
 		
 		# debug
 		puts "#{count} sent at #{time}"
@@ -39,9 +32,25 @@ while true do
 		
 		speed += 1
 		
+		# reset speed to 0, if speed exceeds 150kmph
+		if speed > 150
+			speed = 0
+		end
+		
 		# wait time
 		sleep 1
 	end
+end
+
+def send_data(data)
+	# open a socket connection to the server
+	sock = TCPSocket.open(hostname, port)
+		
+	# send some data
+	sock.print(data)
+		
+	# close the connection
+	sock.close
 end
 =begin
 # reading a CSV file

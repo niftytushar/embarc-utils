@@ -339,7 +339,7 @@ var server_list = {
 
             // get preferences
             server_pref.get(function (preferences) {
-                self.preferences = preferences;
+                self.preferences = preferences || { 'rInt': 0, 'cSort': 0 };
 
                 //get list of servers and display
                 self.get(self.printList);

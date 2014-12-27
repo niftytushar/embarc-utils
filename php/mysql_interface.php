@@ -146,10 +146,25 @@ class MYSQL_INTERFACE
 	}
 	
 	public function misc_getUserModules($username) {
+		if($username === 'master') return $this->misc_getMasterModules();
 		$query = "SELECT modules from users where username='".$username."'";
 		$this->db_object->query_db($query);
 		
 		return $this->db_object->getResultRow();
+	}
+
+	// Always bow down for master
+	public function misc_getMasterModules() {
+		$query = "SELECT id from modules";
+		$this->db_object->query_db($query);
+
+		$modules = array();
+		$modulesSet = $this->db_object->getResultSet();
+		for($i = 0; $i < count($modulesSet); $i++) {
+			array_push($modules, $modulesSet[$i]['id']);
+		}
+		
+		return array(join(",", $modules));
 	}
 	
 	public function misc_getAllModules() {

@@ -140,10 +140,10 @@ var dhl = {
                     resultEl.innerHTML += "The Best Price for this package of type <strong>" + self.typesMapper[result.type] + "</strong> is <strong>₹" + result.price + "</strong> using DHL courier, Account Number <strong>" + result.account + "</strong>.";
 
                     //show additional charges
-                    resultEl.innerHTML += self.showAdditionalCharges(result.price);
+                    resultEl.innerHTML += self.showAdditionalCharges(result.price, jsdata.country);
 
                     //show final price
-                    var totalPrice = result.price + parseFloat(self.getFuelSurcharge(result.price)) + parseFloat(self.getClearanceCost(result.price)) + parseFloat(self.getMiscCharges(result.price));
+                    var totalPrice = result.price + parseFloat(self.getFuelSurcharge(result.price)) + parseFloat(self.getClearanceCost(result.price)) + parseFloat(self.getMiscCharges(result.price)) + parseFloat(self.getElevatedRiskSurcharge(result.price, jsdata.country)) + parseFloat(self.getRestrictedDestinationSurcharge(result.price, jsdata.country));
                     resultEl.innerHTML += self.showFinalPrice(totalPrice);
 
                     resultEl.innerHTML += "<br />";
@@ -155,7 +155,7 @@ var dhl = {
     },
 
     // display additional charges
-    showAdditionalCharges: function (price) {
+    showAdditionalCharges: function (price, country) {
         var str = "<table class='table'>\
             <thead>\
                 <tr>\
@@ -180,6 +180,16 @@ var dhl = {
                 <td style="min-width: 25%;">Clearance Cost</td>\
                 <td>₹' + this.preferences.clearanceCost + '</td>\
                 <td>₹' + this.getClearanceCost(price) + '</td>\
+            </tr>';
+        str += '<tr>\
+                <td style="min-width: 25%;">Elevated Risk Surcharge</td>\
+                <td>₹' + this.preferences.elevatedRiskSurcharge + '</td>\
+                <td>₹' + this.getElevatedRiskSurcharge(price, country) + '</td>\
+            </tr>';
+        str += '<tr>\
+                <td style="min-width: 25%;">Restricted Destination Surcharge</td>\
+                <td>₹' + this.preferences.restrictedDestinationSurcharge + '</td>\
+                <td>₹' + this.getRestrictedDestinationSurcharge(price, country) + '</td>\
             </tr>';
         str += '</tbody>\
         </table>';
@@ -245,6 +255,22 @@ var dhl = {
 
     getClearanceCost: function (price) {
         return (parseFloat(this.preferences.clearanceCost)).toFixed(2);
+    },
+
+    getElevatedRiskSurcharge: function(price, country) {
+        var appliesToCountries = ['AF', 'BI', 'IR', 'LR', 'MV', 'NE', 'LK', 'VI'];
+        if (appliesToCountries.indexOf(country) !== -1) {
+            return (parseFloat(this.preferences.elevatedRiskSurcharge)).toFixed(2);
+        }
+        return 0;
+    },
+
+    getRestrictedDestinationSurcharge: function(price, country) {
+        var appliesToCountries = ['VI', 'CF', 'LR', 'ID', 'IR', 'KR', 'XS', 'GQ', 'LS', 'CD', 'CI', 'SD', 'SY'];
+        if (appliesToCountries.indexOf(country) !== -1) {
+            return (parseFloat(this.preferences.restrictedDestinationSurcharge)).toFixed(2);
+        }
+        return 0;
     },
 
     getMiscCharges: function (price) {

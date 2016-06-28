@@ -104,7 +104,7 @@ $session->isModuleAuthorized("1");
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-lg-4 control-label" for="c_cost">Clearance Cost</label>
+					<label class="col-lg-4 control-label" for="clearanceCost">Clearance Cost</label>
 					<div class="col-lg-4">
 						<div class="input-group">
 							<span class="input-group-addon">₹</span>
@@ -112,6 +112,24 @@ $session->isModuleAuthorized("1");
 						</div>
 					</div>
 				</div>
+        <div class="form-group">
+          <label class="col-lg-4 control-label" for="elevatedRiskSurcharge">Elevated Risk Surcharge</label>
+          <div class="col-lg-4">
+            <div class="input-group">
+              <span class="input-group-addon">₹</span>
+              <input type="text" class="form-control" id="elevatedRiskSurcharge" name="elevatedRiskSurcharge" placeholder="Elevated Risk Surcharge">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-4 control-label" for="restrictedDestinationSurcharge">Restricted Destination Surcharge</label>
+          <div class="col-lg-4">
+            <div class="input-group">
+              <span class="input-group-addon">₹</span>
+              <input type="text" class="form-control" id="restrictedDestinationSurcharge" name="restrictedDestinationSurcharge" placeholder="Restricted Destination Surcharge">
+            </div>
+          </div>
+        </div>
 				<div class="form-group">
 					<label class="col-lg-4 control-label" for="c_cost">USD Handling Charges</label>
 					<div class="col-lg-4">
